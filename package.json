@@ -1,7 +1,21 @@
 {
   "name": "Usual Bot",
   "version": "1.0.0",
-  "description": "A Discord Bot",
+  "description": "A Discord Bot.",
   "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
   "author": "Soham Wani",
+  "license": "",
+  "dependencies": {
+    "express": "^4.9.8"
+  },
+  "engines": {
+    "node": "14.x"
+  }
 }
