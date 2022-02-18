@@ -1,5 +1,5 @@
 {
-  "name": "Usual Bot",
+  "name": "usual-bot",
   "version": "1.0.0",
   "description": "A Discord Bot.",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "discord",
     "bot"
   ],
-  "author": "Soham Wani",
+  "author": "soham-wani",
   "license": "",
   "dependencies": {
     "express": "^4.9.8"
