@@ -15,8 +15,9 @@ client.on('ready', () => {
 	client.user.setActivity("For ,info", {
 		type: "WATCHING"
 	});
-});/*
+});
 client.login(process.env.DISCORD_TOKEN);
+/*
 process.on('unhandledRejection', error => {
 	console.error('err');
 });*/
