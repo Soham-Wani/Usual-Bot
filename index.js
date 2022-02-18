@@ -17,10 +17,9 @@ client.on('ready', () => {
 	});
 });
 client.login(process.env.DISCORD_TOKEN);
-/*
 process.on('unhandledRejection', error => {
 	console.error('err');
-});*/
+});
 /* Bad words */
 client.on("message", async message => {
 	const user = message.author;
