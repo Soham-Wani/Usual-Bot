@@ -140,7 +140,7 @@ client.on("message", async message => {
 	//kick
 	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123`) {
+		if(args[0] == `${prefix}kick`) {
 			if(!args[2]) return message.channel.send(`Please include a valid reason. Type \"${prefix}kick\" to know more.`);
 			let messageToSend = [...args];
 			messageToSend.shift();
@@ -152,8 +152,6 @@ client.on("message", async message => {
 				const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
 				channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
 			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-		} else {
-			message.channel.send("I can't betray my master!")
 		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to kick? Type \"${prefix}kick\" to know more.`)
@@ -168,7 +166,7 @@ client.on("message", async message => {
 	//timeout
 	else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123`) {
+		if(args[0] == `${prefix}kick`) {
 			if(isNaN(args[2]) || !args[3]) return message.channel.send(`Please include a valid time period. Type \"${prefix}timeout\" to know more.`);
 			if(!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
 			let time = args[2] * 60 * 1000;
@@ -183,8 +181,6 @@ client.on("message", async message => {
 				const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
 				channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
 			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
-		} else {
-			message.channel.send("I can't betray my master!")
 		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type \"${prefix}timeout\" to know more.`)
