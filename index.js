@@ -26,8 +26,14 @@ client.on("message", async message => {
 	var _0x2d55 = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x61\x76\x61\x64\x79\x61", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\uD83D\uDD95"];
 	let blacklisted = [_0x2d55[0], _0x2d55[1], _0x2d55[2], _0x2d55[3], _0x2d55[4], _0x2d55[5], _0x2d55[6], _0x2d55[7], _0x2d55[8], _0x2d55[9], _0x2d55[10], _0x2d55[11], _0x2d55[12], _0x2d55[13], _0x2d55[14], _0x2d55[15], _0x2d55[16], _0x2d55[17], _0x2d55[18], _0x2d55[19], _0x2d55[20], _0x2d55[21], _0x2d55[22], _0x2d55[23], _0x2d55[24], _0x2d55[25], _0x2d55[26], _0x2d55[27], _0x2d55[28], _0x2d55[29], _0x2d55[30], _0x2d55[31], _0x2d55[32], _0x2d55[33], _0x2d55[34], _0x2d55[35], _0x2d55[36]]
 	let foundInText = false;
-	for(var i in blacklisted) {
-		if(message.content.toLowerCase().replace(/[^a-z]/g, "").replace(/ /g, "").includes(blacklisted[i].toLowerCase())) foundInText = true;
+	if(message.content.length < 17) {
+		for(var i in blacklisted) {
+			if(message.content.toLowerCase().replace(/[^a-z]/g, "").replace(/ /g, "").includes(blacklisted[i].toLowerCase())) foundInText = true;
+		}
+	} else if(message.content.length >= 17) {
+		for(var i in blacklisted) {
+			if(message.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) foundInText = true;
+		}
 	}
 	if(message.content.includes('🖕')) foundInText = true;
 	if(message.content.toLowerCase().includes('pass') || message.content.toLowerCase().includes('g and')) foundInText = false;
