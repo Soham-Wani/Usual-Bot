@@ -140,7 +140,7 @@ client.on("message", async message => {
 	//kick
 	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123#5921`) {
+		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123`) {
 			if(!args[2]) return message.channel.send(`Please include a valid reason. Type \"${prefix}kick\" to know more.`);
 			let messageToSend = [...args];
 			messageToSend.shift();
@@ -168,7 +168,7 @@ client.on("message", async message => {
 	//timeout
 	else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123#5921`) {
+		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123`) {
 			if(isNaN(args[2]) || !args[3]) return message.channel.send(`Please include a valid time period. Type \"${prefix}timeout\" to know more.`);
 			if(!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
 			let time = args[2] * 60 * 1000;
