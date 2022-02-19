@@ -202,7 +202,7 @@ client.on("message", async message => {
 	//timeout
 	else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(args[0] == `${prefix}kick`) 
+		if(args[0] == `${prefix}timeout`) {
 			if(isNaN(args[2]) || !args[2]) return message.channel.send(`Please include a valid time period. Type **${prefix}timeout** to know more.`);
 			if(!args[3]) return message.channel.send(`Please include a valid reason. Type **${prefix}timeout** to know more.`);
 			let time = args[2] * 60 * 1000;
