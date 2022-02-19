@@ -26,8 +26,10 @@ process.on('unhandledRejection', error => {
 	console.error('err');
 });
 client.on("guildMemberAdd", function(member){
-	const channeltosenda = member.guild.channels.cache.find(channel => channel.name.includes('general'));
-	channeltosenda.send(`Hey ${member}, welcome to the server! Hope you have a great time here!`);
+	const channeltosenda = member.guild.channels.cache.find(channel => channel.name.includes('welcome') || channel.name.includes('general'));
+	channeltosenda.send(`Hey ${member}, welcome to ${guild.name}! Hope you have a great time here!`);
+	const channeltosendl = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+	channeltosendl.send(`${member} joined the server.`);
 });
 /* Bad words */
 client.on("message", async message => {
