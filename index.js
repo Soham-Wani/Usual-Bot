@@ -1,4 +1,7 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
+//TD1: get logs from https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
+//TD2: create embed for clean
+//T: Use ** for \" / \'
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
