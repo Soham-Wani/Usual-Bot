@@ -1,4 +1,4 @@
-//https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=537390082&scope=bot
+//https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
