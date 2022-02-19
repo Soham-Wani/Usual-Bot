@@ -113,13 +113,13 @@ client.on("message", async message => {
 	}
 	//info
 	else if(message.content.toLowerCase() === `${prefix}info`) {
-		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\nFeatures:\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Deletes bad or profane words.\n• Never kicks, bans or timeouts members on its own.\nMore exciting features yet to come...\n\nType \"${prefix}help\" to get a list of commands.`);
+		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\n***Features:***\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Deletes bad or profane words.\n• Never kicks, bans or timeouts members on its own.\nMore exciting features yet to come...\n\nType ***${prefix}help*** to get a list of commands.`);
 		message.channel.send({
 			embeds: [infoEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	}
 	//clean
-	else if(message.content == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
+	else if(message.content.toLowerCase() == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
 		const Channel = message.channel;
 		const Messages = await Channel.messages.fetch({
 			limit: 100
