@@ -5,6 +5,8 @@ const client = new Discord.Client({
 	intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"],
 	partials: ['CHANNEL']
 });
+var _0x2d55 = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x61\x76\x61\x64\x79\x61", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\uD83D\uDD95"];
+let blacklisted = [_0x2d55[0], _0x2d55[1], _0x2d55[2], _0x2d55[3], _0x2d55[4], _0x2d55[5], _0x2d55[6], _0x2d55[7], _0x2d55[8], _0x2d55[9], _0x2d55[10], _0x2d55[11], _0x2d55[12], _0x2d55[13], _0x2d55[14], _0x2d55[15], _0x2d55[16], _0x2d55[17], _0x2d55[18], _0x2d55[19], _0x2d55[20], _0x2d55[21], _0x2d55[22], _0x2d55[23], _0x2d55[24], _0x2d55[25], _0x2d55[26], _0x2d55[27], _0x2d55[28], _0x2d55[29], _0x2d55[30], _0x2d55[31], _0x2d55[32], _0x2d55[33], _0x2d55[34], _0x2d55[35], _0x2d55[36]]
 const keep_alive = require('./keep_alive.js');
 const {
 	MessageEmbed
@@ -23,8 +25,6 @@ process.on('unhandledRejection', error => {
 /* Bad words */
 client.on("message", async message => {
 	const user = message.author;
-	var _0x2d55 = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x61\x76\x61\x64\x79\x61", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\uD83D\uDD95"];
-	let blacklisted = [_0x2d55[0], _0x2d55[1], _0x2d55[2], _0x2d55[3], _0x2d55[4], _0x2d55[5], _0x2d55[6], _0x2d55[7], _0x2d55[8], _0x2d55[9], _0x2d55[10], _0x2d55[11], _0x2d55[12], _0x2d55[13], _0x2d55[14], _0x2d55[15], _0x2d55[16], _0x2d55[17], _0x2d55[18], _0x2d55[19], _0x2d55[20], _0x2d55[21], _0x2d55[22], _0x2d55[23], _0x2d55[24], _0x2d55[25], _0x2d55[26], _0x2d55[27], _0x2d55[28], _0x2d55[29], _0x2d55[30], _0x2d55[31], _0x2d55[32], _0x2d55[33], _0x2d55[34], _0x2d55[35], _0x2d55[36]]
 	let foundInText = false;
 	if(message.content.length < 17) {
 		for(var i in blacklisted) {
@@ -37,7 +37,7 @@ client.on("message", async message => {
 	}
 	if(message.content.includes('🖕')) foundInText = true;
 	if(message.content.toLowerCase().includes('pass') || message.content.toLowerCase().includes('g and') || message.content.toLowerCase().includes('as s') || message.content.toLowerCase().includes('wassup')) foundInText = false;
-	if(foundInText === true && message.channel.type !== 'DM') {
+	if(foundInText === true && message.channel.type !== 'DM' && !message.channel.nsfw) {
 		message.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
 		console.log(message.content, message.author);
 		if(message.author.id !== client.user.id) {
@@ -55,18 +55,6 @@ client.on("message", async message => {
 	} else if(message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && message.content.startsWith(prefix)) {
 		message.channel.send("You can't use commands in DMs. Please get on a Discord server to use commands!")
 	}
-if (message.content.includes(`clean`)) {
-        const Channel = message.channel;
-        const Messages = await Channel.messages.fetch({limit: 100});
-
-        Messages.forEach(msg => {
-            for(var i in blacklisted) {
-			if(msg.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) { msg.delete() }
-		}
-        });
-
-        message.channel.send("ed");
-    };
 });
 /* Moderation */
 client.on("message", async message => {
@@ -130,6 +118,35 @@ client.on("message", async message => {
 			embeds: [infoEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	}
+	//clean
+	else if(message.content == `${prefix}clean bad` && !message.author.bot && !message.channel.nsfw && message.member.permissions.has("ADMINISTRATOR")) {
+		const Channel = message.channel;
+		const Messages = await Channel.messages.fetch({
+			limit: 100
+		});
+		Messages.forEach(msg => {
+			if(msg.content.includes('discord.gg') || msg.content.includes('http') || msg.content.includes('discordapp.com/invite/')) {
+				if(!msg.member.permissions.has("ADMINISTRATOR") && !(msg.channel.name.includes("promot") || msg.channel.name.includes("advertise")) && msg.channel.type !== 'DM') {
+					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+				}
+			}
+		});
+		message.channel.send("Previous 100 messages have been cleaned!");
+	};
+	else if(message.content == `${prefix} links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
+		const Channel = message.channel;
+		const Messages = await Channel.messages.fetch({
+			limit: 100
+		});
+		Messages.forEach(msg => {
+			for(var i in blacklisted) {
+				if(msg.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) {
+					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+				}
+			}
+		});
+		message.channel.send("Previous 100 messages have been cleaned!");
+	};
 	//spam
 	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
 		const args = message.content.split(" ");
