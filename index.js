@@ -163,7 +163,7 @@ client.on("message", async message => {
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to kick? Type \"${prefix}kick\" to know more.`)
 	} else if(message.content == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-		const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping \"${prefix}kick @person reason\" will kick that person for mentioned reason.`);
+		const kickEmbed = new MessageEmbed().setColor('#0000ff').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping \"${prefix}kick @person reason\" will kick that person for mentioned reason.`);
 		message.channel.send({
 			embeds: [kickEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -192,7 +192,7 @@ client.on("message", async message => {
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type \"${prefix}timeout\" to know more.`)
 	} else if(message.content == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-		const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping \"${prefix}timeout @person time reason\" will kick that person for mentioned time (in minutes) for mentioned reason.`);
+		const timeoutEmbed = new MessageEmbed().setColor('#0000ff').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping \"${prefix}timeout @person time reason\" will kick that person for mentioned time (in minutes) for mentioned reason.`);
 		message.channel.send({
 			embeds: [timeoutEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
