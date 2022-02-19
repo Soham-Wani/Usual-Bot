@@ -141,9 +141,9 @@ client.on("message", async message => {
     const args = message.content.split(" ");
     if (!args[2]) return message.channel.send(`Please include a valid reason. Type \"${prefix}kick\" to know more.`);
     let messageToSend = [...args];
-			messageToSend.shift();
-			messageToSend.shift();
-			messageToSend = messageToSend.join(" ");
+    messageToSend.shift();
+    messageToSend.shift();
+    messageToSend = messageToSend.join(" ");
     var member = message.mentions.members.first();
     member.kick().then((member) => {
       message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!").catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
@@ -173,10 +173,10 @@ client.on("message", async message => {
     if (!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
     let time = args[2];
     let messageToSend = [...args];
-			messageToSend.shift();
-      messageToSend.shift();
-			messageToSend.shift();
-			messageToSend = messageToSend.join(" ");
+    messageToSend.shift();
+    messageToSend.shift();
+    messageToSend.shift();
+    messageToSend = messageToSend.join(" ");
     var member = message.mentions.members.first();
     member.timeout(args[2] * 60 * 1000).then((member) => {
       message.channel.send("Bye Bye! " + member.displayName + " has been successfully timed out for " + time + " minutes!").catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
