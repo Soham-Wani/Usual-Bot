@@ -132,8 +132,7 @@ client.on("message", async message => {
 			}
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
-	};
-	else if(message.content == `${prefix} links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
+	} else if(message.content == `${prefix} links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
 		const Channel = message.channel;
 		const Messages = await Channel.messages.fetch({
 			limit: 100
@@ -146,7 +145,7 @@ client.on("message", async message => {
 			}
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
-	};
+	}
 	//spam
 	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
 		const args = message.content.split(" ");
