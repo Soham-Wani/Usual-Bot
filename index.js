@@ -132,7 +132,7 @@ client.on("message", async message => {
 			}
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
-	} else if(message.content == `${prefix} links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
+	} else if(message.content == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR")) {
 		const Channel = message.channel;
 		const Messages = await Channel.messages.fetch({
 			limit: 100
