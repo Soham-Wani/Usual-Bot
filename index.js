@@ -61,7 +61,7 @@ if (message.content.includes(`clean`)) {
 
         Messages.forEach(msg => {
             for(var i in blacklisted) {
-			if(message.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) msg.delete()
+			if(msg.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) { msg.delete() }
 		}
         });
 
