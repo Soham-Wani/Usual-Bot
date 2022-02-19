@@ -170,7 +170,7 @@ client.on("message", async message => {
 		member.timeout(time, messageToSend).then((member) => {
 			message.channel.send("Bye Bye! " + member.displayName + " has been successfully timed out for " + args[2] + " minutes!");
 			const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-			channeltosend.send(member.displayName + " was timedout from the server for " + time + " minutes for: " + messageToSend);
+			channeltosend.send(member.displayName + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type \"${prefix}timeout\" to know more.`)
