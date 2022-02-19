@@ -140,17 +140,21 @@ client.on("message", async message => {
 	//kick
 	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(!args[2]) return message.channel.send(`Please include a valid reason. Type \"${prefix}kick\" to know more.`);
-		let messageToSend = [...args];
-		messageToSend.shift();
-		messageToSend.shift();
-		messageToSend = messageToSend.join(" ");
-		var member = message.mentions.members.first();
-		member.kick().then((member) => {
-			message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
-			const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-			channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
-		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123#5921`) {
+			if(!args[2]) return message.channel.send(`Please include a valid reason. Type \"${prefix}kick\" to know more.`);
+			let messageToSend = [...args];
+			messageToSend.shift();
+			messageToSend.shift();
+			messageToSend = messageToSend.join(" ");
+			var member = message.mentions.members.first();
+			member.kick().then((member) => {
+				message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
+				const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+				channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
+			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+		} else {
+			message.channel.send("I can't betray my master!")
+		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to kick? Type \"${prefix}kick\" to know more.`)
 	} else if(message.content == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
@@ -164,20 +168,24 @@ client.on("message", async message => {
 	//timeout
 	else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		const args = message.content.split(" ");
-		if(isNaN(args[2]) || !args[3]) return message.channel.send(`Please include a valid time period. Type \"${prefix}timeout\" to know more.`);
-		if(!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
-		let time = args[2] * 60 * 1000;
-		let messageToSend = [...args];
-		messageToSend.shift();
-		messageToSend.shift();
-		messageToSend.shift();
-		messageToSend = messageToSend.join(" ");
-		var member = message.mentions.members.first();
-		member.timeout(time, messageToSend).then((member) => {
-			message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
-			const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-			channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
-		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
+		if(args[0] == `${prefix}kick` && args[1] !== `@Psuedonymous123#5921`) {
+			if(isNaN(args[2]) || !args[3]) return message.channel.send(`Please include a valid time period. Type \"${prefix}timeout\" to know more.`);
+			if(!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
+			let time = args[2] * 60 * 1000;
+			let messageToSend = [...args];
+			messageToSend.shift();
+			messageToSend.shift();
+			messageToSend.shift();
+			messageToSend = messageToSend.join(" ");
+			var member = message.mentions.members.first();
+			member.timeout(time, messageToSend).then((member) => {
+				message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
+				const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+				channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
+			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
+		} else {
+			message.channel.send("I can't betray my master!")
+		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type \"${prefix}timeout\" to know more.`)
 	} else if(message.content == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
