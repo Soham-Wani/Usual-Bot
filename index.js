@@ -65,7 +65,7 @@ if (message.content.includes(`clean`)) {
 		}
         });
 
-        message.channel.send("cleaned");
+        message.channel.send("ed");
     };
 });
 /* Moderation */
