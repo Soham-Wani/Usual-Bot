@@ -160,14 +160,14 @@ client.on("message", async message => {
 		const args = message.content.split(" ");
 		if(isNaN(args[2]) || !args[3]) return message.channel.send(`Please include a valid time period. Type \"${prefix}timeout\" to know more.`);
 		if(!args[3]) return message.channel.send(`Please include a valid reason. Type \"${prefix}timeout\" to know more.`);
-		let time = args[2];
+		let time = args[2] * 60 * 1000;
 		let messageToSend = [...args];
 		messageToSend.shift();
 		messageToSend.shift();
 		messageToSend.shift();
 		messageToSend = messageToSend.join(" ");
 		var member = message.mentions.members.first();
-		member.timeout(args[2] * 60 * 1000).then((member) => {
+		member.timeout(time, messageToSend).then((member) => {
 			message.channel.send("Bye Bye! " + member.displayName + " has been successfully timed out for " + time + " minutes!").catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
 			const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
 			channeltosend.send(member.displayName + " was timedout from the server for " + time + " minutes for: " + messageToSend);
