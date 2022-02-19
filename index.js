@@ -55,6 +55,18 @@ client.on("message", async message => {
 	} else if(message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && message.content.startsWith(prefix)) {
 		message.channel.send("You can't use commands in DMs. Please get on a Discord server to use commands!")
 	}
+if (message.content.includes(`clean`)) {
+        const Channel = message.channel;
+        const Messages = await Channel.messages.fetch({limit: 100});
+
+        Messages.forEach(msg => {
+            for(var i in blacklisted) {
+			if(message.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) msg.delete()
+		}
+        });
+
+        message.channel.send("cleaned");
+    };
 });
 /* Moderation */
 client.on("message", async message => {
