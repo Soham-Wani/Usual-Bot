@@ -30,7 +30,7 @@ client.on("message", async message => {
 		if(message.content.toLowerCase().replace(/[^a-z]/g,"").replace(/ /g, "").includes(blacklisted[i].toLowerCase())) foundInText = true;
 	}
   if(message.content.includes('🖕')) foundInText = true;
-	if(message.content.toLowerCase().includes('pass')) foundInText = false;
+	if(message.content.toLowerCase().includes('pass') || message.content.toLowerCase().includes('g and')) foundInText = false;
 	if(foundInText === true && message.channel.type !== 'DM') {
 		message.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
 		if(message.author.id !== client.user.id) {
