@@ -99,7 +99,7 @@ client.on("message", async message => {
 	}
 	//info
 	else if(message.content.toLowerCase() === `${prefix}info`) {
-		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\nCurrent list of commands: \n${prefix}info\n${prefix}spam\n\nFor admins:\n${prefix}kick\n{prefix}timeout`);
+		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\nCurrent list of commands: \n${prefix}info\n${prefix}spam\n\nFor admins:\n${prefix}kick\n${prefix}timeout`);
 		message.channel.send({
 			embeds: [infoEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
