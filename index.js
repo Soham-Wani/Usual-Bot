@@ -3,6 +3,7 @@
 //TD2: guild work for add, subtract
 //TD3: New log system for kick, timeout
 //TD4: ban comm.
+//TD5: suggest, report, bug
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
