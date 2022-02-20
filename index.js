@@ -16,7 +16,7 @@ const {
 	MessageEmbed
 } = require('discord.js');
 let prefix = ",";
-let me = bot.users.cache.get('912297357339660309')
+let me = '912297357339660309';
 client.on('ready', () => {
 	console.log('Live! Yay!');
 	client.user.setActivity("For ,info", {
