@@ -115,7 +115,7 @@ client.on("message", async message => {
 	}
 	//help
 	else if(message.content.toLowerCase() === `${prefix}help`) {
-		const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}kick\n${prefix}timeout`);
+		const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}clean\n${prefix}kick\n${prefix}timeout`);
 		message.channel.send({
 			embeds: [helpEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -136,7 +136,7 @@ client.on("message", async message => {
 		Messages.forEach(msg => {
 			if(msg.content.includes('discord.gg') || msg.content.includes('http') || msg.content.includes('discordapp.com/invite/')) {
 				if(!msg.member.permissions.has("ADMINISTRATOR") && !(msg.channel.name.includes("promot") || msg.channel.name.includes("advertise")) && msg.channel.type !== 'DM') {
-					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
 				}
 			}
 		});
@@ -149,11 +149,16 @@ client.on("message", async message => {
 		Messages.forEach(msg => {
 			for(var i in blacklisted) {
 				if(msg.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) {
-					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+					msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
 				}
 			}
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
+	} else if(message.content.toLowerCase() === `${prefix}clean`) {
+		const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping **${prefix}clean links** will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping **${prefix}clean words*** will delete all bad words from previous 100 messages.`);
+		message.channel.send({
+			embeds: [cleanEmbed]
+		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	}
 	//spam
 	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
@@ -183,7 +188,7 @@ client.on("message", async message => {
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	}
 	//kick
-	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== '912297357339660309') {
 		const args = message.content.split(" ");
 		if(args[0] == `${prefix}kick`) {
 			if(!args[2]) return message.channel.send(`Please include a valid reason. Type **${prefix}kick** to know more.`);
@@ -201,7 +206,7 @@ client.on("message", async message => {
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to kick? Type **${prefix}kick** to know more.`)
 	} else if(message.content == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-		const kickEmbed = new MessageEmbed().setColor('#0000ff').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping **${prefix}kick @person reason** will kick that person for mentioned reason.`);
+		const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping **${prefix}kick @person reason** will kick that person for mentioned reason.`);
 		message.channel.send({
 			embeds: [kickEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -230,7 +235,7 @@ client.on("message", async message => {
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type **${prefix}timeout** to know more.`)
 	} else if(message.content == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-		const timeoutEmbed = new MessageEmbed().setColor('#0000ff').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping **${prefix}timeout @person time reason** will kick that person for mentioned time (in minutes) for mentioned reason.`);
+		const timeoutEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping **${prefix}timeout @person time reason** will kick that person for mentioned time (in minutes) for mentioned reason.`);
 		message.channel.send({
 			embeds: [timeoutEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
