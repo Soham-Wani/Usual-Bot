@@ -1,7 +1,5 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD1: get logs from https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
-//TD2: create embed for clean
-//T: Use ** for \" / \'
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -154,11 +152,13 @@ client.on("message", async message => {
 			}
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
-	} else if(message.content.toLowerCase() === `${prefix}clean`) {
-		const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping **${prefix}clean links** will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping **${prefix}clean words*** will delete all bad words from previous 100 messages.`);
+	} else if(message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
+		const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping *${prefix}clean links* will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping *${prefix}clean words* will delete all bad words from previous 100 messages.`);
 		message.channel.send({
 			embeds: [cleanEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+	} else if(message.content.toLowerCase().startsWith(`${prefix}clean`) && !message.member.permissions.has("ADMINISTRATOR")) {
+		message.channel.send("You can't do that either. You need Administrator permissions!")
 	}
 	//spam
 	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
@@ -212,6 +212,8 @@ client.on("message", async message => {
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == '912297357339660309') {
+		message.channel.send("I can't betray my master!")
 	}
 	//timeout
 	else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
@@ -243,4 +245,3 @@ client.on("message", async message => {
 		message.channel.send("You thought you could do that? You need Administrator permissions lol!")
 	}
 });
-//Trying New Game
