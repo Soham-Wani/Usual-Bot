@@ -77,7 +77,7 @@ client.on("message", async message => {
 				new MessageEmbed().setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
 			]
 		});
-		message.I.send('test');
+		I.send('test');
 	}
 });
 /* General */
