@@ -16,6 +16,7 @@ const {
 	MessageEmbed
 } = require('discord.js');
 let prefix = ",";
+let me = bot.users.cache.get('912297357339660309')
 client.on('ready', () => {
 	console.log('Live! Yay!');
 	client.user.setActivity("For ,info", {
@@ -69,7 +70,7 @@ client.on("message", async message => {
 		}
 	}
 	/* Stats */
-	else if(message.author.id === '912297357339660309' && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
+	else if(message.author.id == me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
 		message.channel.send({
 			embeds: [
 				new MessageEmbed().setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
@@ -175,7 +176,7 @@ client.on("message", async message => {
 			for(let i = 0; i < amountOfMessages; i++) {
 				message.channel.send(messageToSend);
 			}
-		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id === '912297357339660309' && message.content.includes('@') && message.channel.name.includes("spam")) {
+		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam")) {
 			message.channel.send('Haha, nice try!')
 		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
 			message.channel.send(`Nah! You can't spam here!`)
@@ -187,7 +188,7 @@ client.on("message", async message => {
 		}
 	}
 	//kick
-	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== '912297357339660309') {
+	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
 		const args = message.content.split(" ");
 		if(args[0] == `${prefix}kick`) {
 			if(!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
@@ -211,7 +212,7 @@ client.on("message", async message => {
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send("You thought you could do that? You need Administrator permissions lol!")
-	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == '912297357339660309') {
+	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
 		message.channel.send("I can't betray my master!")
 	}
 	//timeout
