@@ -98,6 +98,8 @@ client.on("message", async message => {
 			message.channel.send(`Sorry but I consider my haters, my motivators!`)
 		} else if(message.content.toLowerCase().includes(`are you mad`)) {
 			message.channel.send(`Nah bro! I am not you!`)
+		}  else if(message.content.toLowerCase().includes("yee") || message.content.toLowerCase().includes("wee")) {
+			message.channel.send(`yeeeeeeeeee`)
 		}
 	}
 });
