@@ -165,7 +165,7 @@ client.on("message", async message => {
 				if(args[0] == `${prefix}spam`) {
 					const spammed = new Set();
 					if(spammed.has(message.author.id)) {
-						message.channel.send("Whoa! Wait 2 minutes before spamming again!);
+						message.channel.send("Whoa! Wait 2 minutes before spamming again!");
 						} else {
 							if(!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
 							if(isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
