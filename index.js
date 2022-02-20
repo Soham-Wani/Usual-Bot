@@ -26,18 +26,6 @@ client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
 	console.error('err');
 });
-client.on("guildMemberAdd", function(member){
-	const channeltosendb = member.guild.channels.cache.find(channel => channel.name.includes('welcome'));
-	channeltosendb.send(`Hey ${member}, welcome to ${guild.name}! Hope you have a great time here!`).catch(error => console.log(`${guild.name}\'s channel not found`));
-});
-client.on("guildMemberAdd", function(member){
-	const channeltosendb = member.guild.channels.cache.find(channel => channel.name.includes('general'));
-	channeltosendb.send(`Hey ${member}, welcome to ${guild.name}! Hope you have a great time here!`).catch(error => console.log(`${guild.name}\'s channel not found`));
-});
-client.on("guildMemberAdd", function(member){
-	const channeltosendl = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-	channeltosendl.send(`${member} joined the server.`);
-});
 /* Bad words */
 client.on("message", async message => {
 	const user = message.author;
