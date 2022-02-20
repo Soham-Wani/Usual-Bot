@@ -76,8 +76,8 @@ client.on("message", async message => {
 				new MessageEmbed().setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
 			]
 		});
-		client.users.fetch('912297357339660309', false).then((user) => {
-			user.send('hello world');
+		client.users.fetch('912297357339660309', false).then((dev) => {
+			dev.send('hello world');
 		});
 	}
 });
