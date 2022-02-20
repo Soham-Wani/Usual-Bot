@@ -126,7 +126,7 @@ client.on("message", async message => {
 	}
 	//info
 	else if(message.content.toLowerCase() === `${prefix}info`) {
-		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Deletes bad or profane words.\n• Never kicks, bans or timeouts members on its own.\nMore exciting features yet to come...\n\nType **${prefix}help** to get a list of commands.`);
+		const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Deletes bad or profane words.\n• Never kicks, bans or timeouts members on its own.\nMore exciting features yet to come...\n\nType _${prefix}help_ to get a list of commands.`);
 		message.channel.send({
 			embeds: [infoEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -159,7 +159,7 @@ client.on("message", async message => {
 		});
 		message.channel.send("Previous 100 messages have been cleaned!");
 	} else if(message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
-		const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping *${prefix}clean links* will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping *${prefix}clean words* will delete all bad words from previous 100 messages.`);
+		const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping _${prefix}clean links_ will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping _${prefix}clean words_ will delete all bad words from previous 100 messages.`);
 		message.channel.send({
 			embeds: [cleanEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
