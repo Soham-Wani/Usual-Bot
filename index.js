@@ -181,7 +181,7 @@ client.on("message", async message => {
 		message.channel.send('Haha, nice try!')
 	} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
 		message.channel.send(`Nah! You can't spam here!`)
-	} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content == `${prefix}spam`) {
+	} else if(message.channel.name.includes("spam") && message.content == `${prefix}spam`) {
 		const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (${prefix}spam)`).setDescription(`Using the ${prefix}spam command correctly will spam any message upto 20 times.\n\nTyping **${prefix}spam 10 hello** will spam 10 hellos.`);
 		message.channel.send({
 			embeds: [spamEmbed]
@@ -205,7 +205,7 @@ client.on("message", async message => {
 		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to kick? Type **${prefix}kick** to know more.`)
-	} else if(message.content == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+	} else if(message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
 		const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping **${prefix}kick @person reason** will kick that person for mentioned reason.`);
 		message.channel.send({
 			embeds: [kickEmbed]
@@ -236,7 +236,7 @@ client.on("message", async message => {
 		}
 	} else if(message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send(`Please include whom to timeout? Type **${prefix}timeout** to know more.`)
-	} else if(message.content == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+	} else if(message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
 		const timeoutEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping **${prefix}timeout @person time reason** will kick that person for mentioned time (in minutes) for mentioned reason.`);
 		message.channel.send({
 			embeds: [timeoutEmbed]
