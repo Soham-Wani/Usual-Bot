@@ -128,6 +128,33 @@ client.on("message", async message => {
 			embeds: [infoEmbed]
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	}
+	//spam
+	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+		const args = message.content.split(" ");
+		if(args[0] == `${prefix}spam`) {
+			if(!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
+			if(isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
+			if(args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
+			if(!args[2]) return message.channel.send(`Also include what should I spam, type __${prefix}spam__ to know more.`);
+			const amountOfMessages = args[1];
+			let messageToSend = [...args];
+			messageToSend.shift();
+			messageToSend.shift();
+			messageToSend = messageToSend.join(" ");
+			for(let i = 0; i < amountOfMessages; i++) {
+				message.channel.send(messageToSend);
+			}
+		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam")) {
+			message.channel.send('Haha, nice try!')
+		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
+			message.channel.send(`Nah! You can't spam here!`)
+		} else if(message.channel.name.includes("spam") && message.content == `${prefix}spam`) {
+			const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (${prefix}spam)`).setDescription(`Using the ${prefix}spam command correctly will spam any message upto 20 times.\n\nTyping __${prefix}spam 10 hello__ will spam 10 hellos.`);
+			message.channel.send({
+				embeds: [spamEmbed]
+			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+		}
+	}
 	//clean
 	else if(message.content.toLowerCase() == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
 		const Channel = message.channel;
@@ -162,33 +189,6 @@ client.on("message", async message => {
 		}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
 	} else if(message.content.toLowerCase().startsWith(`${prefix}clean`) && !message.member.permissions.has("ADMINISTRATOR")) {
 		message.channel.send("You can't do that either. You need Administrator permissions!")
-	}
-	//spam
-	else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
-		const args = message.content.split(" ");
-		if(args[0] == `${prefix}spam`) {
-			if(!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-			if(isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-			if(args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
-			if(!args[2]) return message.channel.send(`Also include what should I spam, type __${prefix}spam__ to know more.`);
-			const amountOfMessages = args[1];
-			let messageToSend = [...args];
-			messageToSend.shift();
-			messageToSend.shift();
-			messageToSend = messageToSend.join(" ");
-			for(let i = 0; i < amountOfMessages; i++) {
-				message.channel.send(messageToSend);
-			}
-		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam")) {
-			message.channel.send('Haha, nice try!')
-		} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
-			message.channel.send(`Nah! You can't spam here!`)
-		} else if(message.channel.name.includes("spam") && message.content == `${prefix}spam`) {
-			const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (${prefix}spam)`).setDescription(`Using the ${prefix}spam command correctly will spam any message upto 20 times.\n\nTyping __${prefix}spam 10 hello__ will spam 10 hellos.`);
-			message.channel.send({
-				embeds: [spamEmbed]
-			}).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-		}
 	}
 	//kick
 	else if(message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
