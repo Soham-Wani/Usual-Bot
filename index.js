@@ -62,7 +62,7 @@ client.on("message", async message => {
 });
 /* Moderation */
 client.on("message", async message => {
-	if(message.content.includes('discord.gg') || message.content.includes('http') || message.content.includes('discordapp.com/invite/')) {
+	if(message.content.includes('.gg') || message.content.includes('http') || message.content.includes('.com')) {
 		if(!message.member.permissions.has("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM') {
 			message.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
 			message.channel.send(`Nah! You can't promote here!`);
