@@ -174,10 +174,6 @@ client.on("message", async message => {
 					messageToSend = messageToSend.join(" ");
 					for(let i = 0; i < amountOfMessages; i++) {
 						message.channel.send(messageToSend);
-						spammed.add(message.author.id);
-						setTimeout(() => {
-							spammed.delete(message.author.id);
-						}, 2 * 60 * 1000);
 					}
 				} else if(message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id === '912297357339660309' && message.content.includes('@') && message.channel.name.includes("spam")) {
 					message.channel.send('Haha, nice try!')
