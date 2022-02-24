@@ -208,7 +208,7 @@ client.on("message", async message => {
         message.channel.send("You can't do that either. You need Administrator permissions!")
     }
     //kick
-    else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
+    else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) && message.mentions.members.first().id !== null) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}kick`) {
             if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
@@ -216,7 +216,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
-            var member = message.mentions.members.first().catch(error => message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`));
+            var member = message.mentions.members.first();
             member.kick().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
@@ -234,6 +234,8 @@ client.on("message", async message => {
         message.channel.send("You thought you could do that? You need Administrator permissions lol!")
     } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
         message.channel.send("I can't betray my master!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) && message.mentions.members.first().id == null) {
+        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
     }
     //timeout
     else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
