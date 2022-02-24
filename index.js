@@ -217,7 +217,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
-            member.kick().catch(error => message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)).then((member) => {
+            member.kick().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
                 channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
