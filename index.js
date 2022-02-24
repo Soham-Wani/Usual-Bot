@@ -217,6 +217,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
+            if (!member) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
             member.kick().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
@@ -224,8 +225,6 @@ client.on("message", async message => {
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
-    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.mentions.members == null && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
@@ -250,6 +249,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
+            if (!member) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
             member.timeout(time, messageToSend).then((member) => {
                 message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
