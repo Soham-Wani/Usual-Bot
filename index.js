@@ -4,6 +4,8 @@
 //TD3: New log system for kick, timeout
 //TD4: ban comm.
 //TD5: suggest, report, bug
+//TD6: Edit error for invalid user in kick and timeout
+//TD7: Add remove timeout and unban
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
