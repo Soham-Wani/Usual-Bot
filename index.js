@@ -130,7 +130,23 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
     //spam
-    else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+    else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}spam`) {
+            if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
+            if (isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
+            if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
+            if (!args[2]) return message.channel.send(`Also include what should I spam, type __${prefix}spam__ to know more.`);
+            const amountOfMessages = args[1];
+            let messageToSend = [...args];
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend = messageToSend.join(" ");
+            for (let i = 0; i < amountOfMessages; i++) {
+                message.channel.send(messageToSend);
+            }
+        }
+    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
