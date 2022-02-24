@@ -225,7 +225,7 @@ client.on("message", async message => {
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
-    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.mentions.members && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.mentions.users && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
