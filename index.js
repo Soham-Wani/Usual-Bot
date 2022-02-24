@@ -217,7 +217,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
-            if (!member) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
+            if (member.id == null) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
             member.kick().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
@@ -249,7 +249,7 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
-            if (!member) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
+            if (member.id == null) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
             member.timeout(time, messageToSend).then((member) => {
                 message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
