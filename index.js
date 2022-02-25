@@ -210,7 +210,7 @@ client.on("message", async message => {
         message.channel.send("You can't do that either. You need Administrator permissions!")
     }
     //kick
-    else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) && message.mentions.members.first().id !== null) {
+    else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}kick`) {
             if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
