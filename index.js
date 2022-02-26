@@ -306,7 +306,7 @@ client.on("message", async message => {
             member.timeout(time, messageToSend).then((member) => {
                 message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
                 let {guild} = message;
-                member.send(`You have been timedout from ${guild.name} for: ${args[2]} minutes`);
+                member.send(guild ? `You have been timedout from ${guild.name} for: ${args[2]} minutes`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
                 channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
