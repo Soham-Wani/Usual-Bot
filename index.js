@@ -4,7 +4,7 @@
 //TD3: New log system for kick, timeout
 //TD4: ban comm.
 //TD5: suggest, report, bug
-//TD6: Edit error for invalid user in kick and timeout
+//TD6: impppp Edit error for invalid user in kick and timeout
 //TD7: Add remove timeout and unban
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
@@ -27,9 +27,9 @@ client.on('ready', () => {
     });
 });
 client.login(process.env.DISCORD_TOKEN);
-/*process.on('unhandledRejection', error => {
+process.on('unhandledRejection', error => {
     console.error('err');
-});*/
+});
 /* Bad words */
 client.on("message", async message => {
     const user = message.author;
@@ -175,7 +175,7 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
     //ban
-    /*else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
+    /*else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}kick`) {
             if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
@@ -303,7 +303,6 @@ client.on("message", async message => {
             messageToSend.shift();
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
-            if (member.id == null) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
             member.timeout(time, messageToSend).then((member) => {
                 message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
