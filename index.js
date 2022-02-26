@@ -175,7 +175,7 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
     //ban
-    else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
+    else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}ban`) {
             if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
