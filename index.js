@@ -207,7 +207,7 @@ client.on("message", async message => {
             embeds: [cleanEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     } else if (message.content.toLowerCase().startsWith(`${prefix}clean`) && !message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send("You can't do that either. You need Administrator permissions!")
+        message.channel.send("You can't do that. You need Administrator permissions!")
     }
     //delete
     else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
@@ -227,6 +227,8 @@ client.on("message", async message => {
         message.channel.send({
             embeds: [deleteEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You can't do that. You need Administrator permissions!")
     }
     //kick
     else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
