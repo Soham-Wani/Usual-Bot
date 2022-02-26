@@ -119,7 +119,7 @@ client.on("message", async message => {
     }
     //help
     else if (message.content.toLowerCase() === `${prefix}help`) {
-        const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}clean\n${prefix}kick\n${prefix}timeout`);
+        const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout`);
         message.channel.send({
             embeds: [helpEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -213,13 +213,20 @@ client.on("message", async message => {
     else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
         const args = message.content.split(" ");
+        if (args[1] > 100) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}delete__ to know more.`);
+        if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
         const Messages = await Channel.messages.fetch({
-            limit: args[1]
+            limit: args[1]+1
         });
         Messages.forEach(msg => {
             msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
         });
-        message.channel.send(`Previous ${args[1]} messages have been cleaned!`);
+        message.channel.send(`Previous ${args[1]} messages have been deleted!`);
+    } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
+        const deleteEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+        message.channel.send({
+            embeds: [deleteEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
     //kick
     else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
