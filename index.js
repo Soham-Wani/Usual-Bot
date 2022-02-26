@@ -221,7 +221,7 @@ client.on("message", async message => {
             const Pinned = fetched.filter(fetchedMsg => fetchedMsg.pinned)
         });
         Messages.forEach(msg => {
-            if (!Pinned) {
+            if (msg !== Pinned) {
                 msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
             }
         });
