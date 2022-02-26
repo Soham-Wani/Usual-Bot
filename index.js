@@ -213,7 +213,7 @@ client.on("message", async message => {
     else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
         const args = message.content.split(" ");
-        if (args[1] > 100) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}delete__ to know more.`);
+        if (args[1] > 100 || is an(args[1]) return message.channel.send(`Please type realistic numbers (<100) or a number atleast, type __${prefix}delete__ to know more.`);
         if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
         const Messages = await Channel.messages.fetch({
             limit: args[1]
