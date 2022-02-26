@@ -218,12 +218,10 @@ client.on("message", async message => {
         const Messages = await Channel.messages.fetch({
             limit: args[1]
         }).then(fetched => {
-            const Pinned = fetched.filter(fetchedMsg => fetchedMsg.pinned)
+            const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned)
         });
         Messages.forEach(msg => {
-            if (msg !== Pinned) {
-                msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
-            }
+            msg.delete(notPinned, true).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
         });
         message.channel.send(`Previous ${args[1]} messages have been deleted!`);
     } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
