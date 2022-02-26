@@ -226,7 +226,7 @@ client.on("message", async message => {
             }
         });
         message.channel.send(`Previous ${args[1]} messages have been deleted!`);
-    } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
+    } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const deleteEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
         message.channel.send({
             embeds: [deleteEmbed]
