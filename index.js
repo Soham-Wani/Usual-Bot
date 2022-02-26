@@ -210,16 +210,16 @@ client.on("message", async message => {
         message.channel.send("You can't do that either. You need Administrator permissions!")
     }
     //delete
-    else if (message.content.toLowerCase() == `${prefix}delete all` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
+    else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
         const args = message.content.split(" ");
         const Messages = await Channel.messages.fetch({
-            limit: 100
+            limit: args[1]
         });
         Messages.forEach(msg => {
             msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
         });
-        message.channel.send("Previous 100 messages have been cleaned!");
+        message.channel.send(`Previous ${args[1]} messages have been cleaned!`);
     }
     //kick
     else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
