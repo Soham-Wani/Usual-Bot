@@ -213,87 +213,87 @@ client.on("message", async message => {
     else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
         const args = message.content.split(" ");
-        if (args[1] > 100 || is an(args[1]) return message.channel.send(`Please type realistic numbers (<100) or a number atleast, type __${prefix}delete__ to know more.`);
-            if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
-            const Messages = await Channel.messages.fetch({
-                limit: args[1]
-            }).then(fetched => {
-                const Pinned = fetched.filter(fetchedMsg => fetchedMsg.pinned)
-            });
-            Messages.forEach(msg => {
-                if (!Pinned) {
-                    msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
-                }
-            });
-            message.channel.send(`Previous ${args[1]} messages have been deleted!`);
-        } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
-            const deleteEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
-            message.channel.send({
-                embeds: [deleteEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-        } else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You can't do that. You need Administrator permissions!")
-        }
-        //kick
-        else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
-            const args = message.content.split(" ");
-            if (args[0] == `${prefix}kick`) {
-                if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                var member = message.mentions.members.first();
-                member.kick().then((member) => {
-                    message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
-                    const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-                    channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
-                }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+        if (args[1] > 100 || isNaN(args[1])) return message.channel.send(`Please type realistic numbers \(<100\) or a number atleast, type __${prefix}delete__ to know more.`);
+        if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
+        const Messages = await Channel.messages.fetch({
+            limit: args[1]
+        }).then(fetched => {
+            const Pinned = fetched.filter(fetchedMsg => fetchedMsg.pinned)
+        });
+        Messages.forEach(msg => {
+            if (!Pinned) {
+                msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
             }
-        } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
-        } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-            const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
-            message.channel.send({
-                embeds: [kickEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-        } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You thought you could do that? You need Administrator permissions lol!")
-        } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
-            message.channel.send("I can't betray my master!")
-        } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id == null) {
-            message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+        });
+        message.channel.send(`Previous ${args[1]} messages have been deleted!`);
+    } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
+        const deleteEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+        message.channel.send({
+            embeds: [deleteEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You can't do that. You need Administrator permissions!")
+    }
+    //kick
+    else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}kick`) {
+            if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
+            let messageToSend = [...args];
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend = messageToSend.join(" ");
+            var member = message.mentions.members.first();
+            member.kick().then((member) => {
+                message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
+                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+                channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
+            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
         }
-        //timeout
-        else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-            const args = message.content.split(" ");
-            if (args[0] == `${prefix}timeout`) {
-                if (isNaN(args[2]) || !args[2]) return message.channel.send(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
-                if (!args[3]) return message.channel.send(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
-                let time = args[2] * 60 * 1000;
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                var member = message.mentions.members.first();
-                if (member.id == null) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
-                member.timeout(time, messageToSend).then((member) => {
-                    message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
-                    const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-                    channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
-                }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
-            }
-        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
-        } else if (message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-            const timeoutEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will kick that person for mentioned time (in minutes) for mentioned reason.`);
-            message.channel.send({
-                embeds: [timeoutEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You thought you could do that? You need Administrator permissions lol!")
-        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == '912297357339660309') {
-            message.channel.send("I can't betray my master!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+    } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+        const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
+        message.channel.send({
+            embeds: [kickEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
+        message.channel.send("I can't betray my master!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id == null) {
+        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+    }
+    //timeout
+    else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}timeout`) {
+            if (isNaN(args[2]) || !args[2]) return message.channel.send(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
+            if (!args[3]) return message.channel.send(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
+            let time = args[2] * 60 * 1000;
+            let messageToSend = [...args];
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend = messageToSend.join(" ");
+            var member = message.mentions.members.first();
+            if (member.id == null) return message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`);
+            member.timeout(time, messageToSend).then((member) => {
+                message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
+                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+                channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
+            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
         }
-    });
+    } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
+    } else if (message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+        const timeoutEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will kick that person for mentioned time (in minutes) for mentioned reason.`);
+        message.channel.send({
+            embeds: [timeoutEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == '912297357339660309') {
+        message.channel.send("I can't betray my master!")
+    }
+});
