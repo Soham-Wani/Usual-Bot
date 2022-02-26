@@ -215,9 +215,8 @@ client.on("message", async message => {
         const args = message.content.split(" ");
         if (args[1] > 100) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}delete__ to know more.`);
         if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
-        const todelete = args[1] + 1;
         const Messages = await Channel.messages.fetch({
-            limit: todelete
+            limit: args[1]
         });
         Messages.forEach(msg => {
             msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
