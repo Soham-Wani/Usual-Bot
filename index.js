@@ -27,9 +27,9 @@ client.on('ready', () => {
     });
 });
 client.login(process.env.DISCORD_TOKEN);
-process.on('unhandledRejection', error => {
+/*process.on('unhandledRejection', error => {
     console.error('err');
-});
+});*/
 /* Bad words */
 client.on("message", async message => {
     const user = message.author;
@@ -174,6 +174,36 @@ client.on("message", async message => {
             embeds: [spamEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
+    //ban
+    /*else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}kick`) {
+            if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
+            let messageToSend = [...args];
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend = messageToSend.join(" ");
+            var member = message.mentions.members.first();
+            member.kick().then((member) => {
+                message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
+                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+                channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
+            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+        }
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+    } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
+        const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
+        message.channel.send({
+            embeds: [kickEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
+        message.channel.send("I can't betray my master!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id == null) {
+        message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+    }*/
     //clean
     else if (message.content.toLowerCase() == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
