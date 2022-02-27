@@ -2,7 +2,7 @@
 //TD1: get logs from https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 //TD2: guild work for add, subtract
 //TD3: New log system for kick, timeout
-//TD4: ban comm.
+//TD4:
 //TD5: suggest, report, bug
 //TD6: impppp Edit error for invalid user in kick and timeout
 //TD7: Add remove timeout and unban
@@ -175,35 +175,6 @@ client.on("message", async message => {
             embeds: [spamEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
-    //ban
-    else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
-        const args = message.content.split(" ");
-        if (args[0] == `${prefix}ban`) {
-            if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
-            let messageToSend = [...args];
-            messageToSend.shift();
-            messageToSend.shift();
-            messageToSend = messageToSend.join(" ");
-            var member = message.mentions.members.first();
-            member.ban().then((member) => {
-                message.channel.send("Bye Bye! " + member.displayName + " has been successfully banned!");
-                member.send(`Watch out! You have been banned`);
-                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-                channeltosend.send(member.displayName + " was banned from the server for: " + messageToSend);
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-        }
-    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send(`Please include a valid user Type __${prefix}ban__ to know more.`)
-    } else if (message.content.toLowerCase() == `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
-        const banEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Ban (${prefix}ban)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
-        message.channel.send({
-            embeds: [banEmbed]
-        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
-    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
-        message.channel.send("I can't betray my master!")
-    }
     //clean
     else if (message.content.toLowerCase() == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
@@ -259,6 +230,57 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     } else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && !message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send("You can't do that. You need Administrator permissions!")
+    }
+    //ban
+    else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}ban`) {
+            if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
+            let messageToSend = [...args];
+            messageToSend.shift();
+            messageToSend.shift();
+            messageToSend = messageToSend.join(" ");
+            var member = message.mentions.members.first();
+            member.ban().then((member) => {
+                message.channel.send("Bye Bye! " + member.displayName + " has been successfully banned!");
+                member.send(`Watch out! You have been banned`);
+                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+                channeltosend.send(member.displayName + " was banned from the server for: " + messageToSend);
+            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+        }
+    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send(`Please include a valid user Type __${prefix}ban__ to know more.`)
+    } else if (message.content.toLowerCase() == `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
+        const banEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Ban (${prefix}ban)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
+        message.channel.send({
+            embeds: [banEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+    } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
+        message.channel.send("I can't betray my master!")
+    } 
+    //unban
+    else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
+        const args = message.content.split(" ");
+        if (args[0] == `${prefix}unban`) {
+            var member = message.mentions.members.first();
+            member.ban().then((member) => {
+                message.channel.send(member.displayName + " has been successfully unbanned!");
+                member.send(`Watch out! You have been unbanned`);
+                const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+                channeltosend.send(member.displayName + " was unbanned from the server");
+            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+        }
+    } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send(`Please include a valid user Type __${prefix}unban__ to know more.`)
+    } else if (message.content.toLowerCase() == `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
+        const unbanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Unban (${prefix}unban)`).setDescription(`Using the ${prefix}unban command allows people with Administrator permissions to unban members easily.\n\nTyping __${prefix}unban @person__ will unban that person.`);
+        message.channel.send({
+            embeds: [unbanEmbed]
+        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.member.permissions.has("ADMINISTRATOR")) {
+        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
     }
     //kick
     else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
