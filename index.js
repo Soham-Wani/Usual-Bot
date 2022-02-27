@@ -34,6 +34,7 @@ process.on('unhandledRejection', error => {
 client.on("message", async message => {
     const user = message.author;
     let foundInText = false;
+    if (message.author.bot) return;
     if (message.content.length < 17) {
         for (var i in blacklisted) {
             if (message.content.toLowerCase().replace(/[^a-z]/g, "").replace(/ /g, "").includes(blacklisted[i].toLowerCase())) foundInText = true;
@@ -186,6 +187,7 @@ client.on("message", async message => {
             var member = message.mentions.members.first();
             member.ban().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully banned!");
+                member.send(`Watch out! You have been banned`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
                 channeltosend.send(member.displayName + " was banned from the server for: " + messageToSend);
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
@@ -270,7 +272,7 @@ client.on("message", async message => {
             var member = message.mentions.members.first();
             member.kick().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully kicked!");
-                member.send(`Watch out! You have been kicked`);
+                member.send(`Watch out! You have been kicked!`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
                 channeltosend.send(member.displayName + " was kicked from the server for: " + messageToSend);
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
@@ -302,7 +304,7 @@ client.on("message", async message => {
             var member = message.mentions.members.first();
             member.timeout(time, messageToSend).then((member) => {
                 message.channel.send("Bye Bye! " + `${member}` + " has been successfully timed out for " + args[2] + " minutes!");
-                member.send(`Watch out! You have been timedout`);
+                member.send(`Watch out! You have been timedout!`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
                 channeltosend.send(`${member}` + " was timedout from the server for " + args[2] + " minutes for: " + messageToSend);
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
