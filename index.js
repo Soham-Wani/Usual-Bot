@@ -4,8 +4,8 @@
 //TD3: New log system for kick, timeout
 //TD4:
 //TD5: suggest, report, bug
-//TD6: impppp Edit error for invalid user in kick and timeout
-//TD7: Add remove timeout and unban
+//TD6: impppp Edit error for invalid user in kick and timeout ban unban
+//TD7: Add remove timeout
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -269,7 +269,7 @@ client.on("message", async message => {
                 message.channel.send(member.displayName + " has been successfully unbanned!");
                 member.send(`Watch out! You have been unbanned`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-                channeltosend.send(member.displayName + " was unbanned from the server");
+                channeltosend.send(${member} + " was unbanned from the server");
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
