@@ -269,7 +269,7 @@ client.on("message", async message => {
                 message.channel.send(member.displayName + " has been successfully unbanned!");
                 member.send(`Watch out! You have been unbanned`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
-                channeltosend.send(${member.displayName} + " was unbanned from the server");
+                channeltosend.send(member.displayName + " was unbanned from the server");
             }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
