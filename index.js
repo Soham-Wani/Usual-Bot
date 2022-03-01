@@ -77,7 +77,7 @@ client.on("message", async message => {
     else if (message.author.id == me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
         message.channel.send({
             embeds: [
-                new MessageEmbed().setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
+                new statsEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
             ]
         });
         client.users.fetch('912297357339660309', false).then((dev) => {
