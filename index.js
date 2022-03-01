@@ -84,7 +84,7 @@ client.on("message", async message => {
             dev.send('hello world');
         });
     } else if (message.author.id !== me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
-        message.channel.send('You thought you are a dev? Lol! Only Dev's can use this command');
+        message.channel.send('You thought you are a dev? Lol! Only devs can use this command');
     }
 });
 /* General */
