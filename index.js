@@ -83,6 +83,8 @@ client.on("message", async message => {
         client.users.fetch('912297357339660309', false).then((dev) => {
             dev.send('hello world');
         });
+    } else if (message.author.id !== me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
+        message.channel.send('You thought you are a dev? Lol! Only Dev's can use this command');
     }
 });
 /* General */
