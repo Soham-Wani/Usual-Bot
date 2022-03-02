@@ -32,7 +32,7 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.displayName}#${member.discriminator} joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.displayName} joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
 /* Bad words */
 client.on("message", async message => {
@@ -256,7 +256,7 @@ client.on("message", async message => {
             member.send(`Watch out! You are about to been banned!`);
             member.ban().then((member) => {
                 message.channel.send("Bye Bye! " + member.displayName + " has been successfully banned!").catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(member.user.tag + ` has been banned from the server`);
+                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(member.displayName + ` has been banned from the server`);
             });
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
@@ -303,7 +303,7 @@ client.on("message", async message => {
             var member = message.mentions.members.first();
             member.kick().then((member) => {
                 message.channel.send(`Bye Bye! ${member.displayName} has been successfully kicked!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.username}#${member.discriminator} has been kicked from the server by ` + message.author.username);
+                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.displayName} has been kicked from the server by ` + message.displayName);
             });
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
