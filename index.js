@@ -156,7 +156,7 @@ client.on("message", async message => {
             cooldown.add(message.author.id);
             setTimeout(() => {
                 cooldown.delete(message.author.id);
-            }, 5000);
+            }, 2 * 60 * 1000);
         }
     } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
