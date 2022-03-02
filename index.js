@@ -174,7 +174,7 @@ client.on("message", async message => {
                 message.channel.send(messageToSend);
             }
         }
-    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam")) {
+    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && message.content.includes('@') && message.channel.name.includes("spam")) {
         message.channel.send('Haha, nice try!')
     } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
         message.channel.send(`Nah! You can't spam here!`)
