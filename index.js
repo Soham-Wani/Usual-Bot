@@ -272,8 +272,8 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
         message.channel.send("I can't betray my master!")
     }
-    //unban/*
-    else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
+    //unban
+    /*else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}unban`) {
             var member = message.mentions.members.first();
