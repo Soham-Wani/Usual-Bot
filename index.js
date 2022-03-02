@@ -20,6 +20,7 @@ const {
 } = require('discord.js');
 let prefix = ",";
 let me = '912297357339660309';
+var usersInTimeout = [];
 client.on('ready', () => {
     console.log('Live! Yay!');
     client.user.setActivity("For ,info", {
@@ -135,7 +136,13 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
     }
     //spam
-    else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+    else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+        var timeoutDelay = 1000 * 60 * 60 * 2;
+        if(usersInTimeout.some(user => user.userID == message.author.id)){//check if the user is in timeout
+            var userInTimeout = usersInTimeout.find(user => user.userID == message.author.id);
+            var remainingTime = millisec(timeoutDelay - (new Date().getTime() - userInTimeout.timeoutStart)).format('hh:mm:ss');
+            return message.reply(`Slow down bud! You can use this command after **${remainingTime}**`);
+        }
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
@@ -150,8 +157,12 @@ client.on("message", async message => {
             for (let i = 0; i < amountOfMessages; i++) {
                 message.channel.send(messageToSend);
             }
+            usersInTimeout.push({userID: message.author.id, timeoutStart: new Date().getTime()});
+            setTimeout(() => {
+                usersInTimeout.splice(usersInTimeout.indexOf(message.author.id), 1);
+            }, timeoutDelay);
         }
-    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
