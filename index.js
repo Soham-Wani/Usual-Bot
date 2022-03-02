@@ -98,7 +98,7 @@ client.on("message", async message => {
 });
 /* General */
 client.on("message", async message => {
-    if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot) {
+    if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
             message.channel.send(`Hello!`)
         } else if (message.content.toLowerCase() == "yo" || message.content.toLowerCase() == "sup") {
@@ -149,10 +149,10 @@ client.on("message", async message => {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
             if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
-            if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-            if (isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-            if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
-            if (!args[2]) return message.channel.send(`Also include what should I spam, type __${prefix}spam__ to know more.`);
+            if (!args[1]) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
+            if (isNaN(args[1])) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
+            if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
+            if (!args[2]) return message.channel.send(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
             const amountOfMessages = args[1];
             let messageToSend = [...args];
             messageToSend.shift();
@@ -169,10 +169,10 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
-            if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-            if (isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
-            if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
-            if (!args[2]) return message.channel.send(`Also include what should I spam, type __${prefix}spam__ to know more.`);
+            if (!args[1]) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
+            if (isNaN(args[1])) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
+            if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
+            if (!args[2]) return message.channel.send(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
             const amountOfMessages = args[1];
             let messageToSend = [...args];
             messageToSend.shift();
@@ -231,7 +231,7 @@ client.on("message", async message => {
     else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
         const Channel = message.channel;
         const args = message.content.split(" ");
-        if (args[1] > 100 || isNaN(args[1])) return message.channel.send(`Please type realistic numbers \(<100\) or a number atleast, type __${prefix}delete__ to know more.`);
+        if (args[1] > 100 || isNaN(args[1])) return message.channel.send(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
         if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
         const Messages = await Channel.messages.fetch({
             limit: args[1]
