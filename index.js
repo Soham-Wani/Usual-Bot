@@ -51,7 +51,7 @@ client.on("message", async message => {
     if (message.content.includes('🖕')) foundInText = true;
     if (message.content.toLowerCase().includes('pass') || message.content.toLowerCase().includes('g and') || message.content.toLowerCase().includes('as s') || message.content.toLowerCase().includes('wassup')) foundInText = false;
     if (foundInText === true && message.channel.type !== 'DM' && !message.channel.nsfw) {
-        message.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+        message.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
         console.log(message.content, message.author);
         if (message.author.id !== client.user.id) {
             message.channel.send(`${user} You can't send that here!`);
@@ -73,8 +73,8 @@ client.on("message", async message => {
     /* No Promotion */
     if (message.content.includes('discord.')) {
         if (!message.member.permissions.has("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM') {
-            message.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
-            message.channel.send(`Nah! You can't promote here!`);
+            message.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
+            message.channel.send(`${message.author} Nah! You can't promote here!`);
         }
     }
     /* Stats */
@@ -88,30 +88,30 @@ client.on("message", async message => {
             dev.send('hello world');
         });
     } else if (message.author.id !== me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
-        message.channel.send('You thought you are a dev? Lol! Only devs can use this command');
+        message.reply('You thought you are a dev? Lol! Only devs can use this command');
     }
     /* General */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
-            message.channel.send(`Hello!`)
+            message.reply(`Hello!`)
         } else if (message.content.toLowerCase() == "yo" || message.content.toLowerCase() == "sup") {
-            message.channel.send(`Sup?`)
+            message.reply(`Sup?`)
         } else if (message.content.toLowerCase().startsWith("ping")) {
-            message.channel.send(`Pong!`)
+            message.reply(`Pong!`)
         } else if (message.content.toLowerCase().startsWith("pong")) {
-            message.channel.send(`Ping!`)
+            message.reply(`Ping!`)
         } else if (message.content.toLowerCase().includes("bruh")) {
-            message.channel.send(`Big Bruh Momento`)
+            message.reply(`Big Bruh Momento`)
         } else if (message.content.toLowerCase().includes("haha") || message.content.toLowerCase().includes("huehue") || message.content.toLowerCase().includes("lol")) {
-            message.channel.send(`Lol!`)
+            message.reply(`Lol!`)
         } else if (message.content.toLowerCase().includes("bye")) {
-            message.channel.send(`Bye!`)
+            message.reply(`Bye!`)
         } else if (message.content.toLowerCase() === `i hate you`) {
-            message.channel.send(`Sorry but I consider my haters, my motivators!`)
+            message.reply(`Sorry but I consider my haters, my motivators!`)
         } else if (message.content.toLowerCase().includes(`are you mad`)) {
-            message.channel.send(`Nah bro! I am not you!`)
+            message.reply(`Nah bro! I am not you!`)
         } else if (message.content.toLowerCase().includes("yee") || message.content.toLowerCase().includes("wee")) {
-            message.channel.send(`stop`)
+            message.reply(`stop`)
         }
     }
     /* Giveaways */
@@ -119,31 +119,31 @@ client.on("message", async message => {
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot || message.content.startsWith(prefix)) {
         //wrong
         if (message.content.startsWith(`${prefix} `)) {
-            message.channel.send(`Please type a valid command!`)
+            message.reply(`Please type a valid command!`)
         }
         //help
         else if (message.content.toLowerCase() === `${prefix}help`) {
             const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}ban\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout`);
-            message.channel.send({
+            message.reply({
                 embeds: [helpEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
         //info
         else if (message.content.toLowerCase() === `${prefix}info`) {
             const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (${prefix}info)`).setDescription(`I am currently a basic Discord bot, but I will soon come up with jokes, facts and much more! Type __${prefix}help__ to get a list of commands. \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Deletes bad or profane words.\n• Never kicks, bans or timeouts members on its own.\nMore exciting features yet to come...\n\n**Credits:**\nDeveloper and owner: Pseudonymous123#5921`);
-            message.channel.send({
+            message.reply({
                 embeds: [infoEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
         //spam
         else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
             const args = message.content.split(" ");
             if (args[0] == `${prefix}spam`) {
                 if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
-                if (!args[1]) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
-                if (isNaN(args[1])) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
-                if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
-                if (!args[2]) return message.channel.send(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
+                if (!args[1]) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
+                if (isNaN(args[1])) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
+                if (args[1] > 20) return message.reply(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
+                if (!args[2]) return message.reply(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
                 const amountOfMessages = args[1];
                 let messageToSend = [...args];
                 messageToSend.shift();
@@ -160,28 +160,28 @@ client.on("message", async message => {
         } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
             const args = message.content.split(" ");
             if (args[0] == `${prefix}spam`) {
-                if (!args[1]) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
-                if (isNaN(args[1])) return message.channel.send(`Please type a number. Type __${prefix}spam__ to know more.`);
-                if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
-                if (!args[2]) return message.channel.send(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
+                if (!args[1]) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
+                if (isNaN(args[1])) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
+                if (args[1] > 20) return message.reply(`Please type realistic numbers (<20). Type __${prefix}spam__ to know more.`);
+                if (!args[2]) return message.reply(`Also include what should I spam. Type __${prefix}spam__ to know more.`);
                 const amountOfMessages = args[1];
                 let messageToSend = [...args];
                 messageToSend.shift();
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 for (let i = 0; i < amountOfMessages; i++) {
-                    message.channel.send(messageToSend);
+                    message.reply(messageToSend);
                 }
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && message.content.includes('@') && message.channel.name.includes("spam")) {
-            message.channel.send('Haha, nice try!')
+            message.reply('Haha, nice try!')
         } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && !message.channel.name.includes("spam")) {
-            message.channel.send(`Nah! You can't spam here!`)
+            message.reply(`Nah! You can't spam here!`)
         } else if (message.channel.name.includes("spam") && message.content == `${prefix}spam`) {
             const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (${prefix}spam)`).setDescription(`Using the ${prefix}spam command correctly will spam any message upto 20 times.\n\nTyping __${prefix}spam 10 hello__ will spam 10 hellos.`);
-            message.channel.send({
+            message.reply({
                 embeds: [spamEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
         //clean
         else if (message.content.toLowerCase() == `${prefix}clean links` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
@@ -192,7 +192,7 @@ client.on("message", async message => {
             Messages.forEach(msg => {
                 if (msg.content.includes('discord.gg') || msg.content.includes('http') || msg.content.includes('discordapp.com/invite/')) {
                     if (!msg.member.permissions.has("ADMINISTRATOR") && !(msg.channel.name.includes("promot") || msg.channel.name.includes("advertise")) && msg.channel.type !== 'DM') {
-                        msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
+                        msg.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
                     }
                 }
             });
@@ -205,114 +205,93 @@ client.on("message", async message => {
             Messages.forEach(msg => {
                 for (var i in blacklisted) {
                     if (msg.content.toLowerCase().replace(/[^a-z]/g, "").includes(blacklisted[i].toLowerCase())) {
-                        msg.delete().catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
+                        msg.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
                     }
                 }
             });
             message.channel.send("Previous 100 messages have been cleaned!");
         } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
             const cleanEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping __${prefix}clean links__ will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping __${prefix}clean words__ will delete all bad words from previous 100 messages.`);
-            message.channel.send({
+            message.reply({
                 embeds: [cleanEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}clean`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You can't do that. You need Administrator permissions!")
+            message.reply("You can't do that. You need Administrator permissions!")
         }
         //delete
         else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && message.content.toLowerCase() !== `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
             const Channel = message.channel;
             const args = message.content.split(" ");
-            if (args[1] > 100 || isNaN(args[1])) return message.channel.send(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
-            if (args[1] == 1) return message.channel.send(`Come on! You really want me to delete a single message?`);
+            if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
+            if (args[1] == 1) return message.reply(`Come on! You really want me to delete a single message?`);
             const Messages = await Channel.messages.fetch({
                 limit: args[1]
             }).then(fetched => {
                 const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned);
                 message.channel.bulkDelete(notPinned, true);
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
             message.channel.send(`Previous ${args[1]} messages have been deleted!`);
         } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
             const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
-            message.channel.send({
+            message.reply({
                 embeds: [deleteEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}delete`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You can't do that. You need Administrator permissions!")
+            message.reply("You can't do that. You need Administrator permissions!")
         }
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
             const args = message.content.split(" ");
             if (args[0] == `${prefix}ban`) {
-                if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
+                if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
                 let messageToSend = [...args];
                 messageToSend.shift();
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
-                member.send(`Watch out! You are about to been banned!`);
                 member.ban().then((member) => {
-                    message.channel.send("Bye Bye! " + member.displayName + " has been successfully banned!").catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(member.displayName + ` has been banned from the server`);
+                    message.reply(`Bye Bye! __${member.displayName}__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been banned from the server by __${message.author.displayName}__ for __${messagetosend}__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send(`Please include a valid user Type __${prefix}ban__ to know more.`)
+            message.reply(`Please include a valid user Type __${prefix}ban__ to know more.`)
         } else if (message.content.toLowerCase() == `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
             const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban (${prefix}ban)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
-            message.channel.send({
+            message.reply({
                 embeds: [banEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+            message.reply("You thought you could do that? You need Administrator permissions lol!")
         } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
-            message.channel.send("I can't betray my master!")
+            message.reply("I can't betray my master!")
         }
-        //unban
-        /*else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
-        const args = message.content.split(" ");
-        if (args[0] == `${prefix}unban`) {
-            var member = message.mentions.members.first();
-            member.ban().then((member) => {
-                message.channel.send(`${member.displayName} has been successfully unbanned!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been banned from the server by __${message.author.displayName}__ for __${messagetosend}__`);
-            });
-        }
-    } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send(`Please include a valid user Type __${prefix}unban__ to know more.`)
-    } else if (message.content.toLowerCase() == `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
-        const unbanEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Unban (${prefix}unban)`).setDescription(`Using the ${prefix}unban command allows people with Administrator permissions to unban members easily.\n\nTyping __${prefix}unban @person__ will unban that person.`);
-        message.channel.send({
-            embeds: [unbanEmbed]
-        }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-    } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.member.permissions.has("ADMINISTRATOR")) {
-        message.channel.send("You thought you could do that? You need Administrator permissions lol!")
-    }*/
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me && message.mentions.members.first().id !== null) {
             const args = message.content.split(" ");
             if (args[0] == `${prefix}kick`) {
-                if (!args[2]) return message.channel.send(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
+                if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
                 let messageToSend = [...args];
                 messageToSend.shift();
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.kick().then((member) => {
-                    message.channel.send(`Bye Bye! __${member.displayName}__ has been successfully kicked!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+                    message.reply(`Bye Bye! __${member}__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been kicked from the server by __${message.author.displayName}__ for __${messagetosend}__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
+            message.reply(`Please include a valid user Type __${prefix}kick__ to know more.`)
         } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
             const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
-            message.channel.send({
+            message.reply({
                 embeds: [kickEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+            message.reply("You thought you could do that? You need Administrator permissions lol!")
         } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
-            message.channel.send("I can't betray my master!")
+            message.reply("I can't betray my master!")
         }
         //timeout
         else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
@@ -328,21 +307,21 @@ client.on("message", async message => {
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.timeout(time, messageToSend).then((member) => {
-                    message.channel.send(`Bye Bye! ${member.displayName} has been successfully timedout!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
+                    message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been timedout from the server by __${message.author.displayName}__ for __${messagetosend}__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
+            message.reply(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
         } else if (message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
             const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will timeout that person for mentioned time (in minutes) for mentioned reason.`);
-            message.channel.send({
+            message.reply({
                 embeds: [timeoutEmbed]
-            }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.member.permissions.has("ADMINISTRATOR")) {
-            message.channel.send("You thought you could do that? You need Administrator permissions lol!")
+            message.reply("You thought you could do that? You need Administrator permissions lol!")
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
-            message.channel.send("I can't betray my master!")
+            message.reply("I can't betray my master!")
         }
     }
 });
