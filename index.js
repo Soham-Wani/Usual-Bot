@@ -1,11 +1,7 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
-//TD1: get logs from https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
-//TD2: guild work for add, subtract
-//TD3: New log system for kick, timeout
-//TD4: change " to ' for vars
 //TD5: suggest, report, bug
 //TD6: impppp Edit error for invalid user in kick and timeout ban unban
-//TD7: Add remove timeout
+//TD7: Add remove timeout and unban
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
