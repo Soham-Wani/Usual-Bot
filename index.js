@@ -15,9 +15,7 @@ const client = new Discord.Client({
 var _0x874b = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x68\x61\x76", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\x70\x65\x64\x6F", "\x67\x61\x79", "\x6C\x65\x73\x62\x69\x61\x6E", "\x6C\x65\x73\x62\x6F", "\x63\x68\x6F\x64", "\x6D\x61\x64\x61\x72"];
 let blacklisted = [_0x874b[0], _0x874b[1], _0x874b[2], _0x874b[3], _0x874b[4], _0x874b[5], _0x874b[6], _0x874b[7], _0x874b[8], _0x874b[9], _0x874b[10], _0x874b[11], _0x874b[12], _0x874b[13], _0x874b[14], _0x874b[15], _0x874b[16], _0x874b[17], _0x874b[18], _0x874b[19], _0x874b[20], _0x874b[21], _0x874b[22], _0x874b[23], _0x874b[24], _0x874b[25], _0x874b[26], _0x874b[27], _0x874b[28], _0x874b[29], _0x874b[30], _0x874b[31], _0x874b[32], _0x874b[33], _0x874b[34], _0x874b[35], _0x874b[36], _0x874b[37], _0x874b[38], _0x874b[39], _0x874b[40], _0x874b[41]]
 const keep_alive = require('./keep_alive.js');
-const {
-    MessageEmbed
-} = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 let prefix = ",";
 let me = '912297357339660309';
 var usersInTimeout = [];
@@ -114,6 +112,7 @@ client.on("message", async message => {
         }
     }
 });
+/* Giveaways */
 /* Commands */
 client.on("message", async message => {
     if (message.author.id == client.user.id || message.channel.type == 'DM' || message.author.bot || !message.content.startsWith(prefix)) return;
@@ -141,7 +140,7 @@ client.on("message", async message => {
         if(usersInTimeout.some(user => user.userID == message.author.id)){//check if the user is in timeout
             var userInTimeout = usersInTimeout.find(user => user.userID == message.author.id);
             var remainingTime = millisec(timeoutDelay - (new Date().getTime() - userInTimeout.timeoutStart)).format('hh:mm:ss');
-            return message.reply(`Slow down bud! You can use this command after **${remainingTime}**`);
+            return message.channel.send(`Slow down bud! You can use this command after **${remainingTime}**`);
         }
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
@@ -216,7 +215,7 @@ client.on("message", async message => {
         });
         message.channel.send("Previous 100 messages have been cleaned!");
     } else if (message.content.toLowerCase() === `${prefix}clean` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
-        const cleanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping __${prefix}clean links__ will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping __${prefix}clean words__ will delete all bad words from previous 100 messages.`);
+        const cleanEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Clean (${prefix}clean)`).setDescription(`Using this command, administrators can easily clean previous messages making them free from bad words or unwanted links sent by members other than the admin. \n\nTyping __${prefix}clean links__ will delete all links from previous 100 messages except for the ones sent by the admin.\nTyping __${prefix}clean words__ will delete all bad words from previous 100 messages.`);
         message.channel.send({
             embeds: [cleanEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -237,7 +236,7 @@ client.on("message", async message => {
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
         message.channel.send(`Previous ${args[1]} messages have been deleted!`);
     } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
-        const deleteEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
         message.channel.send({
             embeds: [deleteEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -264,7 +263,7 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}ban__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
-        const banEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Ban (${prefix}ban)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
+        const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban (${prefix}ban)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
         message.channel.send({
             embeds: [banEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -288,7 +287,7 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && !message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}unban__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
-        const unbanEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Unban (${prefix}unban)`).setDescription(`Using the ${prefix}unban command allows people with Administrator permissions to unban members easily.\n\nTyping __${prefix}unban @person__ will unban that person.`);
+        const unbanEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Unban (${prefix}unban)`).setDescription(`Using the ${prefix}unban command allows people with Administrator permissions to unban members easily.\n\nTyping __${prefix}unban @person__ will unban that person.`);
         message.channel.send({
             embeds: [unbanEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -315,7 +314,7 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include a valid user Type __${prefix}kick__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
-        const kickEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
+        const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
         message.channel.send({
             embeds: [kickEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -347,7 +346,7 @@ client.on("message", async message => {
     } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
         message.channel.send(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
     } else if (message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
-        const timeoutEmbed = new MessageEmbed().setColor('#0c0c66').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will kick that person for mentioned time (in minutes) for mentioned reason.`);
+        const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will kick that person for mentioned time (in minutes) for mentioned reason.`);
         message.channel.send({
             embeds: [timeoutEmbed]
         }).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
