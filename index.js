@@ -31,6 +31,14 @@ client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error('err');
 });
+client.on("guildMemberAdd", async member => {
+    const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('welcome'));
+    if (!channeltosend) return;
+    channeltosend.send(`Hey ${member}! Welcome to ${guild.name}. Hope you enjoy!`);
+    const channeltolog = member.guild.channels.cache.find(channel => channel.name.includes('log'));
+    if (!channeltolog) return;
+    channeltolog.send(`${member.displayName} joined the server`);
+});
 /* Bad words */
 client.on("message", async message => {
     const user = message.author;
