@@ -138,14 +138,9 @@ client.on("message", async message => {
     }
     //spam
     else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
-        var timeoutDelay = 1000 * 60 * 60 * 2;
-        cooldown.add(message.author.id);
-        setTimeout(() => {
-            cooldown.delete(message.author.id);
-        }, 2 * 60 * 1000);
         const args = message.content.split(" ");
-        if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
         if (args[0] == `${prefix}spam`) {
+            if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
             if (isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
             if (args[1] > 20) return message.channel.send(`Please type realistic numbers (<20), type __${prefix}spam__ to know more.`);
