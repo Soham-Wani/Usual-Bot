@@ -15,10 +15,12 @@ const client = new Discord.Client({
 var _0x874b = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x68\x61\x76", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\x70\x65\x64\x6F", "\x67\x61\x79", "\x6C\x65\x73\x62\x69\x61\x6E", "\x6C\x65\x73\x62\x6F", "\x63\x68\x6F\x64", "\x6D\x61\x64\x61\x72"];
 let blacklisted = [_0x874b[0], _0x874b[1], _0x874b[2], _0x874b[3], _0x874b[4], _0x874b[5], _0x874b[6], _0x874b[7], _0x874b[8], _0x874b[9], _0x874b[10], _0x874b[11], _0x874b[12], _0x874b[13], _0x874b[14], _0x874b[15], _0x874b[16], _0x874b[17], _0x874b[18], _0x874b[19], _0x874b[20], _0x874b[21], _0x874b[22], _0x874b[23], _0x874b[24], _0x874b[25], _0x874b[26], _0x874b[27], _0x874b[28], _0x874b[29], _0x874b[30], _0x874b[31], _0x874b[32], _0x874b[33], _0x874b[34], _0x874b[35], _0x874b[36], _0x874b[37], _0x874b[38], _0x874b[39], _0x874b[40], _0x874b[41]]
 const keep_alive = require('./keep_alive.js');
-const { MessageEmbed } = require('discord.js');
+const {
+    MessageEmbed
+} = require('discord.js');
 let prefix = ",";
 let me = '912297357339660309';
-var usersInTimeout = [];
+const cooldown = new Set();
 client.on('ready', () => {
     console.log('Live! Yay!');
     client.user.setActivity("For ,info", {
@@ -137,12 +139,12 @@ client.on("message", async message => {
     //spam
     else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && !message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         var timeoutDelay = 1000 * 60 * 60 * 2;
-        if(usersInTimeout.some(user => user.userID == message.author.id)){//check if the user is in timeout
-            var userInTimeout = usersInTimeout.find(user => user.userID == message.author.id);
-            var remainingTime = millisec(timeoutDelay - (new Date().getTime() - userInTimeout.timeoutStart)).format('hh:mm:ss');
-            return message.channel.send(`Slow down bud! You can use this command after **${remainingTime}**`);
-        }
+        cooldown.add(message.author.id);
+        setTimeout(() => {
+            cooldown.delete(message.author.id);
+        }, 2 * 60 * 1000);
         const args = message.content.split(" ");
+        if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
         if (args[0] == `${prefix}spam`) {
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
             if (isNaN(args[1])) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
@@ -157,7 +159,8 @@ client.on("message", async message => {
                 message.channel.send(messageToSend);
             }
         }
-        usersInTimeout.push({userID: message.author.id, timeoutStart: new Date().getTime()});
+        usersInTimeout.push({
+            userID: message.author.id, timeoutStart: new Date().getTime()});
         setTimeout(() => {
             usersInTimeout.splice(usersInTimeout.indexOf(message.author.id), 1);
         }, timeoutDelay);
@@ -271,13 +274,13 @@ client.on("message", async message => {
         message.channel.send("You thought you could do that? You need Administrator permissions lol!")
     } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
         message.channel.send("I can't betray my master!")
-    } 
+    }
     //unban
     else if (message.content.toLowerCase().startsWith(`${prefix}unban`) && message.content.includes('@') && message.content !== `${prefix}unban` && message.member.permissions.has("ADMINISTRATOR")) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}unban`) {
             var member = message.mentions.members.first();
-            member.ban().then((member) => {
+            member.unban().then((member) => {
                 message.channel.send(member.displayName + " has been successfully unbanned!");
                 member.send(`Watch out! You have been unbanned`);
                 const channeltosend = member.guild.channels.cache.find(channel => channel.name.includes('log'));
