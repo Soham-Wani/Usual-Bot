@@ -159,11 +159,6 @@ client.on("message", async message => {
                 message.channel.send(messageToSend);
             }
         }
-        usersInTimeout.push({
-            userID: message.author.id, timeoutStart: new Date().getTime()});
-        setTimeout(() => {
-            usersInTimeout.splice(usersInTimeout.indexOf(message.author.id), 1);
-        }, timeoutDelay);
     } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
