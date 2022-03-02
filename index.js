@@ -162,7 +162,7 @@ client.on("message", async message => {
                 usersInTimeout.splice(usersInTimeout.indexOf(message.author.id), 1);
             }, timeoutDelay);
         }
-    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.content.includes('@') && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
+    } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id == me && message.channel.name.includes("spam") && message.content !== `${prefix}spam`) {
         const args = message.content.split(" ");
         if (args[0] == `${prefix}spam`) {
             if (!args[1]) return message.channel.send(`Please type a number, type __${prefix}spam__ to know more.`);
