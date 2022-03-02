@@ -32,7 +32,7 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(member.displayName + ` joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.displayName}#${member.discriminator} joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
 /* Bad words */
 client.on("message", async message => {
