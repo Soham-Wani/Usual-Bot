@@ -94,7 +94,7 @@ client.on("message", async message => {
 });
 /* General */
 client.on("message", async message => {
-    if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startWith(`${prefix}`)) {
+    if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
             message.channel.send(`Hello!`)
         } else if (message.content.toLowerCase() == "yo" || message.content.toLowerCase() == "sup") {
