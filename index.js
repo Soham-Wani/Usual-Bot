@@ -29,7 +29,7 @@ client.on('ready', () => {
 });
 client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
-    console.error('err');
+    console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
