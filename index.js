@@ -299,7 +299,7 @@ client.on("message", async message => {
                 var member = message.mentions.members.first();
                 member.kick().then((member) => {
                     message.channel.send(`Bye Bye! __${member.displayName}__ has been successfully kicked!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been kicked from the server by __${message.author.displayName}__ for __${messagetosend}__);
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been kicked from the server by __${message.author.displayName}__ for __${messagetosend}__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
