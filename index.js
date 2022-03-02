@@ -302,7 +302,7 @@ client.on("message", async message => {
             messageToSend = messageToSend.join(" ");
             var member = message.mentions.members.first();
             member.kick().then((member) => {
-                message.channel.send(`Bye Bye! ${message.mentions.members.first().tag} has been successfully kicked!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+                message.channel.send(`Bye Bye! ${member} has been successfully kicked!`).catch(error => message.channel.send("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
                 member.guild.channels.cache.find(channel => channel.name.includes('log')).send(member.username + ` has been kicked from the server by ` + message.author.username);
             });
         }
