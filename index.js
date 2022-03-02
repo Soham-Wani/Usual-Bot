@@ -1,6 +1,7 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD5: suggest, report, bug
 //TD?: Reply pings
+//TDV: SWITCH FOR REPLY AND CHANNEL.SEND
 //TD6: impppp Edit error for invalid user in kick and timeout ban unban
 //TD7: Add remove timeout and unban
 const mySecret = process.env['DISCORD_TOKEN'];
