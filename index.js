@@ -112,7 +112,6 @@ client.on("message", async message => {
             message.reply(`stop`)
         }
     }
-    /* Giveaways */
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot || message.content.startsWith(prefix)) {
         //wrong
