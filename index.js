@@ -168,7 +168,7 @@ client.on("message", async message => {
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 for (let i = 0; i < amountOfMessages; i++) {
-                    message.reply(messageToSend);
+                    message.channel.send(messageToSend);
                 }
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}spam`) && message.author.id !== me && message.content.includes('@') && message.channel.name.includes("spam")) {
