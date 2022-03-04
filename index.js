@@ -16,6 +16,16 @@ const keep_alive = require('./keep_alive.js');
 const {
     MessageEmbed
 } = require('discord.js');
+const { GiveawaysManager } = require('discord-giveaways');
+const manager = new GiveawaysManager(client, {
+    forceUpdateEvery: 5000,
+    default: {
+        botsCanWin: false,
+        embedColor: '#0000ff',
+        reaction: '🎉'
+    }
+});
+client.giveawaysManager = manager;
 let prefix = ",";
 let me = '912297357339660309';
 const cooldown = new Set();
@@ -317,8 +327,31 @@ client.on("message", async message => {
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.member.permissions.has("ADMINISTRATOR")) {
             message.reply("You thought you could do that? You need Administrator permissions lol!")
-        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
+        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.me) {
             message.reply("I can't betray my master!")
         }
+        //gstart
+        /* else if (message.content.toLowerCase().startsWith(`${prefix}gstart`) && message.content.includes('@') && message.content !== `${prefix}gstart` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
+            const args = message.content.split(" ");
+            if (args[0] == `${prefix}gstart`) {
+                if (isNaN(args[2]) || !args[2]) return message.reply(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
+                if (!args[3]) return message.reply(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
+                const ms = require('ms');
+                const duration = interaction.options.getString('duration');
+                const winnerCount = interaction.options.getInteger('winners');
+                const prize = interaction.options.getString('prize');
+            }
+        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+            message.reply(`Please include whom to timeout? Type __${prefix}timeout__ to know more.`)
+        } else if (message.content.toLowerCase() == `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
+            const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will timeout that person for mentioned time (in minutes) for mentioned reason.`);
+            message.reply({
+                embeds: [timeoutEmbed]
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.member.permissions.has("ADMINISTRATOR")) {
+            message.reply("You thought you could do that? You need Administrator permissions lol!")
+        } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
+            message.reply("I can't betray my master!")
+        }*/
     }
 });
