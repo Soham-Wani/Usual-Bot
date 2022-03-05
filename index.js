@@ -340,7 +340,7 @@ client.on("message", async message => {
                 const duration = args[2];
                 const winnerCount = args[3];
                 const prize = args[1];
-                client.giveawaysManager.start(interaction.channel, {
+                client.giveawaysManager.start(message.channel, {
                     duration: ms(duration),
                     winnerCount,
                     prize,
