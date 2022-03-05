@@ -331,15 +331,22 @@ client.on("message", async message => {
             message.reply("I can't betray my master!")
         }
         //gstart
-        /* else if (message.content.toLowerCase().startsWith(`${prefix}gstart`) && message.content !== `${prefix}gstart` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
+        else if (message.content.toLowerCase().startsWith(`${prefix}gstart`) && message.content !== `${prefix}gstart` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id !== me) {
             const args = message.content.split(" ");
             if (args[0] == `${prefix}gstart`) {
                 if (isNaN(args[2]) || !args[2]) return message.reply(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
                 if (!args[3]) return message.reply(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
                 const ms = require('ms');
-                const duration = interaction.options.getString('duration');
-                const winnerCount = interaction.options.getInteger('winners');
-                const prize = interaction.options.getString('prize');
+                const duration = args[2];
+                const winnerCount = args[3];
+                const prize = args[1];
+                const hosted by = ${message.author};
+                client.giveawaysManager.start(interaction.channel, {
+                    duration: ms(duration),
+                    winnerCount,
+                    prize,
+                    hostedBy
+                });
             }
         } else if (message.content.toLowerCase() == `${prefix}gstart` && message.member.permissions.has("ADMINISTRATOR")) {
             const gstartEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Start Giveaway (${prefix}gstart)`).setDescription(`Using the ${prefix}gstart command allows people with Administrator permissions to easily start a giveaway.\n\nTyping __${prefix}gstart prize duration winners__ will start a giveaway for mentioned prize for mentioned duration (in minutes) and for mentioned number of winners.`);
@@ -350,6 +357,6 @@ client.on("message", async message => {
             message.reply("You thought you could do that? You need Administrator permissions lol!")
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR") && message.mentions.members.first().id == me) {
             message.reply("I can't betray my master!")
-        }*/
+        }
     }
 });
