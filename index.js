@@ -31,7 +31,7 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`${member.displayName} joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
 /* Bad words */
 client.on("message", async message => {
@@ -229,7 +229,7 @@ client.on("message", async message => {
                 message.channel.bulkDelete(notPinned, true);
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
             message.channel.send(`Previous ${args[1]} messages have been deleted!`);
-            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __${message.author.displayName}__`);
+            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.displayName + `__`);
         } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
             const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
             message.reply({
@@ -249,8 +249,8 @@ client.on("message", async message => {
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.ban().then((member) => {
-                    message.reply(`Bye Bye! __${member.displayName}__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been banned from the server by __${message.author.displayName}__ for __${messagetosend}__`);
+                    message.reply(`Bye Bye! __` + member.displayName + `__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been banned from the server by __` + message.author.displayName + `__ for __` + messagetosend + `__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}ban`) && !message.content.includes('@') && message.content !== `${prefix}ban` && message.member.permissions.has("ADMINISTRATOR")) {
@@ -276,8 +276,8 @@ client.on("message", async message => {
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.kick().then((member) => {
-                    message.reply(`Bye Bye! __${member}__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been kicked from the server by __${message.author.displayName}__ for __${messagetosend}__`);
+                    message.reply(`Bye Bye! __` + member.displayName + `__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been kicked from the server by __` + message.author.displayName + `__ for __` + messagetosend + `__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}kick`) && !message.content.includes('@') && message.content !== `${prefix}kick` && message.member.permissions.has("ADMINISTRATOR")) {
@@ -307,7 +307,7 @@ client.on("message", async message => {
                 var member = message.mentions.members.first();
                 member.timeout(time, messageToSend).then((member) => {
                     message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${member.displayName}__ has been timedout from the server by __${message.author.displayName}__ for __${messagetosend}__`);
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been timedout from the server by __` + message.author.displayName + `__ for __` + messagetosend + `__`);
                 });
             }
         } else if (message.content.toLowerCase().startsWith(`${prefix}timeout`) && !message.content.includes('@') && message.content !== `${prefix}timeout` && message.member.permissions.has("ADMINISTRATOR")) {
