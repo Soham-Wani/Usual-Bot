@@ -76,19 +76,6 @@ client.on("message", async message => {
             message.channel.send(`${message.author} Nah! You can't promote here!`);
         }
     }
-    /* Stats */
-    else if (message.author.id == me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
-        message.channel.send({
-            embeds: [
-                new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
-            ]
-        });
-        client.users.fetch('912297357339660309', false).then((dev) => {
-            dev.send('hello world');
-        });
-    } else if (message.author.id !== me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
-        message.reply('You thought you are a dev? Lol! Only devs can use this command');
-    }
     /* General */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
@@ -112,9 +99,22 @@ client.on("message", async message => {
         } else if (message.content.toLowerCase().includes("yee") || message.content.toLowerCase().includes("wee")) {
             message.reply(`stop`)
         }
+    } 
+    /* Stats */
+    else if (message.author.id == me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
+        message.channel.send({
+            embeds: [
+                new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
+            ]
+        });
+        client.users.fetch('912297357339660309', false).then((dev) => {
+            dev.send('hello world');
+        });
+    } else if (message.author.id !== me && message.content == `${prefix}stats` && message.channel.type !== 'DM') {
+        message.reply('You thought you are a dev? Lol! Only devs can use this command');
     }
     /* Commands */
-    else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot || message.content.startsWith(prefix)) {
+    else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(prefix)) {
         //wrong
         if (message.content.startsWith(`${prefix} `)) {
             message.reply(`Please type a valid command!`)
