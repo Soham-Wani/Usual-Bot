@@ -4,6 +4,7 @@
 //TDV: SWITCH FOR REPLY AND CHANNEL.SEND
 //TD6: impppp Edit error for invalid user in kick and timeout ban unban
 //TD7: Add remove timeout and unban
+//TD8: MUSIC, GAW
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
@@ -120,7 +121,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase() === `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}ban\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout`);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:\n\nGeneral** \n${prefix}help\n${prefix}info\n${prefix}spam\n\n**For admins:**\n${prefix}ban\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout`);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -228,6 +229,7 @@ client.on("message", async message => {
                 message.channel.bulkDelete(notPinned, true);
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
             message.channel.send(`Previous ${args[1]} messages have been deleted!`);
+            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __${message.author.displayName}__ for __${messagetosend}__`));
         } else if (message.content.toLowerCase() === `${prefix}delete` && !message.author.bot && message.member.permissions.has("ADMINISTRATOR") && message.channel.type !== 'DM') {
             const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
             message.reply({
