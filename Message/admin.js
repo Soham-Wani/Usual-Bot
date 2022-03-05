@@ -1,6 +1,6 @@
 client.on("message", async message => {
     /* Commands */
-    else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot || message.content.startsWith(prefix)) {
+    if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot || message.content.startsWith(prefix)) {
         //wrong
         if (message.content.startsWith(`${prefix} `)) {
             message.reply(`Please type a valid command!`)
