@@ -9,6 +9,7 @@
   "author": "soham-wani",
   "license": "",
   "dependencies": {
-    "discord.js": "latest"
+    "discord.js": "latest",
+    "discord-giveaways": "latest"
   }
 }
