@@ -58,7 +58,7 @@ client.on("message", async message => {
     } else if (foundInText === true && message.channel.type == 'DM') {
         message.channel.send(`You will abuse me personally now?\nಠ﹏ಠ`)
     }
-    /* No DMs */
+    /* No DMs 
     else if (message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && !message.content.startsWith(prefix)) {
         message.channel.send("I can\'t talk to everyone on DMs. Please get on a Discord server to talk to me!")
     } else if (message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && message.content.startsWith(prefix)) {
