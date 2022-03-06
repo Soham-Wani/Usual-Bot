@@ -30,7 +30,7 @@ process.on('unhandledRejection', error => {
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
-/* Bad words */
+/* Bad words 
 client.on("message", async message => {
     const user = message.author;
     let foundInText = false;
@@ -64,7 +64,7 @@ client.on("message", async message => {
     } else if (message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && message.content.startsWith(prefix)) {
         message.channel.send("You can't use commands in DMs. Please get on a Discord server to use commands!")
     }
-});
+});*/
 client.on("message", async message => {
     /* No Promotion */
     if (message.content.includes('discord.')) {
