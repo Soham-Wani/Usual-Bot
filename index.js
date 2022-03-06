@@ -313,12 +313,25 @@ client.on("message", async message => {
         //lock
         else if (message.content.toLowerCase().startsWith(`${prefix}lock`)) {
             if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock`) {
-                message.channel.permissionOverwrites.edit(message.guild.everyone.id, {
-                    SEND_MESSAGES: false
+            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock true`) {
+                const channels = message.guild.channels.cache.filter(ch => ch.type !== 'category');
+                channels.forEach(channel => {
+                    channel.updateOverwrite(message.guild.roles.everyone, {
+                        SEND_MESSAGES: false
+                    });
                 });
-                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__<#${message.channel.id}>__ locked by __` + message.author.tag + `__`);
+                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Server locked by __` + message.author.tag + `__`);
+            }
+            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock false`) {
+                const channels = message.guild.channels.cache.filter(ch => ch.type !== 'category');
+                channels.forEach(channel => {
+                    channel.updateOverwrite(message.guild.roles.everyone, {
+                        SEND_MESSAGES: true
+                    });
+                });
+                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Server unlocked by __` + message.author.tag + `__`);
             }
         }
     }
+}
 });
