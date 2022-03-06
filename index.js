@@ -258,10 +258,10 @@ client.on("message", async message => {
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
-                member.ban().catch(error => message.reply("Heck! I couldn't ban this member because I don't have `Ban Members` permission or the user is a bot or an admin.")).then((member) => {
+                member.ban().then((member) => {
                     message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                });
+                }).catch(error => message.reply("Heck! I couldn't ban this member because I don't have `Ban Members` permission or the user is a bot or an admin."));
             }
         }
         //kick
@@ -285,7 +285,7 @@ client.on("message", async message => {
                 member.kick().then((member) => {
                     message.reply(`Bye Bye! __` + member.tag + `__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been kicked from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                });
+                }).catch(error => message.reply("Heck! I couldn't kick this member because I don't have `Kick Members` permission or the user is a bot or an admin."));
             }
         }
         //timeout
@@ -311,7 +311,7 @@ client.on("message", async message => {
                 member.timeout(time, messageToSend).then((member) => {
                     message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                });
+                }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin."));
             }
         }
     }
