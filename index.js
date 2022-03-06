@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const bot = new Discord.Client({disableMentions: 'everyone'})
 const config = require("./config.json")
+const mySecret = process.env['DISCORD_TOKEN'];
 
 
 bot.on("ready", () => {
@@ -175,5 +176,4 @@ bot.on("message", message => {
     }
 
 });
-
-bot.login(config.token)
+bot.login(process.env.DISCORD_TOKEN);
