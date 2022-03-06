@@ -140,7 +140,7 @@ client.on("message", async message => {
             } else {
                 if (sendcooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
                 client.users.fetch('912297357339660309', false).then((dev) => {
-                    dev.send(message.content + 'by' + message.author);
+                    dev.send(message.content + ' by ' + message.author.tag);
                 });
                 message.reply(`Thank you, your message has been sent!`);
                 sendcooldown.add(message.author.id);
