@@ -32,7 +32,7 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
 /* Bad words */
 client.on("message", async message => {
@@ -138,7 +138,7 @@ client.on("message", async message => {
                     embeds: [sendEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else {
-                if (sendcooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
+                if (sendcooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 24 hours`);
                 client.users.fetch('912297357339660309', false).then((dev) => {
                     dev.send(message.content + ' by ' + message.author.tag);
                 });
@@ -146,7 +146,7 @@ client.on("message", async message => {
                 sendcooldown.add(message.author.id);
                 setTimeout(() => {
                     sendcooldown.delete(message.author.id);
-                }, 2 * 60 * 1000);
+                }, 24 * 60 * 60 * 1000);
             }
         }
         //spam
@@ -234,7 +234,7 @@ client.on("message", async message => {
                     const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned);
                     message.channel.bulkDelete(notPinned, true);
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.displayName + `__`);
+                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.tag + `__`);
             }
         }
         //ban
@@ -256,8 +256,8 @@ client.on("message", async message => {
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.ban().then((member) => {
-                    message.reply(`Bye Bye! __` + member.displayName + `__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been banned from the server by __` + message.author.displayName + `__ for __` + messageToSend + `__`);
+                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                 });
             }
         }
@@ -280,8 +280,8 @@ client.on("message", async message => {
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
                 member.kick().then((member) => {
-                    message.reply(`Bye Bye! __` + member.displayName + `__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been kicked from the server by __` + message.author.displayName + `__ for __` + messageToSend + `__`);
+                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been kicked from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                 });
             }
         }
@@ -307,7 +307,7 @@ client.on("message", async message => {
                 var member = message.mentions.members.first();
                 member.timeout(time, messageToSend).then((member) => {
                     message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.displayName + `__ has been timedout from the server by __` + message.author.displayName + `__ for __` + messageToSend + `__`);
+                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                 });
             }
         }
