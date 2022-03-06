@@ -181,7 +181,7 @@ client.on("message", async message => {
         }
         //clean
         else if (message.content.toLowerCase().startsWith(`${prefix}clean`)) {
-            if (!message.author.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.content.toLowerCase().startsWith(`${prefix}clean l`)) {
                 const Channel = message.channel;
                 const Messages = await Channel.messages.fetch({
@@ -217,7 +217,7 @@ client.on("message", async message => {
         }
         //delete
         else if (message.content.toLowerCase().startsWith(`${prefix}delete`)) {
-            if (!message.author.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
                 const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
                 message.reply({
@@ -239,7 +239,7 @@ client.on("message", async message => {
         }
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`)) {
-            if (!message.author.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
@@ -263,7 +263,7 @@ client.on("message", async message => {
         }
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
-            if (!message.author.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
@@ -287,7 +287,7 @@ client.on("message", async message => {
         }
         //timeout
         else if (message.content.toLowerCase().startsWith(`${prefix}timeout`)) {
-            if (!message.author.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
