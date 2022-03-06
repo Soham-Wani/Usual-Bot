@@ -245,7 +245,7 @@ client.on("message", async message => {
             if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
-                const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.\n\nNote that I cannot ban bots, admins and undefined users.`);
+                const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
                 message.reply({
                     embeds: [banEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -258,8 +258,8 @@ client.on("message", async message => {
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
-                member.ban().then((member) => {
-                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Ban Members `."));
+                member.ban().catch(error => message.reply("Heck! I couldn't ban this member because I don't have `Ban Members` permission or the user is a bot or an admin.")).then((member) => {
+                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                 });
             }
