@@ -19,7 +19,8 @@ const {
 } = require('discord.js');
 let prefix = ",";
 let me = '912297357339660309';
-const cooldown = new Set();
+const spamcooldown = new Set();
+const sendcooldown = new Set();
 client.on('ready', () => {
     console.log('Live! Yay!');
     client.user.setActivity("For ,info", {
@@ -110,9 +111,6 @@ client.on("message", async message => {
                     new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
                 ]
             });
-            client.users.fetch('912297357339660309', false).then((dev) => {
-                dev.send('hello world');
-            });
         }
         //wrong
         else if (message.content.startsWith(`${prefix} `)) {
@@ -132,6 +130,25 @@ client.on("message", async message => {
                 embeds: [infoEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
+        //send
+        else if (message.content.toLowerCase().startsWith(`${prefix}send`)) {
+            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}send`) {
+                const sendEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Send (${prefix}send)`).setDescription(`No one is perfect. Neither am I. Use ${prefix}send command ro report bugs, suggest improvements, send ideas for me to my master.\n\nTyping __${prefix}send message__ will send your message to master and he will revert to you soon!`);
+                message.reply({
+                    embeds: [sendEmbed]
+                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            } else {
+                if (sendcooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
+                client.users.fetch('912297357339660309', false).then((dev) => {
+                    dev.send(message.content + 'by' + message.author);
+                });
+                message.reply(`Thank you, your message has been sent!`);
+                sendcooldown.add(message.author.id);
+                setTimeout(() => {
+                    sendcooldown.delete(message.author.id);
+                }, 2 * 60 * 1000);
+            }
+        }
         //spam
         else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             if (!message.channel.name.includes("spam")) return message.reply(`Nah! You can't spam here! You can only spam in a channel with the name including 'spam'.`);
@@ -142,7 +159,7 @@ client.on("message", async message => {
                     embeds: [spamEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else if (message.content !== `${prefix}spam`) {
-                if (cooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
+                if (spamcooldown.has(message.author.id)) return message.reply(`Slow down bud! You can use this command after 2 minutes!`);
                 if (message.content.includes('@') && message.author.id !== me) return message.reply(`You can\'t spam ping someone!`);
                 if (!args[1]) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
                 if (isNaN(args[1])) return message.reply(`Please type a number. Type __${prefix}spam__ to know more.`);
@@ -156,9 +173,9 @@ client.on("message", async message => {
                 for (let i = 0; i < amountOfMessages; i++) {
                     message.channel.send(messageToSend);
                 }
-                cooldown.add(message.author.id);
+                spamcooldown.add(message.author.id);
                 setTimeout(() => {
-                    cooldown.delete(message.author.id);
+                    spamcooldown.delete(message.author.id);
                 }, 2 * 60 * 1000);
             }
         }
