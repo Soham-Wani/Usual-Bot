@@ -310,27 +310,5 @@ client.on("message", async message => {
                 }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin."));
             }
         }
-        //lock
-        else if (message.content.toLowerCase().startsWith(`${prefix}lock`)) {
-            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock true`) {
-                const channels = message.guild.channels.cache.filter(ch => ch.type !== 'category');
-                channels.forEach(channel => {
-                    channel.updateOverwrite(message.guild.roles.everyone, {
-                        SEND_MESSAGES: false
-                    });
-                });
-                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Server locked by __` + message.author.tag + `__`);
-            }
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock false`) {
-                const channels = message.guild.channels.cache.filter(ch => ch.type !== 'category');
-                channels.forEach(channel => {
-                    channel.updateOverwrite(message.guild.roles.everyone, {
-                        SEND_MESSAGES: true
-                    });
-                });
-                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Server unlocked by __` + message.author.tag + `__`);
-            }
-        }
     }
 });
