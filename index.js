@@ -1,9 +1,5 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
-//TD5: suggest, report, bug
 //TD?: Reply pings
-//TDV: SWITCH FOR REPLY AND CHANNEL.SEND
-//TD6: impppp Edit error for invalid user in kick and timeout ban unban
-//TD7: Add remove timeout and unban
 //TD8: MUSIC, GAW
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
@@ -312,6 +308,16 @@ client.on("message", async message => {
                     message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                 }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin."));
+            }
+        }
+        //lock
+        else if (message.content.toLowerCase().startsWith(`${prefix}lock`)) {
+            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}lock`) {
+                message.channel.permissionOverwrites.edit(message.guild.everyone.id, {
+                    SEND_MESSAGES: false
+                });
+                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__<#${message.channel.id}>__ locked by __` + message.author.tag + `__`);
             }
         }
     }
