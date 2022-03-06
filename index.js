@@ -240,7 +240,6 @@ client.on("message", async message => {
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`)) {
             if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
                 const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.\n\nNote that I cannot ban bots, admins and undefined users.`);
@@ -248,6 +247,7 @@ client.on("message", async message => {
                     embeds: [banEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else {
+                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                 if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
                 if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
                 let messageToSend = [...args];
@@ -264,7 +264,6 @@ client.on("message", async message => {
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
             if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
                 const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
@@ -272,6 +271,7 @@ client.on("message", async message => {
                     embeds: [kickEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else {
+                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                 if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}kick__ to know more.`);
                 if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
                 let messageToSend = [...args];
@@ -288,7 +288,6 @@ client.on("message", async message => {
         //timeout
         else if (message.content.toLowerCase().startsWith(`${prefix}timeout`)) {
             if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
                 const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will timeout that person for mentioned time (in minutes) for mentioned reason.`);
@@ -296,6 +295,7 @@ client.on("message", async message => {
                     embeds: [timeoutEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else {
+                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                 if (isNaN(args[2]) || !args[2]) return message.reply(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
                 if (!args[3]) return message.reply(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
                 let time = args[2] * 60 * 1000;
