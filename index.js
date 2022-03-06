@@ -108,7 +108,7 @@ client.on("message", async message => {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command');
             message.channel.send({
                 embeds: [
-                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}`).join('\n\n'))
+                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.members.cache.size}\nGuild ID: ${g.id}\n${g.url}`).join('\n\n'))
                 ]
             });
         }
