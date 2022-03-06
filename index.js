@@ -237,7 +237,7 @@ client.on("message", async message => {
                     const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned);
                     message.channel.bulkDelete(notPinned, true);
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.tag + `__`);
+                message.author.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.tag + `__`);
             }
         }
         //ban
