@@ -3,7 +3,6 @@ const bot = new Discord.Client({
     intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"],
     partials: ['CHANNEL']
 });
-const bot = new Discord.Client({disableMentions: 'everyone'});
 const config = require("./config.json");
 const mySecret = process.env['DISCORD_TOKEN'];
 
