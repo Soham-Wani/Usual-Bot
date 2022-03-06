@@ -307,7 +307,7 @@ client.on("message", async message => {
                 member.timeout(time, messageToSend).then((member) => {
                     message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin."));
+                }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin. `${error}`"));
             }
         }
     }
