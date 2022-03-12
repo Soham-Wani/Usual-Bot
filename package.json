@@ -1,6 +1,6 @@
 {
   "name": "Usual-Bot",
-  "version": "3.1.1",
+  "version": "1.0.0",
   "description": "A cool multipurpose discord bot that you will love!",
   "main": "shard.js",
   "scripts": {
