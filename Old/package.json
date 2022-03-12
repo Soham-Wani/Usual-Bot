@@ -1,0 +1,15 @@
+{
+  "name": "usual-bot",
+  "version": "0.0.1",
+  "description": "My basic Discord bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "soham-wani",
+  "license": "",
+  "dependencies": {
+    "discord.js": "latest",
+    "discord-giveaways": "latest"
+  }
+}
