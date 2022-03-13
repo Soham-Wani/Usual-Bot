@@ -3,7 +3,6 @@ const log = require('../Utils/channels.json');
 const moment = require('moment');
 const config = require('../config.json');
 module.exports =  async (client, guild) => {
-    client.user.setActivity(`${config.Prefix}help | ${client.guilds.cache.size} Servers`, {type: "WATCHING"}, {status: "online"})
     const channel = client.channels.cache.get(log.ServerLogs);
     const embed = new Discord.MessageEmbed()
     .setColor('#00ff00')
