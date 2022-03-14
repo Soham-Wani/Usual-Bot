@@ -238,16 +238,19 @@ client.on("message", async message => {
         }
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`)) {
-            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!client.user.permissions.has(`ADMINISTRATOR`) || !client.user.permissions.has(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`) || !message.member.permissions.has(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
-                const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping __${prefix}ban @person reason__ will ban that person for mentioned reason.`);
+                const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
                 message.reply({
                     embeds: [banEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else {
                 if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                 if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
+                if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
+                if (message.mentions.members.first().id == ) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
                 if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
                 let messageToSend = [...args];
                 messageToSend.shift();
