@@ -75,7 +75,7 @@ client.on("message", async message => {
         }
     }
     /* Replies */
-    else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
+    else if (message.author.id !== client.user.id && message.channel.type == 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
             message.reply(`Hello!`)
         } else if (message.content.toLowerCase() == "yo" || message.content.toLowerCase() == "sup") {
@@ -102,10 +102,11 @@ client.on("message", async message => {
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
         //stats
         if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
-            if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command');
+            if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
+            message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
             message.channel.send({
                 embeds: [
-                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.memberCount}\nGuild ID: ${g.id}`).join('\n\n'))
+                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.memberCount}\nGuild Owner: ${g.owner.user.tag}\nRegion: ${g.region}\nGuild ID: ${g.id}`).join('\n\n'))
                 ]
             });
             client.guilds.cache.forEach(guild => {
@@ -118,7 +119,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (${prefix}help)`).setDescription(`**Current list of commands:\n\nGeneral (Everyone)** \n${prefix}help\n${prefix}info\n${prefix}send\n${prefix}spam\n\n**Moderation (Admins)**\n${prefix}ban\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout`);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**Current list of commands:\n\nGeneral (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\n${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}ban\n${prefix}clean\n${prefix}delete\n${prefix}kick\n${prefix}timeout\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
