@@ -21,13 +21,13 @@ client.on('ready', () => {
         type: "WATCHING"
     });
     client.guilds.cache.forEach(async guild => {
-        let invites = await guild.fetchInvites();
+        let invites = await guild.invites.fetch();
         if (guild.vanityURLCode) invites.set(guild.vanityURLCode, await guild.fetchVanityData());
         client.guildInvites.set(guild.id, invites);
     });
 });
 client.on('inviteCreate', (invite) => {
-    let invites = await invite.guild.fetchInvites();
+    let invites = await invite.guild.invites.fetch();
     if (invite.guild.vanityURLCode) invites.set(invite.guild.vanityURLCode, await invite.guild.fetchVanityData());
     client.guildInvites.set(invite.guild.id, invites);
 });
@@ -39,7 +39,7 @@ client.on("guildMemberAdd", async member => {
     if (member.partial) member = await member.fetch();
     let guildData = await client.data.getGuildDB(member.guild.id);
     const cachedInvites = client.guildInvites.get(member.guild.id);
-    const newInvites = await member.guild.fetchInvites();
+    const newInvites = await member.guild.invites.fetch();
     const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code).uses < inv.uses);
     if (usedInvite.inviter.id == member.id) return;
     if ((guildData.join.enabled === true) && !(guildData.join.channel === null)) {
