@@ -155,6 +155,7 @@ client.on("message", async message => {
         }
         //delete
         else if (message.content.toLowerCase().startsWith(`${prefix}delete`)) {
+            if (!message.channel.name.includes("log")) return message.reply(`I create history, I don't support in deleting history  I cannot delete logs!`);
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_MESSAGES`)) {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_MESSAGES`)) {
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
