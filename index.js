@@ -26,8 +26,8 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server`);
-    member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server`).catch(error => console.error('nologerr'));
+    let welcomechannel = member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
 });
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
