@@ -20,30 +20,45 @@ client.on('ready', () => {
     client.user.setActivity("For ,info", {
         type: "WATCHING"
     });
-    client.guilds.cache.each(guild => {
-        guild.invites.fetch().then(guildInvites => {
-            guildInvites.each(guildInvite => {
-                client.invites[guildInvite.code] = guildInvite.uses
-            });
+    client.guilds.cache.forEach(guild => {
+        guild.invites.fetch()
+            .then(invites => {
+                console.log("INVITES CACHED");
+                const codeUses = new Map();
+                invites.each(inv => codeUses.set(inv.code, inv.uses));
+                guildInvites.set(guild.id, codeUses);
+        })
+        .catch(err => {
+            console.log("OnReady Error:", err)
         });
     });
 });
 client.on('inviteCreate', (invite) => {
-    client.invites[invite.code] = invite.uses;
+    const invites = await invite.guild.invites.fetch();
+    const codeUses = new Map();
+    invites.each(inv => codeUses.set(inv.code, inv.uses));
+    guildInvites.set(invite.guild.id, codeUses);
 });
 client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.invites.fetch().then(guildInvites => {
-        guildInvites.each(invite => {
-            if (invite.uses != client.invites[invite.code]) {
-                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + invite.code + `__ from __` + invite.inviter.tag + `__ which has __` + invite.uses `__ uses.`);
-                client.invites[invite.code] = invite.uses;
-            }
-        });
-    });
+    const cachedInvites = guildInvites.get(member.guild.id)
+    const newInvites = await member.guild.invites.fetch();
+    try {
+        const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code) < inv.uses);
+        console.log("Cached", [...cachedInvites.keys()]);
+        console.log("New", [...newInvites.values()].map(inv => inv.code));
+        console.log("Used", usedInvite);
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + usedInvite.code + `__ from __` + invite.inviter.tag + `__ which has __` + inv.uses `__ uses.`);
+        console.log(`The code ${usedInvite.code} was just used by ${member.user.username}.`)
+    } catch (err) {
+        console.log("OnGuildMemberAdd Error:", err)
+    }
+    newInvites.each(inv => cachedInvites.set(inv.code, inv.uses));
+    guildInvites.set(member.guild.id, cachedInvites);
+});
 });
 client.on("guildMemberAdd", async member => {
     if(member.user.bot) return;
