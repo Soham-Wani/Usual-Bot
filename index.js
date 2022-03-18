@@ -7,6 +7,7 @@ const client = new Discord.Client({
     intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"],
     partials: ['CHANNEL']
 });
+const bot = message.guild.members.cache.get(client.user.id);
 var _0x874b = ["\x66\x75\x63\x6B", "\x64\x69\x63\x6B", "\x61\x73\x73", "\x62\x69\x74\x63\x68", "\x77\x61\x6E\x6B", "\x70\x75\x73\x73\x79", "\x63\x75\x6E\x74", "\x6E\x69\x67\x67\x65\x72", "\x6E\x69\x67\x67\x61", "\x74\x69\x74\x74\x69\x65\x73", "\x74\x69\x64\x64\x69\x65\x73", "\x63\x6F\x63\x6B", "\x62\x6F\x6E\x65\x72", "\x63\x75\x6D", "\x62\x75\x6D", "\x73\x65\x78", "\x7A\x68\x61\x74\x75", "\x7A\x68\x61\x76", "\x6C\x61\x75\x64\x79\x61", "\x6C\x61\x76\x64\x79\x61", "\x62\x6F\x6F\x62", "\x70\x65\x6E\x69\x73", "\x76\x61\x67\x69\x6E\x61", "\x67\x61\x6E\x64", "\x63\x68\x6F\x74", "\x63\x68\x75\x74", "\x62\x68\x6F\x73\x61\x64", "\x70\x6F\x72\x6E", "\x63\x69\x62\x61\x69", "\x73\x74\x66\x75", "\x77\x74\x66", "\x77\x68\x6F\x72\x65", "\x76\x69\x72\x67\x69\x6E", "\x62\x75\x74\x74", "\x73\x75\x63\x6B\x65\x72", "\x61\x6E\x61\x6C", "\x70\x65\x64\x6F", "\x67\x61\x79", "\x6C\x65\x73\x62\x69\x61\x6E", "\x6C\x65\x73\x62\x6F", "\x63\x68\x6F\x64", "\x6D\x61\x64\x61\x72"];
 let blacklisted = [_0x874b[0], _0x874b[1], _0x874b[2], _0x874b[3], _0x874b[4], _0x874b[5], _0x874b[6], _0x874b[7], _0x874b[8], _0x874b[9], _0x874b[10], _0x874b[11], _0x874b[12], _0x874b[13], _0x874b[14], _0x874b[15], _0x874b[16], _0x874b[17], _0x874b[18], _0x874b[19], _0x874b[20], _0x874b[21], _0x874b[22], _0x874b[23], _0x874b[24], _0x874b[25], _0x874b[26], _0x874b[27], _0x874b[28], _0x874b[29], _0x874b[30], _0x874b[31], _0x874b[32], _0x874b[33], _0x874b[34], _0x874b[35], _0x874b[36], _0x874b[37], _0x874b[38], _0x874b[39], _0x874b[40], _0x874b[41]]
 const keep_alive = require('./keep_alive.js');
@@ -30,7 +31,7 @@ process.on('unhandledRejection', error => {
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ joined the server`).then(member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`));
 });
-/* Bad words 
+/* Bad words
 client.on("message", async message => {
     const user = message.author;
     let foundInText = false;
@@ -58,7 +59,7 @@ client.on("message", async message => {
     } else if (foundInText === true && message.channel.type == 'DM') {
         message.channel.send(`You will abuse me personally now?\nಠ﹏ಠ`)
     }
-    /* No DMs 
+    /* No DMs
     else if (message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && !message.content.startsWith(prefix)) {
         message.channel.send("I can\'t talk to everyone on DMs. Please get on a Discord server to talk to me!")
     } else if (message.channel.type == 'DM' && message.author.id !== client.user.id && foundInText == false && message.content.startsWith(prefix)) {
@@ -238,30 +239,38 @@ client.on("message", async message => {
         }
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`)) {
-            if (!client.user.permissions.has(`ADMINISTRATOR`) || !client.user.permissions.has(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
-            if (!message.member.permissions.has(`ADMINISTRATOR`) || !message.member.permissions.has(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
-            const args = message.content.split(" ");
-            if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
-                const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
-                message.reply({
-                    embeds: [banEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`BAN_MEMBERS`)) {
+                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`BAN_MEMBERS`)) {
+                    const args = message.content.split(" ");
+                    if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
+                        const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
+                        message.reply({
+                            embeds: [banEmbed]
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+                    } else {
+                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
+                        if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
+                        if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
+                        if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`yiu cannot ban someone with a role higher than or equal to you.`);
+                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban this person.`);
+                        if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
+                        let messageToSend = [...args];
+                        messageToSend.shift();
+                        messageToSend.shift();
+                        messageToSend = messageToSend.join(" ");
+                        var member = message.mentions.members.first();
+                        member.ban({
+                            reason: messageToSend
+                        }).then((member) => {
+                            message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
+                        });
+                    }
+                } else {
+                    message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
+                }
             } else {
-                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
-                if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
-                if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
-                if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`yiu cannot ban someone with a role higher than or equal to you.`);
-                if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban this person.`);
-                if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                var member = message.mentions.members.first();
-                member.ban({reason: messageToSend}).then((member) => {
-                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                });
+                message.reply(`I am missing the or \`Ban Members\` permissions.`);
             }
         }
         //kick
