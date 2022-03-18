@@ -20,31 +20,30 @@ client.on('ready', () => {
     client.user.setActivity("For ,info", {
         type: "WATCHING"
     });
-    const { 
-        Collection 
-    } = require("discord.js");
-    const guildInvites = new Collection();
-    client.invites = guildInvites;
-    for(const guild of client.guilds.cache.values()) {
-        guild.fetchInvites()
-        .then(invite => client.invites.set(guild.id, invite))
-        .catch(error => console.log(error));
+    client.guilds.cache.each(guild => {
+        guild.fetchInvites().then(guildInvites => {
+            guildInvites.each(guildInvite => {
+                client.invites[guildInvite.code] = guildInvite.uses
+            });
+        });
     });
 });
-client.on('inviteCreate', () => {
-    client.invites.set(invite.guild.id, await invite.guild.fetchInvites());
+client.on('inviteCreate', (invite) => {
+    client.invites[invite.code] = invite.uses;
 });
 client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    const cachedInvites = client.invites.get(member.guild.id)
-    const newInvites = await member.guild.fetchInvites();
-    client.invites.set(member.guild.id, newInvites);
-    const usedInvite = newInvites.find(invite => cachedInvites.get(invite.code).uses < invite.uses);
-    const { code, uses, inviter, channel } = usedInvites;
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + code + `__ from __` + inviter.tag + `__ which has __` + uses `__ uses.`);
+    member.guild.fetchInvites().then(guildInvites => {
+        guildInvites.each(invite => {
+            if(invite.uses != client.invites[invite.code] {
+                member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + invite.code + `__ from __` + invite.inviter.tag + `__ which has __` + invite.uses `__ uses.`);
+                client.invites[invite.code] = invite.uses;
+            }
+        });
+    });
 });
 client.on("guildMemberAdd", async member => {
     if(member.user.bot) return;
