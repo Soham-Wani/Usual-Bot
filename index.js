@@ -250,17 +250,18 @@ client.on("message", async message => {
                 if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                 if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
                 if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
-                if (message.mentions.members.first().id == ) return message.reply(`Please enter a valid user to ban! Type __${prefix}ban__ to know more.`);
+                if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`yiu cannot ban someone with a role higher than or equal to you.`);
+                if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban this person.`);
                 if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}ban__ to know more.`);
                 let messageToSend = [...args];
                 messageToSend.shift();
                 messageToSend.shift();
                 messageToSend = messageToSend.join(" ");
                 var member = message.mentions.members.first();
-                member.ban().then((member) => {
+                member.ban({reason: messageToSend}).then((member) => {
                     message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
                     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                }).catch(error => message.reply("Heck! I couldn't ban this member because I don't have `Ban Members` permission or the user is a bot or an admin."));
+                });
             }
         }
         //kick
@@ -314,4 +315,4 @@ client.on("message", async message => {
             }
         }
     }
-});
+});roles.highest.position
