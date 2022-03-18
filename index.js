@@ -315,4 +315,4 @@ client.on("message", async message => {
             }
         }
     }
-});roles.highest.position
+});
