@@ -2,6 +2,7 @@
 //TD?: Reply pings
 //TD8: MUSIC, GAW
 //TDN: Cannot ,delete in logs
+//TDI: Aliases
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const client = new Discord.Client({
