@@ -65,7 +65,7 @@ client.on("message", async message => {
         message.channel.send("You can't use commands in DMs. Please get on a Discord server to use commands!")
     }
 });*/
-client.on("message", async (client, message) => {
+client.on("message", async (client, message, args) => {
     /* No Promotion */
     if (message.content.includes('discord.')) {
         if (!message.member.hasPermission("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
@@ -241,7 +241,7 @@ client.on("message", async (client, message) => {
             if (!client.user.hasPermission(`ADMINISTRATOR`) || !client.user.hasPermission(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
             if (!message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
             const args = message.content.split(" ");
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
+            if (args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
                 const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
                 message.reply({
                     embeds: [banEmbed]
