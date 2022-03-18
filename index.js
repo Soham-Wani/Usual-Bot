@@ -38,7 +38,7 @@ process.on('unhandledRejection', error => {
 client.on("guildMemberAdd", async member => {
     member.guild.fetchInvites().then(guildInvites => {
         guildInvites.each(invite => {
-            if(invite.uses != client.invites[invite.code] {
+            if (invite.uses != client.invites[invite.code]) {
                 member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + invite.code + `__ from __` + invite.inviter.tag + `__ which has __` + invite.uses `__ uses.`);
                 client.invites[invite.code] = invite.uses;
             }
