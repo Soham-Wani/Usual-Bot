@@ -106,7 +106,7 @@ client.on("message", async message => {
             message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
             message.channel.send({
                 embeds: [
-                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.memberCount}\nRegion: ${g.region}\nGuild ID: ${g.id}`).join('\n\n'))
+                    new MessageEmbed().setColor('#0000ff').setDescription(client.guilds.cache.map(g => `Guild Name: ${g.name}\nTotal Members: ${g.memberCount}\nGuild ID: ${g.id}`).join('\n\n'))
                 ]
             });
             client.guilds.cache.forEach(guild => {
