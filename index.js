@@ -68,7 +68,7 @@ client.on("message", async message => {
 client.on("message", async message => {
     /* No Promotion */
     if (message.content.includes('discord.')) {
-        if (!message.member.hasPermission("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
+        if (!message.member.permissions.has("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
             message.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
             message.channel.send(`${message.author} Nah! No links!`);
         }
@@ -180,7 +180,7 @@ client.on("message", async message => {
         }
         //clean
         else if (message.content.toLowerCase().startsWith(`${prefix}clean`)) {
-            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.content.toLowerCase().startsWith(`${prefix}clean l`)) {
                 const Channel = message.channel;
                 const Messages = await Channel.messages.fetch({
@@ -188,7 +188,7 @@ client.on("message", async message => {
                 });
                 Messages.forEach(msg => {
                     if (msg.content.toLowerCase().includes('discord.')) {
-                        if (!msg.member.hasPermission("ADMINISTRATOR") && !(msg.channel.name.includes("promot") || msg.channel.name.includes("advertise"))) {
+                        if (!msg.member.permissions.has("ADMINISTRATOR") && !(msg.channel.name.includes("promot") || msg.channel.name.includes("advertise"))) {
                             msg.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
                         }
                     }
@@ -216,7 +216,7 @@ client.on("message", async message => {
         }
         //delete
         else if (message.content.toLowerCase().startsWith(`${prefix}delete`)) {
-            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
                 const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
                 message.reply({
@@ -238,8 +238,8 @@ client.on("message", async message => {
         }
         //ban
         else if (message.content.toLowerCase().startsWith(`${prefix}ban`)) {
-            if (!client.user.hasPermission(`ADMINISTRATOR`) || !client.user.hasPermission(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
-            if (!message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
+            if (!client.user.permissions.has(`ADMINISTRATOR`) || !client.user.permissions.has(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`) || !message.member.permissions.has(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
             const args = message.content.split(" ");
             if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
                 const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
@@ -266,7 +266,7 @@ client.on("message", async message => {
         }
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
-            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
                 const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
@@ -290,7 +290,7 @@ client.on("message", async message => {
         }
         //timeout
         else if (message.content.toLowerCase().startsWith(`${prefix}timeout`)) {
-            if (!message.member.hasPermission(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
+            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
             const args = message.content.split(" ");
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
                 const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will timeout that person for mentioned time (in minutes) for mentioned reason.`);
