@@ -241,7 +241,7 @@ client.on("message", async (client, message, args) => {
             if (!client.user.hasPermission(`ADMINISTRATOR`) || !client.user.hasPermission(`BAN_MEMBERS`)) return message.reply(`I am missing the \`Administrator\` or \`Ban Members\` permissions.`);
             if (!message.member.hasPermission(`ADMINISTRATOR`) || !message.member.hasPermission(`BAN_MEMBERS`)) return message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
             const args = message.content.split(" ");
-            if (args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
+            if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
                 const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(${prefix}ban\)`).setDescription(`Using the ${prefix}ban command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
                 message.reply({
                     embeds: [banEmbed]
