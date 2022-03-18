@@ -20,109 +20,13 @@ client.on('ready', () => {
     client.user.setActivity("For ,info", {
         type: "WATCHING"
     });
-    client.guilds.cache.forEach(async guild => {
-        let invites = await guild.invites.fetch();
-        if (guild.vanityURLCode) invites.set(guild.vanityURLCode, await guild.fetchVanityData());
-        client.guildInvites.set(guild.id, invites);
-    });
-});
-client.on('inviteCreate', (invite) => {
-    let invites = await invite.guild.invites.fetch();
-    if (invite.guild.vanityURLCode) invites.set(invite.guild.vanityURLCode, await invite.guild.fetchVanityData());
-    client.guildInvites.set(invite.guild.id, invites);
 });
 client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    if (member.partial) member = await member.fetch();
-    let guildData = await client.data.getGuildDB(member.guild.id);
-    const cachedInvites = client.guildInvites.get(member.guild.id);
-    const newInvites = await member.guild.invites.fetch();
-    const usedInvite = newInvites.find(inv => cachedInvites.get(inv.code).uses < inv.uses);
-    if (usedInvite.inviter.id == member.id) return;
-    if ((guildData.join.enabled === true) && !(guildData.join.channel === null)) {
-        let joinChannel = await member.guild.channels.cache.find(channel => channel.name.includes('log'))
-        if (member.user.bot) {
-            let toSend = await guildData.join.messageBot
-                .replace(/\{member:username\}/g, member.user.username)
-                .replace(/\{member:mention\}/g, member.toString())
-                .replace(/\{member:tag\}/g, member.user.tag)
-            return joinChannel.send(toSend).catch(err => console.log(err))
-        }
-        if (!usedInvite) {
-            let toSend = await guildData.join.messageUnknown
-                .replace(/\{member:username\}/g, member.user.username)
-                .replace(/\{member:mention\}/g, member.toString())
-                .replace(/\{member:tag\}/g, member.user.tag)
-            return joinChannel.send(toSend).catch(err => console.log(err))
-        }
-        if (usedInvite.code === member.guild.vanityURLCode) {
-            let userData = await client.data.getUserDB("VANITY", member.guild.id, member.id)
-            let toSend = await guildData.join.messageFake
-                .replace(/\{member:username\}/g, member.user.username)
-                .replace(/\{member:mention\}/g, member.toString())
-                .replace(/\{member:tag\}/g, member.user.tag)
-                .replace(/\{code\}/g, usedInvite.code)
-                .replace(/\{invites\}/g, userData.invites + 1)
-            joinChannel.send(toSend).catch(err => console.log(err))
-        } else {
-            let userData = await client.data.getUserDB(usedInvite.inviter.id, member.guild.id, member.id)
-            if ((Date.now() - member.user.createdTimestamp) < guildData.fake * 24 * 60 * 60 * 1000) {
-                let toSend = await guildData.join.messageFake
-                    .replace(/\{member:username\}/g, member.user.username)
-                    .replace(/\{member:mention\}/g, member.toString())
-                    .replace(/\{member:tag\}/g, member.user.tag)
-                    .replace(/\{inviter:username\}/g, usedInvite.inviter.username)
-                    .replace(/\{inviter:mention\}/g, usedInvite.inviter.toString())
-                    .replace(/\{inviter:tag\}/g, usedInvite.inviter.tag)
-                    .replace(/\{code\}/g, usedInvite.code)
-                joinChannel.send(toSend).catch(err => console.log(err))
-            } else {
-                let toSend = await guildData.join.messageCorrect
-                    .replace(/\{member:username\}/g, member.user.username)
-                    .replace(/\{member:mention\}/g, member.toString())
-                    .replace(/\{member:tag\}/g, member.user.tag)
-                    .replace(/\{inviter:username\}/g, usedInvite.inviter.username)
-                    .replace(/\{inviter:mention\}/g, usedInvite.inviter.toString())
-                    .replace(/\{inviter:tag\}/g, usedInvite.inviter.tag)
-                    .replace(/\{code\}/g, usedInvite.code)
-                    .replace(/\{invites\}/g, userData.invites + 1)
-                joinChannel.send(toSend).catch(err => console.log(err))
-            }
-        }
-    }
-    if (member.user.bot) return
-    if (!usedInvite) return
-    if (usedInvite.code === member.guild.vanityURLCode) {
-        let userData = await client.data.getUserDB("VANITY", member.guild.id, member.id)
-        userData.invites++
-        userData.invites_join++
-        return userData.save()
-    }
-    let userData = await client.data.getUserDB(usedInvite.inviter.id, member.guild.id, member.id)
-    if ((Date.now() - member.user.createdTimestamp) < guildData.fake * 24 * 60 * 60 * 1000) {
-        userData.invites_fake++
-        return userData.save()
-    }
-    userData.invites++
-    userData.invites_join++
-    userData.save()
-    if (guildData.ranks) {
-        for (const [nbInv, roleID] of Object.entries(guildData.ranks)) {
-            if (userData.invites >= nbInv) {
-                let inviterMember = member.guild.member(usedInvite.inviter.id)
-                if (!inviterMember) return;
-                if (!inviterMember.roles.cache.find(r => r.id === roleID)) {
-                    inviterMember.roles.add(member.guild.roles.cache.find(r => r.id === roleID))
-                }
-            }
-            
-        }
-    }
-    return 
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + usedInvite.code + `__ from __` + invite.inviter.tag + `__ which has __` + inv.uses `__ uses.`);
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
 });
 client.on("guildMemberAdd", async member => {
     if(member.user.bot) return;
