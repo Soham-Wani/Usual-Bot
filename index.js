@@ -248,8 +248,8 @@ client.on("message", async message => {
                             embeds: [banEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
                     } else {
-                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                         if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type \`${prefix}ban\` to know more.`);
+                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                         if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
                         if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`You cannot ban someone with a role higher than or equal to you.`);
                         if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban this person.`);
