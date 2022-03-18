@@ -29,7 +29,7 @@ client.on('ready', () => {
         guild.fetchInvites()
         .then(invite => client.invites.set(guild.id, invite))
         .catch(error => console.log(error));
-    };
+    });
 });
 client.on('inviteCreate', () => {
     client.invites.set(invite.guild.id, await invite.guild.fetchInvites());
