@@ -46,7 +46,7 @@ client.on("message", async message => {
         }
     }
     /* Replies */
-    else if (message.author.id !== client.user.id && message.channel.type == 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
+    else if (message.channel.name.toLowerCase().includes("usual") && message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
             message.reply(`Hello!`)
         } else if (message.content.toLowerCase() == "yo" || message.content.toLowerCase() == "sup") {
@@ -153,24 +153,31 @@ client.on("message", async message => {
         }
         //delete
         else if (message.content.toLowerCase().startsWith(`${prefix}delete`)) {
-            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
-                const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!)\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
-                message.reply({
-                    embeds: [deleteEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_MESSAGES`)) {
+                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_MESSAGES`)) {
+                    if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
+                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+                        message.reply({
+                            embeds: [deleteEmbed]
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+                    } else {
+                        const Channel = message.channel;
+                        const args = message.content.split(" ");
+                        if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
+                        if (args[1] == 1) return message.reply(`Come on! You really want me to delete a single message?`);
+                        const Messages = await Channel.messages.fetch({
+                            limit: args[1]
+                        }).then(fetched => {
+                            const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned);
+                            message.channel.bulkDelete(notPinned, true);
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
+                        message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.tag + `__`);
+                    }
+                } else {
+                    message.reply(`You need \`Administrator\` or \`Manage Messages\` permissions to use this command.`);
+                }
             } else {
-                const Channel = message.channel;
-                const args = message.content.split(" ");
-                if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
-                if (args[1] == 1) return message.reply(`Come on! You really want me to delete a single message?`);
-                const Messages = await Channel.messages.fetch({
-                    limit: args[1]
-                }).then(fetched => {
-                    const notPinned = fetched.filter(fetchedMsg => !fetchedMsg.pinned);
-                    message.channel.bulkDelete(notPinned, true);
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages / Read Message History `."));
-                message.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__${args[1]}__ messages deleted from __<#${message.channel.id}>__ by __` + message.author.tag + `__`);
+                message.reply(`I am missing the or \`Manage Messages\` permissions.`);
             }
         }
         //ban
@@ -188,7 +195,7 @@ client.on("message", async message => {
                         if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
                         if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot ban yourself idiot!`);
                         if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`You cannot ban someone with a role higher than or equal to you.`);
-                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban this person.`);
+                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot ban a person with a role higher than or equal to me.`);
                         if (!args[2]) return message.reply(`Please include a valid reason. Type \`${prefix}ban\` to know more.`);
                         let messageToSend = [...args];
                         messageToSend.shift();
@@ -206,57 +213,80 @@ client.on("message", async message => {
                     message.reply(`You need \`Administrator\` or \`Ban Members\` permissions to use this command.`);
                 }
             } else {
-                message.reply(`I am missing the or \`Ban Members\` permissions.`);
+                message.reply(`I am missing the \`Ban Members\` permission.`);
             }
         }
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
-            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            const args = message.content.split(" ");
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
-                const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (${prefix}kick)`).setDescription(`Using the ${prefix}kick command allows people with Administrator permissions to kick members easily.\n\nTyping __${prefix}kick @person reason__ will kick that person for mentioned reason.`);
-                message.reply({
-                    embeds: [kickEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`KICK_MEMBERS`)) {
+                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`KICK_MEMBERS`)) {
+                    const args = message.content.split(" ");
+                    if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
+                        const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (\`${prefix}kick\`)`).setDescription(`Using the \`${prefix}kick\` command allows people with Administrator permissions to kick members easily.\n\nTyping \`${prefix}kick @person reason\` will kick that person for mentioned reason.`);
+                        message.reply({
+                            embeds: [kickEmbed]
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+                    } else {
+                        if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first() || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to kick! Type \`${prefix}kick\` to know more.`);
+                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
+                        if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot kick yourself idiot!`);
+                        if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`You cannot kick someone with a role higher than or equal to you.`);
+                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot kick a person with a role higher than or equal to me.`);
+                        if (!args[2]) return message.reply(`Please include a valid reason. Type \`${prefix}kick\` to know more.`);
+                        let messageToSend = [...args];
+                        messageToSend.shift();
+                        messageToSend.shift();
+                        messageToSend = messageToSend.join(" ");
+                        var member = message.mentions.members.first();
+                        member.kick({
+                            reason: messageToSend
+                        }).then((member) => {
+                            message.reply(`Bye Bye! __` + member.user.tag + `__ has been successfully kicked!`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ has been kicked from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
+                        });
+                    }
+                } else {
+                    message.reply(`You need \`Administrator\` or \`Kick Members\` permissions to use this command.`);
+                }
             } else {
-                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
-                if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first()) return message.reply(`Please enter a valid user to ban! Type __${prefix}kick__ to know more.`);
-                if (!args[2]) return message.reply(`Please include a valid reason. Type __${prefix}kick__ to know more.`);
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                var member = message.mentions.members.first();
-                member.kick().then((member) => {
-                    message.reply(`Bye Bye! __` + member.tag + `__ has been successfully kicked!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Kick Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been kicked from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                }).catch(error => message.reply("Heck! I couldn't kick this member because I don't have `Kick Members` permission or the user is a bot or an admin."));
+                message.reply(`I am missing the \`Kick Members\` permission.`);
             }
         }
         //timeout
         else if (message.content.toLowerCase().startsWith(`${prefix}timeout`)) {
-            if (!message.member.permissions.has(`ADMINISTRATOR`)) return message.reply(`You need Administrator permissions to use this command.`);
-            const args = message.content.split(" ");
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
-                const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (${prefix}timeout)`).setDescription(`Using the ${prefix}timeout command allows people with Administrator permissions to timeout members easily.\n\nTyping __${prefix}timeout @person time reason__ will timeout that person for mentioned time (in minutes) for mentioned reason.`);
-                message.reply({
-                    embeds: [timeoutEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`TIMEOUT_MEMBERS`)) {
+                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`TIMEOUT_MEMBERS`)) {
+                    const args = message.content.split(" ");
+                    if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
+                        const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (\`${prefix}timeout\`)`).setDescription(`Using the \`${prefix}timeout\` command allows people with Administrator permissions to timeout members easily.\n\nTyping \`${prefix}timeout @person time reason\` will timeout that person for mentioned time (in minutes) for mentioned reason.`);
+                        message.reply({
+                            embeds: [timeoutEmbed]
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+                    } else {
+                        if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first() || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to timeouy! Type \`${prefix}timeout\` to know more.`);
+                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
+                        if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot timeout yourself idiot!`);
+                        if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`You cannot timeout someone with a role higher than or equal to you.`);
+                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot timeout a person with a role higher than or equal to me.`);
+                        if (isNaN(args[2]) || !args[2]) return message.reply(`Please include a valid time period. Type \`${prefix}timeout\` to know more.`);
+                        if (!args[3]) return message.reply(`Please include a valid reason. Type \`${prefix}timeout\` to know more.`);
+                        let time = args[2] * 60 * 1000;
+                        let messageToSend = [...args];
+                        messageToSend.shift();
+                        messageToSend.shift();
+                        messageToSend.shift();
+                        messageToSend = messageToSend.join(" ");
+                        var member = message.mentions.members.first();
+                        member.timeout(time, messageToSend).then((member) => {
+                            message.reply(`Bye Bye! __${member}__ has been successfully timedout!`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
+                        });
+                    }
+                } else {
+                    message.reply(`You need \`Administrator\` or \`Timeout Members\` permissions to use this command.`);
+                }
             } else {
-                if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
-                if (isNaN(args[2]) || !args[2]) return message.reply(`Please include a valid time period. Type __${prefix}timeout__ to know more.`);
-                if (!args[3]) return message.reply(`Please include a valid reason. Type __${prefix}timeout__ to know more.`);
-                let time = args[2] * 60 * 1000;
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                var member = message.mentions.members.first();
-                member.timeout(time, messageToSend).then((member) => {
-                    message.reply(`Bye Bye! __${member}__ has been successfully timedout!`).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Timeout Members `."));
-                    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ has been timedout from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                }).catch(error => message.reply("Heck! I couldn't timeout this member because I don't have `Timeout Members` permission or the user is a bot or an admin."));
+                message.reply(`I am missing the \`Timeout Members\` permission.`);
             }
         }
     }
