@@ -31,7 +31,7 @@ client.on("guildMemberAdd", async member => {
     invites[member.guild.id] = guildInvites;
     const invite = guildInvites.find(i => ei.get(i.code).uses < i.uses);
     const inviter = client.users.get(invite.inviter.id);
-    channel.send(`${member.user.tag} joined using invite code - ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
+    /*channel.send(`${member.user.tag} joined using invite code - ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);*/
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + invite.code + `__ from __` + inviter.tag + `__ which has __` + invite.uses `__ uses.`);
 });
 client.on("guildMemberAdd", async member => {
