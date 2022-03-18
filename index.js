@@ -26,10 +26,14 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
+    if (!member.user.bot) {
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
+    } else {
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ was added to the server.`);
+    }
 });
 client.on("guildMemberAdd", async member => {
-    if(member.user.bot) return;
+    if (member.user.bot) return;
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
 });
 client.on("message", async message => {
