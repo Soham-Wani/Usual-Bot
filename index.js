@@ -20,22 +20,34 @@ client.on('ready', () => {
     client.user.setActivity("For ,info", {
         type: "WATCHING"
     });
+    const { 
+        Collection 
+    } = require("discord.js");
+    const guildInvites = new Collection();
+    client.invites = guildInvites;
+    for(const guild of client.guilds.cache.values()) {
+        guild.fetchInvites()
+        .then(invite => client.invites.set(guild.id, invite)
+        .catch(error => console.log(error));
+    };
+});
+client.on('inviteCreate', () => {
+    client.invites.set(invite.guild.id, await invite.guild.fetchInvites());
 });
 client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildMemberAdd", async member => {
-    member.guild.invites.fetch().then(guildInvites => {
-        const ei = invites[member.guild.id];
-        invites[member.guild.id] = guildInvites;
-        const invite = guildInvites.find(i => !ei.get(i.code) || ei.get(i.code).uses < i.uses);
-        const inviter = client.users.get(invite.inviter.id);
-        channel.send(`${member.user.tag} joined using invite code - ${invite.code} from ${inviter.tag}. Invite was used ${invite.uses} times since its creation.`);
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + invite.code + `__ from __` + inviter.tag + `__ which has __` + invite.uses `__ uses.`);
-    });
+    const cachedInvites = client.invites.get(member.guild.id)
+    const newInvites = await member.guild.fetchInvites();
+    client.invites.set(member.guild.id, newInvites);
+    const usedInvite = newInvites.find(invite => cachedInvites.get(invite.code).uses < invite.uses);
+    const { code, uses, inviter, channel } = usedInvites;
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server using the invite code __` + code + `__ from __` + inviter.tag + `__ which has __` + uses `__ uses.`);
 });
 client.on("guildMemberAdd", async member => {
+    if(member.user.bot) return;
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
 });
 client.on("message", async message => {
