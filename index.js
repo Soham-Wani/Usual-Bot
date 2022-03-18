@@ -27,7 +27,7 @@ client.on('ready', () => {
     client.invites = guildInvites;
     for(const guild of client.guilds.cache.values()) {
         guild.fetchInvites()
-        .then(invite => client.invites.set(guild.id, invite)
+        .then(invite => client.invites.set(guild.id, invite))
         .catch(error => console.log(error));
     };
 });
