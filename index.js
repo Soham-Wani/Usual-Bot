@@ -65,7 +65,7 @@ client.on("message", async message => {
         message.channel.send("You can't use commands in DMs. Please get on a Discord server to use commands!")
     }
 });*/
-client.on("message", async message => {
+client.on("message", async (client, message) => {
     /* No Promotion */
     if (message.content.includes('discord.')) {
         if (!message.member.hasPermission("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
