@@ -190,8 +190,8 @@ client.on("message", async message => {
                         member.ban({
                             reason: messageToSend
                         }).then((member) => {
-                            message.reply(`Bye Bye! __` + member.tag + `__ has been successfully banned!`);
-                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
+                            message.reply(`Bye Bye! __` + member.user.tag + `__ has been successfully banned!`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ has been banned from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
                         });
                     }
                 } else {
