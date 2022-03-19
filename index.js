@@ -86,6 +86,11 @@ client.on("message", async message => {
                 guild.channels.cache.filter(x => x.type != "category").random().createInvite().then(inv => console.log(`${guild.name} \(${inv.url}\)`));
             });
         }
+        //shutdown
+        if (message.content.toLowerCase().startsWith(`${prefix}shutdown`)) {
+            if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
+            message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
+        }
         //wrong
         else if (message.content.startsWith(`${prefix} `)) {
             message.reply(`Please type a valid command!`)
