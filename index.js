@@ -28,7 +28,7 @@ process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
 client.on("guildCreate", guild => {
-    const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Thank you for adding me to ${guild.name}!`).setDescription(`My prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them here!\n\nAlso, you can join the official Discord server for support or just for fun!\n(https://discord.gg/ADm2u27TFs)`);
+    const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Thank you for adding me to ${guild.name}!`).setDescription(`My prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them here!\n\nAlso, you can join the official \[Discord server\]\(https://discord.gg/ADm2u27TFs\) for support or just for fun!`);
     guild.fetchAuditLogs({type: "BOT_ADD", limit: 1}).then(log => {
         log.entries.first().executor.send({
             embeds: [welcomeEmbed]
