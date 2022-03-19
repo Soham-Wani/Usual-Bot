@@ -33,10 +33,10 @@ client.on("guildCreate", guild => {
     });
 });
 client.on("guildMemberAdd", async member => {
-    if (!member.user.bot) {
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
-    } else {
+    if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ was added to the server.`);
+    } else {
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
     }
 });
 client.on("guildMemberAdd", async member => {
