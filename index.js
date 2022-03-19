@@ -261,20 +261,12 @@ client.on("message", async message => {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_CHANNELS`)) {
                     const args = message.content.split(" ");
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}slowmode`) {
-                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows people with Administrator permissions to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 2 seconds.`);
+                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows people with Administrator permissions to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 2 seconds.`);
                         message.reply({
-                            embeds: [kickEmbed]
+                            embeds: [slowmodeEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
                     } else {
-                        if (message.mentions.members.first().id == `undefined` || !message.mentions.members.first() || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to kick! Type \`${prefix}kick\` to know more.`);
-                        if (message.mentions.members.first().id == me) return message.reply("I can't betray my master!");
-                        if (message.mentions.members.first().id == message.author.id) return message.reply(`You cannot kick yourself idiot!`);
-                        if (message.mentions.members.first().roles.highest.position > message.member.roles.highest.position) return message.reply(`You cannot kick someone with a role higher than or equal to you.`);
-                        if (!message.mentions.members.first().bannable) return message.reply(`Sorry! I cannot kick a person with a role higher than or equal to me.`);
-                        if (!args[2]) return message.reply(`Please include a valid reason. Type \`${prefix}kick\` to know more.`);
-                        let messageToSend = [...args];
-                        messageToSend.shift();
-                        messageToSend.shift();
+                        if (!args[1]) return message.reply(`Please include a valid time in seconds to . Type \`${prefix}kick\` to know more.`);
                         messageToSend = messageToSend.join(" ");
                         var member = message.mentions.members.first();
                         member.kick({
