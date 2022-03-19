@@ -102,7 +102,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}ban\n${prefix}delete\n${prefix}kick\n${prefix}slowmode\n${prefix}timeout\``);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -161,6 +161,32 @@ client.on("message", async message => {
                 setTimeout(() => {
                     spamcooldown.delete(message.author.id);
                 }, 2 * 60 * 1000);
+            }
+        }
+        //slowmode
+        else if (message.content.toLowerCase().startsWith(`${prefix}slowmode`)) {
+            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_CHANNELS`)) {
+                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_CHANNELS`)) {
+                    const args = message.content.split(" ");
+                    if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}slowmode`) {
+                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 5 seconds. It can be set to a maximum of 21600 seconds`);
+                        message.reply({
+                            embeds: [slowmodeEmbed]
+                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+                    } else {
+                        if (!args[1] || isNaN(args[1]) || parseInt(args[1]) < 0) return message.reply(`Please include a valid time in seconds. Type \`${prefix}slowmode\` to know more.`);
+                        var duration = args[1];
+                        var member = message.author;
+                        message.channel.setRateLimitPerUser(duration).then((member) => {
+                            message.reply(`Slowmode of the channel successfully set to \`${duration}\` seconds.`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Slowmode of channel  __<#${message.channel.id}>__ set to __${duration}__ seconds by __` + message.author.tag +`__`);
+                        });
+                    }
+                } else {
+                    message.reply(`You need \`Administrator\` or \`Manage Channels\` permissions to use this command.`);
+                }
+            } else {
+                message.reply(`I am missing the \`Manage Channels\` permission.`);
             }
         }
         //delete
@@ -263,32 +289,6 @@ client.on("message", async message => {
                 }
             } else {
                 message.reply(`I am missing the \`Kick Members\` permission.`);
-            }
-        }
-        //slowmode
-        else if (message.content.toLowerCase().startsWith(`${prefix}slowmode`)) {
-            if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_CHANNELS`)) {
-                if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_CHANNELS`)) {
-                    const args = message.content.split(" ");
-                    if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}slowmode`) {
-                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 5 seconds. It can be set to a maximum of 21600 seconds`);
-                        message.reply({
-                            embeds: [slowmodeEmbed]
-                        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-                    } else {
-                        if (!args[1] || isNaN(args[1]) || parseInt(args[1]) < 0) return message.reply(`Please include a valid time in seconds. Type \`${prefix}slowmode\` to know more.`);
-                        var duration = args[1];
-                        var member = message.author;
-                        message.channel.setRateLimitPerUser(duration).then((member) => {
-                            message.reply(`Slowmode of the channel successfully set to \`${duration}\` seconds.`);
-                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Slowmode of channel  __<#${message.channel.id}>__ set to __${duration}__ seconds by __` + message.author.tag +`__`);
-                        });
-                    }
-                } else {
-                    message.reply(`You need \`Administrator\` or \`Manage Channels\` permissions to use this command.`);
-                }
-            } else {
-                message.reply(`I am missing the \`Manage Channels\` permission.`);
             }
         }
         //timeout
