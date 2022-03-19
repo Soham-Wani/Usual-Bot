@@ -159,7 +159,7 @@ client.on("message", async message => {
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_MESSAGES`)) {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_MESSAGES`)) {
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
-                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, administrators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, moderators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
                         message.reply({
                             embeds: [deleteEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -189,7 +189,7 @@ client.on("message", async message => {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`BAN_MEMBERS`)) {
                     const args = message.content.split(" ");
                     if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}ban`) {
-                        const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(\`${prefix}ban\`\)`).setDescription(`Using the \`${prefix}ban\` command allows people with Administrator permissions to ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
+                        const banEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Ban \(\`${prefix}ban\`\)`).setDescription(`Using the \`${prefix}ban\` command you can ban members easily.\n\nTyping \`${prefix}ban @person reason\` will ban that person for mentioned reason.`);
                         message.reply({
                             embeds: [banEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -225,7 +225,7 @@ client.on("message", async message => {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`KICK_MEMBERS`)) {
                     const args = message.content.split(" ");
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}kick`) {
-                        const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (\`${prefix}kick\`)`).setDescription(`Using the \`${prefix}kick\` command allows people with Administrator permissions to kick members easily.\n\nTyping \`${prefix}kick @person reason\` will kick that person for mentioned reason.`);
+                        const kickEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Kick (\`${prefix}kick\`)`).setDescription(`Using the \`${prefix}kick\` command you can kick members easily.\n\nTyping \`${prefix}kick @person reason\` will kick that person for mentioned reason.`);
                         message.reply({
                             embeds: [kickEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -261,20 +261,16 @@ client.on("message", async message => {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_CHANNELS`)) {
                     const args = message.content.split(" ");
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}slowmode`) {
-                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows people with Administrator permissions to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 2 seconds.`);
+                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 5 seconds. It can be set to a maximum of 21600 seconds`);
                         message.reply({
                             embeds: [slowmodeEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
                     } else {
-                        if (!args[1]) return message.reply(`Please include a valid time in seconds to . Type \`${prefix}kick\` to know more.`);
-                        messageToSend = messageToSend.join(" ");
-                        var member = message.mentions.members.first();
-                        member.kick({
-                            reason: messageToSend
-                        }).then((member) => {
-                            message.reply(`Bye Bye! __` + member.user.tag + `__ has been successfully kicked!`);
-                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ has been kicked from the server by __` + message.author.tag + `__ for __` + messageToSend + `__`);
-                        });
+                        if (!args[1] || isNaN(args[1]) || parseInt(args[1]) < 0) return message.reply(`Please include a valid time in seconds. Type \`${prefix}slowmode\` to know more.`);
+                        var duration = args[1]
+                        message.channel.setRateLimitPerUser(duration);
+                        message.reply(`Slowmode of the channel successfully set to \`${duration}\` seconds.`);
+                        message.author.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Slowmode of channel  __<#${message.channel.id}>__ set to __${duration}__ seconds by __` + message.author.tag +`__`);
                     }
                 } else {
                     message.reply(`You need \`Administrator\` or \`Manage Channels\` permissions to use this command.`);
@@ -289,7 +285,7 @@ client.on("message", async message => {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`TIMEOUT_MEMBERS`)) {
                     const args = message.content.split(" ");
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}timeout`) {
-                        const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (\`${prefix}timeout\`)`).setDescription(`Using the \`${prefix}timeout\` command allows people with Administrator permissions to timeout members easily.\n\nTyping \`${prefix}timeout @person time reason\` will timeout that person for mentioned time (in minutes) for mentioned reason.`);
+                        const timeoutEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Timeout (\`${prefix}timeout\`)`).setDescription(`Using the \`${prefix}timeout\` command allows you to timeout members easily.\n\nTyping \`${prefix}timeout @person time reason\` will timeout that person for mentioned time (in minutes) for mentioned reason.`);
                         message.reply({
                             embeds: [timeoutEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
