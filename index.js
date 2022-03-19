@@ -269,9 +269,10 @@ client.on("message", async message => {
                         if (!args[1] || isNaN(args[1]) || parseInt(args[1]) < 0) return message.reply(`Please include a valid time in seconds. Type \`${prefix}slowmode\` to know more.`);
                         var duration = args[1];
                         var member = message.author;
-                        message.channel.setRateLimitPerUser(duration);
-                        message.reply(`Slowmode of the channel successfully set to \`${duration}\` seconds.`);
-                        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Slowmode of channel  __<#${message.channel.id}>__ set to __${duration}__ seconds by __` + message.author.tag +`__`);
+                        message.channel.setRateLimitPerUser(duration).then((member) => {
+                            message.reply(`Slowmode of the channel successfully set to \`${duration}\` seconds.`);
+                            member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`Slowmode of channel  __<#${message.channel.id}>__ set to __${duration}__ seconds by __` + message.author.tag +`__`);
+                        });
                     }
                 } else {
                     message.reply(`You need \`Administrator\` or \`Manage Channels\` permissions to use this command.`);
