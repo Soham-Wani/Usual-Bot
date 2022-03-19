@@ -89,7 +89,8 @@ client.on("message", async message => {
         //shutdown
         if (message.content.toLowerCase().startsWith(`${prefix}shutdown`)) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
-            message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
+            message.channel.send(`Usual Bot, signing off...`)
+            process.exit();
         }
         //wrong
         else if (message.content.startsWith(`${prefix} `)) {
