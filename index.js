@@ -1,7 +1,7 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD?: Reply pings
 //TD8: MUSIC, GAW
-//TDN: Cannot ,delete in logs
+//TDN: slowmode, etc.
 //TDI: Aliases
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
