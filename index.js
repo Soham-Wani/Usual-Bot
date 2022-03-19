@@ -29,7 +29,7 @@ process.on('unhandledRejection', error => {
 });
 client.on("guildCreate", guild => {
     guild.fetchAuditLogs({type: "BOT_ADD", limit: 1}).then(log => {
-        log.entries.first().executor.send(`Thank you for adding me to ${guild.name}! Type \`${prefix}info\` to know more about the bot. Also commands don't work in DMs, so don't try them here! Also, you can join the official Discord server for support or just for fun! (https://discord.gg/ADm2u27TFs)`);
+        log.entries.first().executor.send(`Thank you for adding me to ${guild.name}!\n\nMy prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them here!\n\nAlso, you can join the official Discord server for support or just for fun! (https://discord.gg/ADm2u27TFs)`);
     });
 });
 client.on("guildMemberAdd", async member => {
