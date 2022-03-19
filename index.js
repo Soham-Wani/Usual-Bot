@@ -27,6 +27,11 @@ client.login(process.env.DISCORD_TOKEN);
 process.on('unhandledRejection', error => {
     console.error(`${error}`);
 });
+client.on("guildCreate", guild => {
+    guild.fetchAuditLogs({type: "BOT_ADD", limit: 1}).then(log => {
+        log.entries.first().executor.send(`Thank you for adding me to ${guild.name}!`);
+    });
+});
 client.on("guildMemberAdd", async member => {
     if (!member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
