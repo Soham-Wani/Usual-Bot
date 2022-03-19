@@ -1,7 +1,10 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD?: Reply pings
 //TD8: MUSIC, GAW
-//TDN: slowmode, etc.
+//TDT: Reaction roles
+//TDD: selling buying dank
+//TDD: ,setup
+//TDN: lock unlock, addrole removerole etc.
 //TDI: Aliases
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
@@ -109,7 +112,7 @@ client.on("message", async message => {
         }
         //info
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}info`) {
-            const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (\`${prefix}info\`)`).setDescription(`I am currently a basic Discord moderation bot, but I will soon come up with jokes, facts and much more! Type \`${prefix}help\` to get a list of commands. \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Never kicks, bans or timeouts members on its own.\n• Responsive support.\nMore exciting features yet to come...\n\n**Credits:**\nDeveloper and owner: Pseudonymous123#5921`);
+            const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (\`${prefix}info\`)`).setDescription(`I am currently a basic Discord moderation bot, but I will soon come up with jokes, facts and much more! Type \`${prefix}help\` to get a list of commandTo get started with moderation, type \`${prefix}setup\`. \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Never kicks, bans or timeouts members on its own.\n• Responsive support.\nMore exciting features yet to come...\n\n**Credits:**\nDeveloper and owner: Pseudonymous123#5921`);
             message.reply({
                 embeds: [infoEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -162,6 +165,13 @@ client.on("message", async message => {
                     spamcooldown.delete(message.author.id);
                 }, 2 * 60 * 1000);
             }
+        }
+        //setup
+        else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}setup`) {
+            const setupEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Setup (\`${prefix}setup\`)`).setDescription(`Being optional, by doing the following steps, you can get most out of Usual Bot:\n• `);
+            message.reply({
+                embeds: [setupEmbed]
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
         //slowmode
         else if (message.content.toLowerCase().startsWith(`${prefix}slowmode`)) {
