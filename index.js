@@ -1,5 +1,6 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD?: Reply pings
+//TDD: sticky messages
 //TD8: MUSIC, GAW
 //TDT: Reaction roles
 //TDD: selling buying dank
@@ -48,6 +49,13 @@ client.on("guildMemberAdd", async member => {
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) return;
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
+});
+client.on("guildMemberRemove", async member => {
+    member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ left the server.`);
+});
+client.on("guildMemberRemove", async member => {
+    if (member.user.bot) return;
+    member.guild.channels.cache.find(channel => channel.name.includes('bye')).send(`Bye bye __` + member.user.tag + `__! __` + member.user.tag + `__ thinks they're better than us!`);
 });
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
