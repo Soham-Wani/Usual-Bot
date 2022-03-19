@@ -121,7 +121,7 @@ client.on("message", async message => {
         //send
         else if (message.content.toLowerCase().startsWith(`${prefix}send`)) {
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}send`) {
-                const sendEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Send (\`${prefix}send\`)`).setDescription(`No one is perfect. Neither am I. Use \`${prefix}send\` command ro report bugs, suggest improvements, send ideas for me to my master.\n\nTyping \`${prefix}send message\` will send your message to my master and he will revert to you soon!`);
+                const sendEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Send (\`${prefix}send\`)`).setDescription(`No one is perfect. Neither am I. Use \`${prefix}send\` command ro report bugs, suggest improvements, send ideas for me to my master. Don't send anything except suggestions, reports and bugs. Misusing this command can get you a ban from the bot\n\nTyping \`${prefix}send message\` will send your message to my master and he will revert to you soon!`);
                 message.reply({
                     embeds: [sendEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
