@@ -100,13 +100,9 @@ client.on("message", async message => {
             message.channel.send(`Usual Bot, signing off...`)
             process.exit();
         }
-        //wrong
-        else if (message.content.startsWith(`${prefix} `)) {
-            message.reply(`Please type a valid command!`)
-        }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**Current list of commands:\n\nGeneral (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\n${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}ban\n${prefix}delete\n${prefix}kick\n${prefix}slowmode\n${prefix}timeout\``);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**Current list of commands:\n\nGeneral (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}ban\n${prefix}delete\n${prefix}kick\n${prefix}slowmode\n${prefix}timeout\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -121,7 +117,7 @@ client.on("message", async message => {
         //send
         else if (message.content.toLowerCase().startsWith(`${prefix}send`)) {
             if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}send`) {
-                const sendEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Send (\`${prefix}send\`)`).setDescription(`No one is perfect. Neither am I. Use \`${prefix}send\` command ro report bugs, suggest improvements, send ideas for me to my master. Don't send anything except suggestions, reports and bugs. Misusing this command can get you a ban from the bot\n\nTyping \`${prefix}send message\` will send your message to my master and he will revert to you soon!`);
+                const sendEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Send (\`${prefix}send\`)`).setDescription(`No one is perfect. Neither am I. Use \`${prefix}send\` command ro report bugs, suggest improvements, send ideas for me to my master. Don't send anything except suggestions, reports and bugs. Misusing this command can get you a ban from the bot.\n\nTyping \`${prefix}send message\` will send your message to my master and he will revert to you soon!`);
                 message.reply({
                     embeds: [sendEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
