@@ -38,17 +38,6 @@ client.on("guildCreate", guild => {
             embeds: [welcomeEmbed]
         });
     });
-    let defaultChannel = "";
-    guild.channels.cache.forEach((channel) => {
-        if(channel.type == "text" && defaultChannel == "") {
-            if(channel.permissionsFor(guild.me).has("SEND_MESSAGES")) {
-                defaultChannel = channel;
-            }
-        }
-    });
-    defaultChannel.send({
-        embeds: [welcomeEmbed]
-    });
 });
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
