@@ -220,7 +220,7 @@ client.on("message", async message => {
                     } else {
                         const Channel = message.channel;
                         const args = message.content.split(" ");
-                        if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type \`${prefix}delete\` to know more.`);
+                        if (args[1] > 100 || isNaN(args[1]) || args[1] == 0) return message.reply(`Please type realistic numbers \(<100 and not 0\) or a number atleast. Type \`${prefix}delete\` to know more.`);
                         if (args[1] == 1) return message.reply(`Come on! You really want me to delete a single message?`);
                         const Messages = await Channel.messages.fetch({
                             limit: args[1]
@@ -350,8 +350,7 @@ client.on("message", async message => {
     /* Dank Memer */
     else if (message.channel.name.includes("buying")) {
         if (message.content.toLowerCase().replace(/ /g, "").includes(`selling`) || message.content.toLowerCase().replace(/ /g, "").includes(`buyingcash`)) {
-            message.delete();
-            message.channel.send(`${user} Selling ads don't belong here!`);
+            message.delete().then((msg) => msg.channel.send(`${user} Selling ads don't belong here!`);
         }
     } else if (message.channel.name.includes("selling")) {
         if (message.content.toLowerCase().replace(/ /g, "").includes(`buying`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingcash`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingmycash`)) {
