@@ -113,7 +113,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}spam\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout\``);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}spam \(deprecating due to abuse\)\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -145,7 +145,7 @@ client.on("message", async message => {
             }
         }
         //spam
-        else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
+        /* else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             if (!message.channel.name.includes("spam")) return message.reply(`Nah! You can't spam here! You can only spam in a channel with the name including the word 'spam'.`);
             const args = message.content.split(" ");
             if (message.content == `${prefix}spam`) {
@@ -173,7 +173,7 @@ client.on("message", async message => {
                     spamcooldown.delete(message.author.id);
                 }, 2 * 60 * 1000);
             }
-        }
+        } */
         //setup
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}setup`) {
             const setupEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Setup (\`${prefix}setup\`)`).setDescription(`Being optional, by doing the following steps, you can get most out of Usual Bot:\n\n• Having a channel with the word 'welcome' in its name will allow the bot to automatically post welcome messages in that channel.\n\n• Similarly, having a channel with the word 'bye' in its name will allow the bot to automatically post leaving messages in that channel.\n\n• You can have welcome and leaving messages in one channel only if the channel name has both the words 'welcome' and 'bye'.\n\n• Having a channel with the word 'log' in its name will allow the bot to automatically maintain a log of events happening on the server.\n\n• To make the bot interactive with members, you can make a channel with the word 'usual' in it. The bot can mildly interact with members like replying to the word 'Hi' with 'Hello!' and so on!\n\n• Use the commands from \`${prefix}help\` and you are good to go! You can contact developers for any help by using \`${prefix}send\` command.`);
