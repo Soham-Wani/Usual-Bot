@@ -10,6 +10,6 @@
   "license": "",
   "dependencies": {
     "discord.js": "latest",
-    "discord-giveaways": "latest"
+    "axios": "^0.18.1"
   }
 }
