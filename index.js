@@ -120,7 +120,7 @@ client.on("message", async message => {
         }
         //info
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}info`) {
-            const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (\`${prefix}info\`)`).setDescription(`I am currently a basic Discord moderation bot, but I will soon come up with jokes, facts, music and much more! Type \`${prefix}help\` to get a list of commandTo get started with moderation, type \`${prefix}setup\`. \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Never kicks, bans or timeouts members on its own.\n• Responsive support.\nMore exciting features yet to come...\n\n**Credits:**\nDeveloper and owner: Pseudonymous123#5921`);
+            const infoEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Info (\`${prefix}info\`)`).setDescription(`I am currently a basic Discord moderation bot, but I will soon come up with jokes, facts, music and much more! Type \`${prefix}help\` to get a list of commands. To get started with moderation, type \`${prefix}setup\`. \n\n**Features:**\n• Easy to understand.\n• Wide variety of innovative commands.\n• Hassle free moderation.\n• Never kicks, bans or timeouts members on its own.\n• Responsive support.\nMore exciting features yet to come...\n\n**Credits:**\nDeveloper and owner: Pseudonymous123#5921`);
             message.reply({
                 embeds: [infoEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -213,14 +213,14 @@ client.on("message", async message => {
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_MESSAGES`)) {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_MESSAGES`)) {
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
-                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete (${prefix}delete)`).setDescription(`Using this command, moderators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping __${prefix}delete 20__ will delete 20 previous messages`);
+                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete \(\`${prefix}delete\`\)`).setDescription(`Using this command, moderators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping \`${prefix}delete 20\` will delete 20 previous messages`);
                         message.reply({
                             embeds: [deleteEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
                     } else {
                         const Channel = message.channel;
                         const args = message.content.split(" ");
-                        if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type __${prefix}delete__ to know more.`);
+                        if (args[1] > 100 || isNaN(args[1])) return message.reply(`Please type realistic numbers \(<100\) or a number atleast. Type \`${prefix}delete\` to know more.`);
                         if (args[1] == 1) return message.reply(`Come on! You really want me to delete a single message?`);
                         const Messages = await Channel.messages.fetch({
                             limit: args[1]
