@@ -347,4 +347,16 @@ client.on("message", async message => {
             }
         }
     }
+    /* Dank Memer */
+    else if (!message.channel.name.includes("buying")) {
+        if (message.content.toLowerCase().replace(/ /g, "").includes(`selling`) || message.content.toLowerCase().replace(/ /g, "").includes(`buyingcash`)) {
+            message.delete();
+            message.channel.send(`${user} Selling ads don't belong here!`);
+        }
+    } else if (!message.channel.name.includes("selling")) {
+        if (message.content.toLowerCase().replace(/ /g, "").includes(`buying`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingcash`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingmycash`)) {
+            message.delete();
+            message.channel.send(`${user} Buying ads don't belong here!`);
+        }
+    }
 });
