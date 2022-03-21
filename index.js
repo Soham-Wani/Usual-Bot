@@ -145,6 +145,12 @@ client.on("message", async message => {
             }
         }
         //spam
+        else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
+            const spamEmbed = new MessageEmbed().setColor('#eeeeee').setDescription(`Sorry! This command is being deprecated for abuse.`);
+            message.reply({
+                embeds: [spamEmbed]
+            }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+        }
         /* else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             if (!message.channel.name.includes("spam")) return message.reply(`Nah! You can't spam here! You can only spam in a channel with the name including the word 'spam'.`);
             const args = message.content.split(" ");
