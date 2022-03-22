@@ -115,7 +115,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}fact\n${prefix}joke\n${prefix}tictactoe\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout \(being fixed\)\``);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}fact\n${prefix}joke\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout \(being fixed\)\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -162,22 +162,6 @@ client.on("message", async message => {
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             });
         }
-        //tictactoe
-        else if (message.content.toLowerCase().startsWith(`${prefix}tictactoe`)) {
-            const user =  message.mentions.members.first() || message.guild.members.cache.get(args[0]);
-            if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}tictactoe`) {
-                const tictactoeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Tic Tac Toe (\`${prefix}tictactoe\`)`).setDescription(`Using the \`${prefix}tictactoe\` command correctly will let you play tictactoe with the mentioned user.\n\nTyping \`${prefix}tictactoe @user\` will start a tictactoe game with mentioned user.`);
-                message.reply({
-                    embeds: [tictactoeEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-            } else if (message.content.toLowerCase().replace(/ /g, "") !== `${prefix}tictactoe`) {
-                if (!user) return message.reply(`Mention a valid user to play, tictactoe is a 2 player game!`);
-                new tictactoe({
-                    player_two: user,
-                    message: message
-                })
-            }
-        } 
         //spam
         else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             const spamEmbed = new MessageEmbed().setColor('#eeeeee').setDescription(`Sorry! This command is being deprecated for abuse.`);
