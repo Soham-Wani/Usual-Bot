@@ -171,7 +171,7 @@ client.on("message", async message => {
                     embeds: [tictactoeEmbed]
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             } else if (message.content.toLowerCase().replace(/ /g, "") !== `${prefix}tictactoe`) {
-                if (!user) return message.reply(`Mention a valid user to play, tictactoe is a 2 player game!);
+                if (!user) return message.reply(`Mention a valid user to play, tictactoe is a 2 player game!`);
                 new tictactoe({
                     player_two: user,
                     message: message
@@ -185,35 +185,6 @@ client.on("message", async message => {
                 embeds: [spamEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
-        /* else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
-            if (!message.channel.name.includes("spam")) return message.reply(`Nah! You can't spam here! You can only spam in a channel with the name including the word 'spam'.`);
-            const args = message.content.split(" ");
-            if (message.content == `${prefix}spam`) {
-                const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (\`${prefix}spam\`)`).setDescription(`Using the \`${prefix}spam\` command correctly will spam any message upto 20 times.\n\nTyping \`${prefix}spam 10 hello\` will spam 10 hellos.`);
-                message.reply({
-                    embeds: [spamEmbed]
-                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-            } else if (message.content !== `${prefix}spam`) {
-                if (spamcooldown.has(message.author.id)) return message.reply(`Slow down! You can use this command after 2 minutes!`);
-                if (message.content.includes('@') && message.author.id !== me) return message.reply(`You can't spam ping someone!`);
-                if (!args[1]) return message.reply(`Please type a number. Type \`${prefix}spam\` to know more.`);
-                if (isNaN(args[1])) return message.reply(`Please type how many times to spam. Type \`${prefix}spam\` to know more.`);
-                if (args[1] > 20) return message.reply(`Please type realistic numbers (<20). Type \`${prefix}spam\` to know more.`);
-                if (!args[2]) return message.reply(`Also include what should I spam. Type \`${prefix}spam\` to know more.`);
-                const amountOfMessages = args[1];
-                let messageToSend = [...args];
-                messageToSend.shift();
-                messageToSend.shift();
-                messageToSend = messageToSend.join(" ");
-                for (let i = 0; i < amountOfMessages; i++) {
-                    message.channel.send(messageToSend);
-                }
-                spamcooldown.add(message.author.id);
-                setTimeout(() => {
-                    spamcooldown.delete(message.author.id);
-                }, 2 * 60 * 1000);
-            }
-        } */
         //setup
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}setup`) {
             const setupEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Setup (\`${prefix}setup\`)`).setDescription(`Being optional, by doing the following steps, you can get most out of Usual Bot:\n\n• Having a channel with the word 'welcome' in its name will allow the bot to automatically post welcome messages in that channel.\n\n• Similarly, having a channel with the word 'bye' in its name will allow the bot to automatically post leaving messages in that channel.\n\n• You can have welcome and leaving messages in one channel only if the channel name has both the words 'welcome' and 'bye'.\n\n• Having a channel with the word 'log' in its name will allow the bot to automatically maintain a log of events happening on the server.\n\n• To make the bot interactive with members, you can make a channel with the word 'usual' in it. The bot can mildly interact with members like replying to the word 'Hi' with 'Hello!' and so on!\n\n• Use the commands from \`${prefix}help\` and you are good to go! You can contact developers for any help by using \`${prefix}send\` command.`);
