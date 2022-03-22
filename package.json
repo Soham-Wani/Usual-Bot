@@ -11,6 +11,6 @@
   "dependencies": {
     "discord.js": "latest",
     "axios": "^0.18.1",
-    "reconlx": "latest"
+    "reconlx": "^1.2.3"
   }
 }
