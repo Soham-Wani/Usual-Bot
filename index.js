@@ -15,7 +15,6 @@ const client = new Discord.Client({
     partials: ['CHANNEL']
 });
 const keep_alive = require('./keep_alive.js');
-const { tictactoe } = require('reconlx');
 const {
     MessageEmbed
 } = require('discord.js');
