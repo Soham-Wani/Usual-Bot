@@ -78,3 +78,36 @@ client.on("message", async message => {
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             }
         }
+
+
+
+
+/* else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
+            if (!message.channel.name.includes("spam")) return message.reply(`Nah! You can't spam here! You can only spam in a channel with the name including the word 'spam'.`);
+            const args = message.content.split(" ");
+            if (message.content == `${prefix}spam`) {
+                const spamEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Spam (\`${prefix}spam\`)`).setDescription(`Using the \`${prefix}spam\` command correctly will spam any message upto 20 times.\n\nTyping \`${prefix}spam 10 hello\` will spam 10 hellos.`);
+                message.reply({
+                    embeds: [spamEmbed]
+                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            } else if (message.content !== `${prefix}spam`) {
+                if (spamcooldown.has(message.author.id)) return message.reply(`Slow down! You can use this command after 2 minutes!`);
+                if (message.content.includes('@') && message.author.id !== me) return message.reply(`You can't spam ping someone!`);
+                if (!args[1]) return message.reply(`Please type a number. Type \`${prefix}spam\` to know more.`);
+                if (isNaN(args[1])) return message.reply(`Please type how many times to spam. Type \`${prefix}spam\` to know more.`);
+                if (args[1] > 20) return message.reply(`Please type realistic numbers (<20). Type \`${prefix}spam\` to know more.`);
+                if (!args[2]) return message.reply(`Also include what should I spam. Type \`${prefix}spam\` to know more.`);
+                const amountOfMessages = args[1];
+                let messageToSend = [...args];
+                messageToSend.shift();
+                messageToSend.shift();
+                messageToSend = messageToSend.join(" ");
+                for (let i = 0; i < amountOfMessages; i++) {
+                    message.channel.send(messageToSend);
+                }
+                spamcooldown.add(message.author.id);
+                setTimeout(() => {
+                    spamcooldown.delete(message.author.id);
+                }, 2 * 60 * 1000);
+            }
+        } */
