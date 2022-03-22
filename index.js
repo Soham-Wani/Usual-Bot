@@ -177,12 +177,12 @@ client.on("message", async message => {
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
         }
         //slowmode
-        else if (message.content.toLowerCase().startsWith(`${prefix}slowmode`)) {
+        else if (message.content.toLowerCase().startsWith(`${prefix}slowmode`) || message.content.toLowerCase().startsWith(`${prefix}sm`) || message.content.toLowerCase().startsWith(`${prefix}slow`)) {
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_CHANNELS`)) {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_CHANNELS`)) {
                     const args = message.content.split(" ");
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}slowmode`) {
-                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 5 seconds. It can be set to a maximum of 21600 seconds`);
+                        const slowmodeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Slowmode (\`${prefix}slowmode\`)`).setDescription(`Using the \`${prefix}slowmode\` command allows to change slowmode of a channel easily.\n\nTyping \`${prefix}slowmode 5\` will change the slowmode to 5 seconds. It can be set to a maximum of 21600 seconds.\n\nAliases: \`${prefix}sm\` \`${prefix}slow\``);
                         message.reply({
                             embeds: [slowmodeEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
