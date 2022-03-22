@@ -10,7 +10,6 @@
   "license": "",
   "dependencies": {
     "discord.js": "latest",
-    "axios": "^0.18.1",
-    "reconlx": "^1.2.3"
+    "axios": "^0.18.1"
   }
 }
