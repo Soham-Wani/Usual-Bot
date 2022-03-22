@@ -202,12 +202,12 @@ client.on("message", async message => {
             }
         }
         //delete
-        else if (message.content.toLowerCase().startsWith(`${prefix}delete`)) {
+        else if (message.content.toLowerCase().startsWith(`${prefix}delete`) || message.content.toLowerCase().startsWith(`${prefix}del`) || message.content.toLowerCase().startsWith(`${prefix}purge`)) {
             if (message.channel.name.includes("log")) return message.reply(`I create history, I don't support in deleting history. I cannot delete logs!`);
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`MANAGE_MESSAGES`)) {
                 if (message.member.permissions.has(`ADMINISTRATOR`) || message.member.permissions.has(`MANAGE_MESSAGES`)) {
                     if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}delete`) {
-                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete \(\`${prefix}delete\`\)`).setDescription(`Using this command, moderators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping \`${prefix}delete 20\` will delete 20 previous messages`);
+                        const deleteEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Delete \(\`${prefix}delete\`\)`).setDescription(`Using this command, moderators can easily delete upto 100 previous messages for any reason (I won't judge!). And don't worry, this command will not delete pinned messages!\n\nTyping \`${prefix}delete 20\` will delete 20 previous messages.\n\nAliases: \`${prefix}del\` \`${prefix}purge\``);
                         message.reply({
                             embeds: [deleteEmbed]
                         }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
