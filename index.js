@@ -32,7 +32,9 @@ process.on('unhandledRejection', error => {
 });
 client.on("guildCreate", guild => {
     const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Thank you for adding me to ${guild.name}!\n\nMy prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them here!\n\nAlso, you can join the official \[Discord server\]\(https://discord.gg/ADm2u27TFs\) for support or just for fun!`);
-    guild.fetchAuditLogs({type: "BOT_ADD", limit: 1}).then(log => {
+    guild.fetchAuditLogs({
+        type: "BOT_ADD", limit: 1
+    }).then(log => {
         log.entries.first().executor.send({
             embeds: [welcomeEmbed]
         });
@@ -40,14 +42,17 @@ client.on("guildCreate", guild => {
 });
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({ embeds: [ new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ was added to the server.`) ]});
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
+            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ was added to the server.`)]});
     } else {
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({ embeds: [ new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ joined the server.`) ]});
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
+            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ joined the server.`)]});
     }
 });
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) return;
-    member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(`Welcome ${member}! Hope you enjoy!`);
+    member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
+            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome __` + member.user.tag + `__`).setDescription(`Hey ${member}! Hope you enjoy!`).setImage(member.user.avatarURL)]});
 });
 client.on("guildMemberRemove", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ left the server.`);
