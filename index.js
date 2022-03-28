@@ -40,9 +40,9 @@ client.on("guildCreate", guild => {
 });
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ was added to the server.`);
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({ embeds: [ new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ was added to the server.`) ]});
     } else {
-        member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ joined the server.`);
+        member.guild.channels.cache.find(channel => channel.name.includes('log')).send({ embeds: [ new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ joined the server.`) ]});
     }
 });
 client.on("guildMemberAdd", async member => {
