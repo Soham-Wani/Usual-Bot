@@ -3,10 +3,7 @@
 //TDD: sticky messages
 //TD8: MUSIC, GAW
 //TDT: Reaction roles
-//TDD: selling buying dank
-//TDD: ,setup
 //TDN: lock unlock, addrole removerole etc.
-//TDI: Aliases
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const axios = require('axios');
