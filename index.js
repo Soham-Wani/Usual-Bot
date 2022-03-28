@@ -1,6 +1,7 @@
 //https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD?: Reply pings
 //TDD: sticky messages
+//TDD: UPDATE LOGS, URGENT!!!
 //TD8: MUSIC, GAW
 //TDT: Reaction roles
 //TDN: lock unlock, addrole removerole etc.
