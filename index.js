@@ -50,7 +50,6 @@ client.on("guildMemberAdd", async member => {
     }
 });
 client.on("guildMemberAdd", async member => {
-    if (member.user.bot) return;
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
             embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome __` + member.user.tag + `__`).setDescription(`Hey ${member}! Hope you enjoy!`).setImage(member.user.avatarURL)]});
 });
