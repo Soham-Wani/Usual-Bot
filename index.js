@@ -77,7 +77,7 @@ client.on("message", async message => {
     }
     /* Pings */
     else if (message.content == '<@928874082756345917>') {
-        const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Thank you for having me here at ${guild.name}!\n\nMy prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them there!\n\nAlso, you can join the official \[Discord server\]\(https://discord.gg/ADm2u27TFs\) for support or just for fun!`);
+        const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Thank you for having me here!\n\nMy prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them there!\n\nAlso, you can join the official \[Discord server\]\(https://discord.gg/ADm2u27TFs\) for support or just for fun!`);
         message.reply({
             embeds: [welcomeEmbed]
         });
