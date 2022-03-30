@@ -69,7 +69,7 @@ client.on("guildMemberRemove", async member => {
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
     /* No Promotion */
-    if (message.content..toLowerCase().includes('http') && message.guild.id == 912957696641228830) {
+    if (message.content.toLowerCase().includes('http') && message.guild.id == 912957696641228830) {
         if (!message.member.permissions.has("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
             message.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
             message.channel.send(`${message.author} Nah! No links!`);
