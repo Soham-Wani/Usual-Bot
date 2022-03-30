@@ -51,14 +51,14 @@ client.on("guildMemberAdd", async member => {
 });
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
-            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome __` + member.user.tag + `__`).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
+            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ` + member.user.tag).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
 });
 client.on("guildMemberRemove", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ left the server.`);
 });
 client.on("guildMemberRemove", async member => {
-    if (member.user.bot) return;
-    member.guild.channels.cache.find(channel => channel.name.includes('bye')).send(`Bye bye __` + member.user.tag + `__! __` + member.user.tag + `__ thinks they're better than us!`);
+    member.guild.channels.cache.find(channel => channel.name.includes('bye')).send({
+            embeds: [new MessageEmbed().setColor('#ff0000').setTitle(`Goodbye ` + member.user.tag).setDescription(member.user.tag + ` are no more with us!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
 });
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
