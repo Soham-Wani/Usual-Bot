@@ -51,7 +51,7 @@ client.on("guildMemberAdd", async member => {
 });
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
-            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome __` + member.user.tag + `__`).setDescription(`Hey ${member}! Hope you enjoy!`).setImage(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
+            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome __` + member.user.tag + `__`).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
 });
 client.on("guildMemberRemove", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('log')).send(`__` + member.user.tag + `__ left the server.`);
