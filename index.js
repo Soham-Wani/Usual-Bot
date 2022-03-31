@@ -110,10 +110,10 @@ client.on("message", async message => {
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
         //ping
         if (message.content.toLowerCase().startsWith(`${prefix}ping`)) {
-            message.reply("**Bot latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(bot.ws.ping)}ms` + "`"); 
+            message.reply("**Bot latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(client.ws.ping)}ms` + "`"); 
         }
         //stats
-        if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
+        else if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
             message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
             message.channel.send({
@@ -126,7 +126,7 @@ client.on("message", async message => {
             });
         }
         //shutdown
-        if (message.content.toLowerCase().startsWith(`${prefix}shutdown`)) {
+        else if (message.content.toLowerCase().startsWith(`${prefix}shutdown`)) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
             message.channel.send(`Usual Bot, signing off...`)
             process.exit();
