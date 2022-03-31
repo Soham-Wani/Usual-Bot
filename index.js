@@ -108,15 +108,8 @@ client.on("message", async message => {
     }
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
-        //ping
-        if (message.content.toLowerCase().startsWith(`${prefix}ping`)) {
-            const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(client.ws.ping)}ms` + "`");
-            message.reply({
-                embeds: [pingEmbed]
-            });
-        }
         //stats
-        else if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
+        if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
             message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
             message.channel.send({
@@ -136,7 +129,7 @@ client.on("message", async message => {
         }
         //help
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}help`) {
-            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\`\n\n**Fun (Everyone)**\n\`${prefix}fact\n${prefix}joke\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout \(being fixed\)\``);
+            const helpEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Help (\`${prefix}help\`)`).setDescription(`**General (Everyone)** \n\`${prefix}help\n${prefix}info\n${prefix}send\n${prefix}ping\`\n\n**Fun (Everyone)**\n\`${prefix}fact\n${prefix}joke\`\n\n**Moderation (Admins)**\n\`${prefix}setup\n${prefix}delete\n${prefix}slowmode\n${prefix}ban\n${prefix}kick\n${prefix}timeout \(being fixed\)\``);
             message.reply({
                 embeds: [helpEmbed]
             }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
@@ -166,6 +159,13 @@ client.on("message", async message => {
                     sendcooldown.delete(message.author.id);
                 }, 24 * 60 * 60 * 1000);
             }
+        }
+        //ping
+        if (message.content.toLowerCase().startsWith(`${prefix}ping`)) {
+            const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(client.ws.ping)}ms` + "`").setFooter(`My messaging speeds can be seen here!`);
+            message.reply({
+                embeds: [pingEmbed]
+            });
         }
         //fact
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}fact`) {
