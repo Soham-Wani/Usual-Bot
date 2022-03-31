@@ -162,7 +162,7 @@ client.on("message", async message => {
         }
         //ping
         else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ping`) {
-            const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency:** `" + `${Math.round(client.ws.ping)}ms` + "`").setFooter(`**Bot Latency** means time I took to react.\n**API Latency** means time Discord took to send my message.`);
+            const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency:** `" + `${Math.round(client.ws.ping)}ms` + "`").setFooter(`Bot Latency means time I took to react.\nAPI Latency means time Discord took to send my message.`);
             message.reply({
                 embeds: [pingEmbed]
             });
