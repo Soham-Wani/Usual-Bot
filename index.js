@@ -110,7 +110,10 @@ client.on("message", async message => {
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
         //ping
         if (message.content.toLowerCase().startsWith(`${prefix}ping`)) {
-            message.reply("**Bot latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(client.ws.ping)}ms` + "`"); 
+            const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(client.ws.ping)}ms` + "`");
+            message.reply({
+                embeds: [pingEmbed]
+            });
         }
         //stats
         else if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
