@@ -51,7 +51,7 @@ client.on("guildMemberAdd", async member => {
 });
 client.on("guildMemberAdd", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
-            embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ` + member.user.tag).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
+        embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ` + member.user.tag).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
 });
 client.on("guildMemberRemove", async member => {
     if (member.user.bot) {
@@ -64,7 +64,7 @@ client.on("guildMemberRemove", async member => {
 });
 client.on("guildMemberRemove", async member => {
     member.guild.channels.cache.find(channel => channel.name.includes('bye')).send({
-            embeds: [new MessageEmbed().setColor('#ff0000').setTitle(`Goodbye ` + member.user.tag).setDescription(member.user.tag + ` is no more with us!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
+        embeds: [new MessageEmbed().setColor('#ff0000').setTitle(`Goodbye ` + member.user.tag).setDescription(member.user.tag + ` is no more with us!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]});
 });
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
@@ -109,7 +109,7 @@ client.on("message", async message => {
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
         //stats
-        if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}stats`)) {
+        if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}stats`) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
             message.channel.send(`${client.user.username}'s Server Count: ${client.guilds.cache.size} Severs`)
             message.channel.send({
@@ -122,7 +122,7 @@ client.on("message", async message => {
             });
         }
         //shutdown
-        else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}shutdown`)) {
+        else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}shutdown`) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
             message.channel.send(`Usual Bot, signing off...`)
             process.exit();
@@ -161,7 +161,7 @@ client.on("message", async message => {
             }
         }
         //ping
-        else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ping`)) {
+        else if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}ping`) {
             const pingEmbed = new MessageEmbed().setColor('#0000ff').setDescription("**Bot Latency:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency:** `" + `${Math.round(client.ws.ping)}ms` + "`").setFooter(`**Bot Latency** means time I took to react.\n**API Latency** means time Discord took to send my message.`);
             message.reply({
                 embeds: [pingEmbed]
