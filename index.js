@@ -108,6 +108,10 @@ client.on("message", async message => {
     }
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
+        //ping
+        if (message.content.toLowerCase().startsWith(`${prefix}ping`)) {
+            message.reply("**Bot latency is:** " + "`" + `${Date.now() - message.createdTimestamp}ms` + "`" + "\n**API Latency is:** `" + `${Math.round(bot.ws.ping)}ms` + "`"); 
+        }
         //stats
         if (message.content.toLowerCase().startsWith(`${prefix}stats`)) {
             if (message.author.id !== me) return message.reply('You thought you are a dev? Lol! Only devs can use this command.');
