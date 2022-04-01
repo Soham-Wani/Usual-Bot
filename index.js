@@ -44,7 +44,7 @@ client.on('messageDelete', async msg => {
 let logs = await msg.guild.fetchAuditLogs({type: 72});
   let entry = logs.entries.first();
 
-  let embed = new Discord.RichEmbed()
+  let embed = new MessageEmbed()
     .setTitle("**DELETED MESSAGE**")
     .setColor("#fc3c3c")
     .addField("Author", msg.author.tag, true)
