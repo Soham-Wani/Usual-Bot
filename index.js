@@ -76,8 +76,8 @@ client.on("message", async message => {
         }
     }
     /* Pings */
-    else if (message.content == '<@928874082756345917>') {
-        const pingEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Thank you for having me here!\n\nMy prefix: \`${prefix}\`\nType \`${prefix}info\` to get started.\n\n\[Official Discord Server\]\(https://discord.gg/ADm2u27TFs\)\n\[Invite Me\]\(https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot\)`);
+    else if (message.content.includes('<@928874082756345917>') && !message.content.startsWith(`${prefix}`)) {
+        const pingEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Who pinged me? Anyways, thank you for having me here!\n\nMy prefix is \`${prefix}\`\nType \`${prefix}info\` to get started.\n\n\[Official Discord Server\]\(https://discord.gg/ADm2u27TFs\)\n\[Invite Me\]\(https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot\)`);
         message.reply({
             embeds: [pingEmbed]
         });
@@ -103,7 +103,7 @@ client.on("message", async message => {
         } else if (message.content.toLowerCase().includes(`are you mad`)) {
             message.reply(`Nah bro! I am not you!`)
         } else if (message.content.toLowerCase().includes("yee") || message.content.toLowerCase().includes("wee")) {
-            message.reply(`stop`)
+            message.reply(`Stop!`)
         }
     }
     /* Commands */
