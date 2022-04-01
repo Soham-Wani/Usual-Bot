@@ -51,7 +51,6 @@ let logs = await msg.guild.fetchAuditLogs({type: 72});
     .addField("Channel", msg.channel, true)
     .addField("Message", msg.content)
     .addField("Executor", entry.executor)
-    .addField("Reason", entry.reason || "Unspecified")
     .setFooter(`Message ID: ${msg.id} | Author ID: ${msg.author.id}`);
 
   let channel = msg.guild.channels.find(x => x.name === 'delete-log');
