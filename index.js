@@ -40,7 +40,7 @@ client.on("guildCreate", guild => {
         });
     });
 });
-client.on('messageDelete', async msg {
+client.on('messageDelete', async msg => {
 let logs = await msg.guild.fetchAuditLogs({type: 72});
   let entry = logs.entries.first();
 
