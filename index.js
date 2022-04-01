@@ -40,6 +40,23 @@ client.on("guildCreate", guild => {
         });
     });
 });
+client.on('messageDelete', function(message) {
+let logs = await msg.guild.fetchAuditLogs({type: 72});
+  let entry = logs.entries.first();
+
+  let embed = new Discord.RichEmbed()
+    .setTitle("**DELETED MESSAGE**")
+    .setColor("#fc3c3c")
+    .addField("Author", msg.author.tag, true)
+    .addField("Channel", msg.channel, true)
+    .addField("Message", msg.content)
+    .addField("Executor", entry.executor)
+    .addField("Reason", entry.reason || "Unspecified")
+    .setFooter(`Message ID: ${msg.id} | Author ID: ${msg.author.id}`);
+
+  let channel = msg.guild.channels.find(x => x.name === 'delete-log');
+  channel.send({embed});
+});
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
