@@ -53,8 +53,7 @@ let logs = await msg.guild.fetchAuditLogs({type: 72});
     .addField("Executor", entry.executor)
     .setFooter(`Message ID: ${msg.id} | Author ID: ${msg.author.id}`);
 
-  let channel = msg.guild.channels.find(x => x.name === 'delete-log');
-  channel.send({embed});
+  msg.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(entry);
 });
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
