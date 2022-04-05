@@ -4,7 +4,7 @@
 //TDD: UPDATE LOGS, URGENT!!!
 //TD8: MUSIC, GAW
 //TDT: Reaction roles
-//TDN: lock unlock, addrole removerole etc.
+//TDN: lock unlock, addrole removerole , server locketc.
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const axios = require('axios');
@@ -303,7 +303,7 @@ client.on("message", async message => {
             } else {
                 message.reply(`I am missing the \`Ban Members\` permission.`);
             }
-        }
+        }   
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`KICK_MEMBERS`)) {
