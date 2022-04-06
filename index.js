@@ -388,6 +388,7 @@ client.on("message", async message => {
             message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
         }
     }
+/*
 const opponent = message.mentions.users.first();
 if (!opponent) return message.channel.send(`Please mention who you want to challenge at tictactoe.`);
 const { TicTacToe } = require('djs-games')
@@ -400,5 +401,5 @@ const game = new TicTacToe({
   oColor: 'PRIMARY', // The Color for O
   embedDescription: 'Tic Tac Toe', // The Description of the embed
 })
-game.start()
+game.start()*/
 });
