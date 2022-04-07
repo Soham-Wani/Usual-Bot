@@ -40,21 +40,6 @@ client.on("guildCreate", guild => {
         });
     });
 });
-client.on('messageDelete', async msg => {
-let logs = await msg.guild.fetchAuditLogs({type: 72});
-  let entry = logs.entries.first();
-
-  let embed = new MessageEmbed()
-    .setTitle("**DELETED MESSAGE**")
-    .setColor("#fc3c3c")
-    .addField("Author", msg.author.tag, true)
-    .addField("Channel", msg.channel, true)
-    .addField("Message", msg.content)
-    .addField("Executor", entry.executor)
-    .setFooter(`Message ID: ${msg.id} | Author ID: ${msg.author.id}`);
-
-  msg.guild.channels.cache.find(channel => channel.name.includes('welcome')).send(entry);
-});
 client.on("guildMemberAdd", async member => {
     if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
@@ -198,6 +183,32 @@ client.on("message", async message => {
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             });
         }
+        //tictactoe
+        else if (message.content.toLowerCase().startsWith(`${prefix}tictactoe`) || message.content.toLowerCase().startsWith(`${prefix}ttt`)) {
+            const args = message.content.split(" ");
+            if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}tictactoe`) {
+                const tictactoeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Tic Tac Toe \(\`${prefix}tictactoe\`\)`).setDescription(`Play Tic Tac Toe with your friends!.\n\nTyping \`${prefix}tictactoe @person\` will start a tic Tac Toe game with the mentioned person.\n\nAliases: \`${prefix}ttt\``);
+                message.reply({
+                    embeds: [tictactoeEmbed]
+                }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+            } else {
+                const opponent = message.mentions.users.first();
+                if (message.mentions.members.first().id == `undefined` || !opponent || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to play with!`);
+                const {
+                    TicTacToe
+                } = require('djs-games')
+                const game = new TicTacToe({
+                    message: message,
+                    opponent: opponent,
+                    xEmoji: '❌', // The Emote for X
+                    oEmoji: '0️⃣', // The Emote for O
+                    xColor: 'PRIMARY',
+                    oColor: 'PRIMARY', // The Color for O
+                    embedDescription: 'Tic Tac Toe', // The Description of the embed
+                })
+                game.start()
+            }
+        }
         //spam
         else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             const spamEmbed = new MessageEmbed().setColor('#eeeeee').setDescription(`Sorry! This command is being deprecated for abuse.`);
@@ -303,7 +314,7 @@ client.on("message", async message => {
             } else {
                 message.reply(`I am missing the \`Ban Members\` permission.`);
             }
-        }   
+        }
         //kick
         else if (message.content.toLowerCase().startsWith(`${prefix}kick`)) {
             if (bot.permissions.has(`ADMINISTRATOR`) || bot.permissions.has(`KICK_MEMBERS`)) {
@@ -388,18 +399,4 @@ client.on("message", async message => {
             message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
         }
     }
-/*
-const opponent = message.mentions.users.first();
-if (!opponent) return message.channel.send(`Please mention who you want to challenge at tictactoe.`);
-const { TicTacToe } = require('djs-games')
-const game = new TicTacToe({
-  message: message,
-  opponent: opponent,
-  xEmoji: '❌', // The Emote for X
-  oEmoji: '0️⃣', // The Emote for O
-  xColor: 'PRIMARY',
-  oColor: 'PRIMARY', // The Color for O
-  embedDescription: 'Tic Tac Toe', // The Description of the embed
-})
-game.start()*/
 });
