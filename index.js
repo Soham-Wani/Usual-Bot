@@ -421,7 +421,7 @@ client.on("message", async message => {
             userInfo.xp = 0
             message.reply("Congratulations, you levelled up!")
         }
-        if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
+        if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}profile`)) {
             let userInfo = db[message.author.id];
             let member = message.mentions.members.first();
             let embed = new Discord.RichEmbed()
