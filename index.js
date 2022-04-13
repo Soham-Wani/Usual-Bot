@@ -408,7 +408,7 @@ client.on("message", async message => {
             message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
         }
     }
-    /* Levels */
+    /* Levels 
     else if (message.guild.id == 912957696641228830) {
         if (!db[message.author.id]) db[message.author.id] = {
             xp: 0,
@@ -439,5 +439,5 @@ client.on("message", async message => {
         fs.writeFile("./database.json", JSON.stringify(db), (x) => {
             if (x) console.error(x)
         });
-    }
+    } */
 });
