@@ -115,8 +115,12 @@ client.on("message", async message => {
             message.reply(`Stop!`)
         }
     }
+    /* Guild Specific: Usual Server */
     else if (message.author.id !== client.user.id && message.author.id !== me && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`) && message.guild.id == 912957696641228830 && message.channel.id == 914172083146215435) {
         message.reply(`This place is for humans to chat lmao! Go in <#943716125194219530> to interact with me.`)
+    }
+    else if (message.author.id !== client.user.id/* && message.author.id !== me*/ && message.channel.type !== 'DM' && !message.author.bot && message.content.toLowercase().startsWith(`pls`) && message.guild.id == 912957696641228830 && (message.channel.id !== 930725102335721533 || message.channel.id !== 949238374282182686 || message.channel.id !== 954235929051164682) ) {
+        message.reply(`Really? Please use Dank Memer commands in <#930725102335721533>, <#949238374282182686> or <#954235929051164682>.`)
     }
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
