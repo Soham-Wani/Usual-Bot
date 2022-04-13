@@ -116,7 +116,7 @@ client.on("message", async message => {
         }
     }
     else if (message.author.id !== client.user.id && message.author.id !== me && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`) && message.guild.id == 912957696641228830 && message.channel.id == 914172083146215435) {
-        message.reply(`This place is for humans to chat lmao! Go in <#${943716125194219530}> to interact with me.`)
+        message.reply(`This place is for humans to chat lmao! Go in #usual-bot to interact with me.`)
     }
     /* Commands */
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
