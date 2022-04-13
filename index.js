@@ -8,6 +8,8 @@
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
 const axios = require('axios');
+const fs = require("fs");
+let db = JSON.parse(fs.readFileSync("./database.json", "utf8"));
 const client = new Discord.Client({
     intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"],
     partials: ['CHANNEL']
