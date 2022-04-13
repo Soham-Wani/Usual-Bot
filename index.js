@@ -409,15 +409,35 @@ client.on("message", async message => {
         }
     }
     /* Levels */
-    else if (!db[message.author.id]) db[message.author.id] = {
-        xp: 0,
-        level: 0
-    };
-    db[message.author.id].xp++;
-    let userInfo = db[message.author.id];
-    if (userInfo.xp > 100) {
-        userInfo.level++
-        userInfo.xp = 0
-        message.reply("Congratulations, you levelled up!")
+    else if (message.guild.id == 912957696641228830) {
+        if (!db[message.author.id]) db[message.author.id] = {
+            xp: 0,
+            level: 0
+        };
+        db[message.author.id].xp++;
+        let userInfo = db[message.author.id];
+        if (userInfo.xp > 100) {
+            userInfo.level++
+            userInfo.xp = 0
+            message.reply("Congratulations, you levelled up!")
+        }
+        if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
+            let userInfo = db[message.author.id];
+            let member = message.mentions.members.first();
+            let embed = new Discord.RichEmbed()
+            .setColor(0x4286f4)
+            .addField("Level", userInfo.level)
+            .addField("XP", userInfo.xp+"/100");
+            if (!member) return message.channel.sendEmbed(embed)
+            let memberInfo = db[member.id]
+            let embed2 = new Discord.RichEmbed()
+            .setColor(0x4286f4)
+            .addField("Level", memberInfo.level)
+            .addField("XP", memberInfo.xp+"/100")
+            message.channel.sendEmbed(embed2)
+        }
+        fs.writeFile("./database.json", JSON.stringify(db), (x) => {
+            if (x) console.error(x)
+        });
     }
 });
