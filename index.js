@@ -1,4 +1,4 @@
-{//https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
+//https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
 //TD?: Reply pings
 //TDD: sticky messages
 //TDD: UPDATE LOGS, URGENT!!!
