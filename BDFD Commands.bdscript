@@ -1,4 +1,4 @@
-//,ei1
+$c[,ei1]
 $nomention
 $deletecommand
 $title[BOOSTER REWARDS AND PERKS]
@@ -15,7 +15,7 @@ $addField[Triple or more Boost; + <@&967441318404046908>
 $color[5865F2]
 $footer[All the rewards and perks are stackable but lasts only until the boost lasts]
 
-//,ei2
+$c[,ei2]
 $nomention
 $deletecommand
 $title[LEVEL UP REWARDS AND PERKS]
@@ -42,8 +42,8 @@ $addField[Level 75;+ <@&968936765803069450>
 $addField[Level 100;+ <@&968936942173552650>
 + An autoreact of your choice]
 $color[41B2B0]
-$footer[All the rewards and perks are stackable amd permanent]
+$footer[All the rewards and perks are stackable and permanent]
 
-//Maintenance Mode
+$c[Maintenance Mode]
 $nomention
 $description[This command can't be used. The bot is under maintenance.]
