@@ -1,5 +1,4 @@
 //,ei1
-
 $nomention
 $deletecommand
 $title[BOOSTER REWARDS AND PERKS]
@@ -17,7 +16,6 @@ $color[5865F2]
 $footer[All the rewards and perks are stackable but lasts only until the boost lasts]
 
 //,ei2
-
 $nomention
 $deletecommand
 $title[LEVEL UP REWARDS AND PERKS]
@@ -47,6 +45,5 @@ $color[41B2B0]
 $footer[All the rewards and perks are stackable amd permanent]
 
 //Maintenance Mode
-
 $nomention
 $description[This command can't be used. The bot is under maintenance.]
