@@ -1,5 +1,5 @@
 # Usual-Bot
-Usual Bot was a public Discord bot made using `discord.js`. This was my first bot, so it was very basic, without a command handler, yet fully functional. It is great for those who are starting and trying to understand Discord Bot development for the first time.
+Usual Bot was a public `Node.js` Discord bot made using `discord.js`. This was my first bot, so it was very basic, without a command handler, yet fully functional. It is great for those who are starting and trying to understand Discord Bot development for the first time.
 
 ## For developers
 I have left many comments in the main file of `index.js` so you can understand the code and preferably use it when in need.
