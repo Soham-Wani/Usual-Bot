@@ -50,14 +50,14 @@ client.on("guildMemberRemove", async member => { // Goodbye logs
 });
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
-    /* Pings */
+    // Replying pings
     else if (message.content.includes('<@928874082756345917>') && !message.content.startsWith(`${prefix}`)) {
         const pingEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Who pinged me? Anyways, thank you for having me here!\n\nMy prefix is \`${prefix}\`\nType \`${prefix}info\` to get started.\n\n\[Official Discord Server\]\(https://discord.gg/ADm2u27TFs\)\n\[Invite Me\]\(https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot\)`);
         message.reply({
             embeds: [pingEmbed]
         });
     }
-    /* Replies */
+    // AI chat (wannabe ;))
     else if (message.channel.name.toLowerCase().includes("usual") && message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && !message.content.startsWith(`${prefix}`)) {
         if (message.content.toLowerCase() == "hi" || message.content.toLowerCase() == "hello" || message.content.toLowerCase() == "hello!" || message.content.toLowerCase() == "hi!" || message.content.toLowerCase() == "hey!" || message.content.toLowerCase() == "hey" || message.content.toLowerCase() == "heya!" || message.content.toLowerCase() == "heya" || message.content.toLowerCase() == "namaste" || message.content.toLowerCase() == "hola" || message.content.toLowerCase() == "hola!" || message.content.toLowerCase() == "namaste!") {
             message.reply(`Hello!`)
@@ -88,7 +88,7 @@ client.on("message", async message => {
     else if (message.author.id !== client.user.id && message.author.id !== me && message.channel.type !== 'DM' && !message.author.bot && message.content.toLowerCase().startsWith(`pls`) && message.guild.id == 912957696641228830 && !(message.channel.id == 930725102335721533 || message.channel.id == 949238374282182686 || message.channel.id == 954235929051164682 || message.channel.id == 964053665407197204 || message.channel.id == 955459486913544253 || message.channel.id == 970155622534365284) ) {
         message.reply(`Really? Please use Dank Memer commands in <#930725102335721533>, <#949238374282182686>, <#954235929051164682> or <#970155622534365284>.`)
     }
-    /* Commands */
+    // Commands
     else if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}`)) {
         //stats
         if (message.content.toLowerCase().replace(/ /g, "") == `${prefix}stats`) {
@@ -165,32 +165,6 @@ client.on("message", async message => {
                 }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
             });
         }
-        //tictactoe
-        /* else if (message.content.toLowerCase().startsWith(`${prefix}tictactoe`) || message.content.toLowerCase().startsWith(`${prefix}ttt`)) {
-                const args = message.content.split(" ");
-                if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}tictactoe`) {
-                    const tictactoeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Tic Tac Toe \(\`${prefix}tictactoe\`\)`).setDescription(`Play Tic Tac Toe with your friends!.\n\nTyping \`${prefix}tictactoe @person\` will start a tic Tac Toe game with the mentioned person.\n\nAliases: \`${prefix}ttt\``);
-                    message.reply({
-                        embeds: [tictactoeEmbed]
-                    }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
-                } else {
-                    const opponent = message.mentions.users.first();
-                    if (message.mentions.members.first().id == `undefined` || !opponent || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to play with!`);
-                    const {
-                        TicTacToe
-                    } = require('djs-games')
-                    const game = new TicTacToe({
-                        message: message,
-                        opponent: opponent,
-                        xEmoji: '❌', // The Emote for X
-                        oEmoji: '0️⃣', // The Emote for O
-                        xColor: 'PRIMARY',
-                        oColor: 'PRIMARY', // The Color for O
-                        embedDescription: 'Tic Tac Toe', // The Description of the embed
-                    })
-                    game.start()
-                }
-            } */
         //spam
         else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
             const spamEmbed = new MessageEmbed().setColor('#eeeeee').setDescription(`Sorry! This command is being deprecated for abuse.`);
@@ -369,16 +343,6 @@ client.on("message", async message => {
             } else {
                 message.reply(`I am missing the \`Timeout Members\` permission.`);
             }
-        }
-    }
-    /* Dank Memer */
-    else if (message.channel.name.includes("buying")) {
-        if (message.content.toLowerCase().replace(/ /g, "").includes(`selling`) || message.content.toLowerCase().replace(/ /g, "").includes(`buyingcash`)) {
-            message.delete().then((msg) => msg.channel.send(`${user} Selling ads don't belong here!`));
-        }
-    } else if (message.channel.name.includes("selling")) {
-        if (message.content.toLowerCase().replace(/ /g, "").includes(`buying`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingcash`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingmycash`)) {
-            message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
         }
     }
 });
