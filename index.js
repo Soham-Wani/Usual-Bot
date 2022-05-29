@@ -1,4 +1,4 @@
-const mySecret = process.env['DISCORD_TOKEN'];
+const mySecret = process.env['DISCORD_TOKEN']; // Your bot token goes into environment files with this name
 const Discord = require('discord.js');
 const client = new Discord.Client({ intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"], partials: ['CHANNEL'] });
 const { MessageEmbed } = require('discord.js');
@@ -7,42 +7,30 @@ const keep_alive = require('./keep_alive.js');
 let prefix = ","; // Can be changed to desired prefix
 let me = '912297357339660309'; // To be replaced with developer Discord user ID
 const sendcooldown = new Set(); // Cooldown for command "send"
-client.on('ready', () => {
+client.on('ready', () => { // Means execute following code when the bot is up
     console.log('Live! Yay!');
-    client.user.setActivity("For ,info", {
-        type: "WATCHING"
+    client.user.setActivity("For ,info", { // For showing bot status
+        type: "WATCHING" // Bot status prefix (PLAYING/STREAMING/LISTENING/WATCHING/COMPETING)
     });
 });
-client.login(process.env.DISCORD_TOKEN);
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', error => { // To ensure bot doesn't go down for every minut error
     console.error(`${error}`);
 });
-client.on("guildCreate", guild => {
-    const welcomeEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Thank you for adding me to ${guild.name}!\n\nMy prefix is\`${prefix}\`. Type \`${prefix}info\` to get started. Also commands don't work in DMs, so don't try them here!\n\nAlso, you can join the official \[Discord server\]\(https://discord.gg/ADm2u27TFs\) for support or just for fun!`);
-    guild.fetchAuditLogs({
-        type: "BOT_ADD",
-        limit: 1
-    }).then(log => {
-        log.entries.first().executor.send({
-            embeds: [welcomeEmbed]
-        });
+client.on("guildMemberAdd", async member => { //Welcomer embed
+    member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
+        embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ${member.user.tag}`).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]
     });
 });
-client.on("guildMemberAdd", async member => {
+client.on("guildMemberAdd", async member => { // Welcomer embed logs
     if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
-            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ was added to the server.`)]
+            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`${member.user.tag} was added to the server.`)]
         });
     } else {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
-            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`__` + member.user.tag + `__ joined the server.`)]
+            embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`${member.user.tag} joined the server.`)]
         });
     }
-});
-client.on("guildMemberAdd", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('welcome')).send({
-        embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ` + member.user.tag).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]
-    });
 });
 client.on("guildMemberRemove", async member => {
     if (member.user.bot) {
@@ -400,36 +388,5 @@ client.on("message", async message => {
             message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
         }
     }
-    /* Levels 
-    else if (message.guild.id == 912957696641228830) {
-        if (!db[message.author.id]) db[message.author.id] = {
-            xp: 0,
-            level: 0
-        };
-        db[message.author.id].xp++;
-        let userInfo = db[message.author.id];
-        if (userInfo.xp > 100) {
-            userInfo.level++
-            userInfo.xp = 0
-            message.reply("Congratulations, you levelled up!")
-        }
-        if (message.author.id !== client.user.id && message.channel.type !== 'DM' && !message.author.bot && message.content.startsWith(`${prefix}profile`)) {
-            let userInfo = db[message.author.id];
-            let member = message.mentions.members.first();
-            let embed = new Discord.RichEmbed()
-            .setColor(0x4286f4)
-            .addField("Level", userInfo.level)
-            .addField("XP", userInfo.xp+"/100");
-            if (!member) return message.channel.sendEmbed(embed)
-            let memberInfo = db[member.id]
-            let embed2 = new Discord.RichEmbed()
-            .setColor(0x4286f4)
-            .addField("Level", memberInfo.level)
-            .addField("XP", memberInfo.xp+"/100")
-            message.channel.sendEmbed(embed2)
-        }
-        fs.writeFile("./database.json", JSON.stringify(db), (x) => {
-            if (x) console.error(x)
-        });
-    } */
 });
+client.login(process.env.DISCORD_TOKEN)
