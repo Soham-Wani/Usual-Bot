@@ -9,5 +9,5 @@ Yes, the code doesn't have any command handler. The bot does basic moderation fe
 
 Also, being extremely basic, the bot is not connected to a database.
 
-## Where was the bot hosted?
-The bot was initially hosted on [Replit](https://replit.com). But it didn't take me time to switch to [Heroku](https://heroku.com) because resources ran out too quickly there.
+## Host
+The bot was initially hosted on [Replit](https://replit.com). But it didn't take me time to switch to [Heroku](https://heroku.com) because resources ran out too quickly there. But to be honest, I wouldn't recommend the later!
