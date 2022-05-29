@@ -1,27 +1,12 @@
-//https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot
-//TD?: Reply pings
-//TDD: sticky messages
-//TDD: UPDATE LOGS, URGENT!!!
-//TD8: MUSIC, GAW
-//TDT: Reaction roles
-//TDN: lock unlock, addrole removerole , server locketc.
 const mySecret = process.env['DISCORD_TOKEN'];
 const Discord = require('discord.js');
-const axios = require('axios');
-const fs = require("fs");
-let db = JSON.parse(fs.readFileSync("./database.json", "utf8"));
-const client = new Discord.Client({
-    intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"],
-    partials: ['CHANNEL']
-});
+const client = new Discord.Client({ intents: ["GUILD_MESSAGES", "GUILDS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_TYPING", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"], partials: ['CHANNEL'] });
+const { MessageEmbed } = require('discord.js');
+const axios = require('axios'); // For APIS
 const keep_alive = require('./keep_alive.js');
-const {
-    MessageEmbed
-} = require('discord.js');
-let prefix = ",";
-let me = '912297357339660309';
-const spamcooldown = new Set();
-const sendcooldown = new Set();
+let prefix = ","; // Can be changed to desired prefix
+let me = '912297357339660309'; // To be replaced with developer Discord user ID
+const sendcooldown = new Set(); // Cooldown for command "send"
 client.on('ready', () => {
     console.log('Live! Yay!');
     client.user.setActivity("For ,info", {
