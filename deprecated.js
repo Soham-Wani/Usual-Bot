@@ -120,3 +120,43 @@ else if (message.content.toLowerCase().startsWith(`${prefix}spam`)) {
         }, 2 * 60 * 1000);
     }
 }
+
+
+// Dank Memer trading ads
+if (message.channel.name.includes("buying")) {
+    if (message.content.toLowerCase().replace(/ /g, "").includes(`selling`) || message.content.toLowerCase().replace(/ /g, "").includes(`buyingcash`)) {
+        message.delete().then((msg) => msg.channel.send(`${user} Selling ads don't belong here!`));
+    }
+} else if (message.channel.name.includes("selling")) {
+    if (message.content.toLowerCase().replace(/ /g, "").includes(`buying`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingcash`) || message.content.toLowerCase().replace(/ /g, "").includes(`sellingmycash`)) {
+        message.delete().then((msg) => msg.channel.send(`${user} Buying ads don't belong here!`));
+    }
+}
+
+
+//tictactoe
+if (message.content.toLowerCase().startsWith(`${prefix}tictactoe`) || message.content.toLowerCase().startsWith(`${prefix}ttt`)) {
+    const args = message.content.split(" ");
+    if (!args[1] && args[0].toLowerCase().replace(/ /g, "") == `${prefix}tictactoe`) {
+        const tictactoeEmbed = new MessageEmbed().setColor('#0c0c46').setTitle(`Tic Tac Toe \(\`${prefix}tictactoe\`\)`).setDescription(`Play Tic Tac Toe with your friends!.\n\nTyping \`${prefix}tictactoe @person\` will start a tic Tac Toe game with the mentioned person.\n\nAliases: \`${prefix}ttt\``);
+        message.reply({
+            embeds: [tictactoeEmbed]
+        }).catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Embed Links `."));
+    } else {
+        const opponent = message.mentions.users.first();
+        if (message.mentions.members.first().id == `undefined` || !opponent || !message.content.includes(`@`)) return message.reply(`Please enter a valid user to play with!`);
+        const {
+            TicTacToe
+        } = require('djs-games')
+        const game = new TicTacToe({
+            message: message,
+            opponent: opponent,
+            xEmoji: '❌', // The Emote for X
+            oEmoji: '0️⃣', // The Emote for O
+            xColor: 'PRIMARY',
+            oColor: 'PRIMARY', // The Color for O
+            embedDescription: 'Tic Tac Toe', // The Description of the embed
+        })
+        game.start()
+    }
+}
