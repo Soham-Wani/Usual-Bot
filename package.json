@@ -10,8 +10,6 @@
   "license": "",
   "dependencies": {
     "discord.js": "latest",
-    "axios": "^0.18.1",
-    "djs-games": "latest",
-    "fs": "latest"
+    "axios": "^0.18.1"
   }
 }
