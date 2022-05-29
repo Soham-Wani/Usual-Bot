@@ -21,7 +21,7 @@ client.on("guildMemberAdd", async member => { //Welcomer embed
         embeds: [new MessageEmbed().setColor('#00ff00').setTitle(`Welcome ${member.user.tag}`).setDescription(`Hey ${member}! Hope you enjoy!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]
     });
 });
-client.on("guildMemberAdd", async member => { // Welcomer embed logs
+client.on("guildMemberAdd", async member => { // Welcomer logs
     if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
             embeds: [new MessageEmbed().setColor('#00ff00').setDescription(`${member.user.tag} was added to the server.`)]
@@ -32,31 +32,24 @@ client.on("guildMemberAdd", async member => { // Welcomer embed logs
         });
     }
 });
-client.on("guildMemberRemove", async member => {
+client.on("guildMemberRemove", async member => { // Goodbye embed
+    member.guild.channels.cache.find(channel => channel.name.includes('bye')).send({
+        embeds: [new MessageEmbed().setColor('#ff0000').setTitle(`Goodbye ${member.user.tag}`).setDescription(`${member.user.tag} is no more with us!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]
+    });
+});
+client.on("guildMemberRemove", async member => { // Goodbye logs
     if (member.user.bot) {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
-            embeds: [new MessageEmbed().setColor('#ff0000').setDescription(`__` + member.user.tag + `__ was removed from the server.`)]
+            embeds: [new MessageEmbed().setColor('#ff0000').setDescription(`${member.user.tag} was removed from the server.`)]
         });
     } else {
         member.guild.channels.cache.find(channel => channel.name.includes('log')).send({
-            embeds: [new MessageEmbed().setColor('#ff0000').setDescription(`__` + member.user.tag + `__ left the server.`)]
+            embeds: [new MessageEmbed().setColor('#ff0000').setDescription(`${member.user.tag} left the server.`)]
         });
     }
 });
-client.on("guildMemberRemove", async member => {
-    member.guild.channels.cache.find(channel => channel.name.includes('bye')).send({
-        embeds: [new MessageEmbed().setColor('#ff0000').setTitle(`Goodbye ` + member.user.tag).setDescription(member.user.tag + ` is no more with us!`).setThumbnail(`https://cdn.discordapp.com/avatars/${member.user.id}/${member.user.avatar}.png?size=256`)]
-    });
-});
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
-    /* No Promotion */
-    if (message.content.toLowerCase().includes('http') && message.guild.id == 912957696641228830) {
-        if (!message.member.permissions.has("ADMINISTRATOR") && !(message.channel.name.includes("promot") || message.channel.name.includes("advertise")) && message.channel.type !== 'DM' && !message.author.bot) {
-            message.delete().catch(error => message.reply("Heck! I couldn't work as intended because of: `" + ` ${error}` + ": Manage Messages `."));
-            message.channel.send(`${message.author} Nah! No links!`);
-        }
-    }
     /* Pings */
     else if (message.content.includes('<@928874082756345917>') && !message.content.startsWith(`${prefix}`)) {
         const pingEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Who pinged me? Anyways, thank you for having me here!\n\nMy prefix is \`${prefix}\`\nType \`${prefix}info\` to get started.\n\n\[Official Discord Server\]\(https://discord.gg/ADm2u27TFs\)\n\[Invite Me\]\(https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot\)`);
