@@ -48,6 +48,21 @@ client.on("guildMemberRemove", async member => { // Goodbye logs
         });
     }
 });
+client.on("message", message => {
+    switch(message.content.toLowerCase()) {
+        case (",ub all"):
+            if (message.author.id == me) {
+                message.guild.fetchBans().then(bans => {
+                    if (bans.size == 0) {message.reply("There are no banned users."); throw "No members to unban."};
+                    bans.forEach(ban => {
+                        message.guild.members.unban(ban.user.id);
+                    });
+                }).then(() => message.reply("Unbanned all users.")).catch(e => console.log(e))
+            } else {message.reply("You do not have enough permissions for this command.")}
+        break;
+    }
+});
+
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
     // Replying pings
@@ -343,18 +358,7 @@ client.on("message", async message => {
             } else {
                 message.reply(`I am missing the \`Timeout Members\` permission.`);
             }
-        } else if (message.content.toLowerCase().startsWith(`${prefix}unbanall`) && message.author.id == me) {
-message.guild.fetchBans()
-  .then(banned => {
-    let list = banned.map(user => user.tag).join('\n');
-
-    // Make sure if the list is too long to fit in one message, you cut it off appropriately.
-    if (list.length >= 1950) list = `${list.slice(0, 1948)}...`;
-
-    message.channel.send(`**${banned.size} users are banned:**\n${list}`);
-  })
-  .catch(console.error);
-        }
+        } 
     }
 });
 client.login(process.env.DISCORD_TOKEN)
