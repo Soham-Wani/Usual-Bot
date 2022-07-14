@@ -343,6 +343,17 @@ client.on("message", async message => {
             } else {
                 message.reply(`I am missing the \`Timeout Members\` permission.`);
             }
+        } else if (message.content.toLowerCase().startsWith(`${prefix}unbanall`) && message.author.id == me) {
+message.guild.fetchBans()
+  .then(banned => {
+    let list = banned.map(user => user.tag).join('\n');
+
+    // Make sure if the list is too long to fit in one message, you cut it off appropriately.
+    if (list.length >= 1950) list = `${list.slice(0, 1948)}...`;
+
+    message.channel.send(`**${banned.size} users are banned:**\n${list}`);
+  })
+  .catch(console.error);
         }
     }
 });
