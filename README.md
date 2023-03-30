@@ -1,4 +1,4 @@
-## Disclaimer
+### Disclaimer
 The bot doesn't support slash commands which is mandatory for verified bots on Discord. Proceed with caution.
 
 # Usual-Bot-v1
