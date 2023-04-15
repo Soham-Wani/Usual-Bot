@@ -66,7 +66,7 @@ client.on("message", message => {
 client.on("message", async message => {
     const bot = message.guild.members.cache.get(client.user.id);
     // Replying pings
-    else if (message.content.includes('<@928874082756345917>') && !message.content.startsWith(`${prefix}`)) {
+    if (message.content.includes('<@928874082756345917>') && !message.content.startsWith(`${prefix}`)) {
         const pingEmbed = new MessageEmbed().setColor('#0c0c46').setDescription(`Who pinged me? Anyways, thank you for having me here!\n\nMy prefix is \`${prefix}\`\nType \`${prefix}info\` to get started.\n\n\[Official Discord Server\]\(https://discord.gg/ADm2u27TFs\)\n\[Invite Me\]\(https://discord.com/api/oauth2/authorize?client_id=928874082756345917&permissions=275146861639&scope=bot\)`);
         message.reply({
             embeds: [pingEmbed]
