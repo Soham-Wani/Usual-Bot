@@ -2,9 +2,9 @@
 This is a Node.js Discord bot designed to enhance your server experience by adding useful features and functionality. The bot is fully functional, offering basic moderation features such as kick and ban, as well as a few API integrations. While it lacks a command handler, it has been well-commented for developers to understand the code and use it when in need.
 
 ## Features
-- *Moderation*: The bot offers basic moderation features such as kick and ban, making it easy to manage your server.
-- *API integrations*: The bot includes a few API integrations, allowing you to retrieve information from external sources without leaving Discord.
-- *Fully functional*: The bot is fully functional and can be easily added to any server with the appropriate permissions.
+- **Moderation**: The bot offers basic moderation features such as kick and ban, making it easy to manage your server.
+- **API integrations**: The bot includes a few API integrations, allowing you to retrieve information from external sources without leaving Discord.
+- **Fully functional**: The bot is fully functional and can be easily added to any server with the appropriate permissions.
 
 ## Disclaimer
 Please note that the bot does not support slash commands, which are mandatory for verified bots on Discord. As such, please proceed with caution when using this bot.
