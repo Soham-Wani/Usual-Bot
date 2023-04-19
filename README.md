@@ -7,7 +7,7 @@ This is a Node.js Discord bot designed to enhance your server experience by addi
 - **Fully functional**: The bot is fully functional and can be easily added to any server with the appropriate permissions.
 
 ## Disclaimer
-Please note that the bot does not support slash commands, which are mandatory for verified bots on Discord. As such, please proceed with caution when using this bot.
+Please note that the bot does not support slash commands, which are mandatory for verified bots on Discord. As such, please proceed with caution when using this bot. Many dependencies might be out dated.
 
 ## Additional Information
 Since the bot does not use a command handler, it requires a lot of RAM to operate. Additionally, it is not connected to a database, and its functionality is limited to basic moderation features. As this is a personal project and is not actively maintained, it may not function as expected and may have security vulnerabilities or other issues. Use at your own risk.
